@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/quacks/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:26 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | lab_quacks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_lab.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>lab_quacks</h1>
+                <h2 class="h5">Spiteful Stacks and Questionable Queues</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Due: <span>Feb 17, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/lab_quacks/index.html" role="button">Doxygen</a>
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/quacks/cs225sp19-lab_quacks-handout.pdf">Lab handout</a>
+                    
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/quacks/cs225sp19-lab_quacks-handout-solution.pdf">Handout solution</a>
+                    
+                    
+                    <a class="btn btn-light" href="https://docs.google.com/presentation/d/1NWzROUSL9-uu4MZKU4lCFV5rOn-88_awSIZAStaB_Kk/edit?usp=sharing">Lab slides</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<div class="text-center mb-3">
+  <a href="https://www.destroyallsoftware.com/talks/wat">
+    <img class="img-fluid" src="../../assets/assignments/labs/quacks/wat.jpg" alt="WAT" />
+  </a>
+</div>
+
+<h2 id="assignment-description">Assignment Description</h2>
+
+<p>In this lab, you will learn to think recursively and apply it to the
+stack and queue data structures. You might also practice templates.</p>
+
+<h2 id="lab-insight">Lab Insight</h2>
+
+<p>Stacks and queues are incredible data structures used in a wide range of applications throughout the world. You have already seen a great example of a queue in CS 225. We use the queue data structure to help us manage our office hours. Queues can do so many incredible things like helping schedule tasks for a computer or managing user priority based on a FIFO (first in, first out) principle. You will find stacks useful in classes like CS 438, Communication Networks. You will find queues useful in CS 241, Systems Programming. In general, these data structures are very versatile and useful throughtout the software world.</p>
+
+<h2 id="recursion">Recursion</h2>
+
+<p><strong>What is recursion?</strong> Recursion is a way of thinking about problems that
+allows the computer to do more of the heavy lifting for us. It is analogous to
+the mathematical definition of recursive functions, where you can define a function call
+in terms of calls to itself and basic arithmetic operations, but not in
+terms of loops.</p>
+
+<p><strong>Why recursion?</strong> While being able to think recursively is one of the harder
+parts of computer science, it is also one of the most powerful. In fact, there
+are whole languages that entirely use recursion instead of loops, which, even
+though it may seem inefficient, leads to some very useful optimizations a
+compiler can make when dealing with such code. There are probably more problems
+in computer science that are simpler recursively than they are iteratively
+(using loops). Also, once you have a recursive algorithm, it is always possible
+to transform it into an iterative algorithm using a stack and a while loop. In
+this way, computer scientists can think about problems recursively, then use
+that recursive solution to make a fast iterative algorithm (and in the grand
+scheme of big-O notation, using recursion has little overhead compared to the
+rest of the running time). Here we’ll only ask you to do the first part.</p>
+
+<p><strong>How do I write recursively?</strong> Recursion just means calling a function within
+itself. This may sound crazy, but in fact it is not. Let’s take
+an iterative function to calculate the factorial of a number \(n\), \(n!\):</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Example</strong></p>
+
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>  </div>
+</div>
+
+<p>Okay, so four lines of code. Pretty short and understandable. Now let’s look at
+a recursive version:</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Example</strong></p>
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>  </div>
+</div>
+
+<p>Only two lines of code! (Depending on whether you like putting your return
+statement on the same line.) Even on such a small problem, recursion helps us
+express ourselves more concisely. This definition also fits better with the
+mathematical definition:</p>
+
+<div>
+
+\[
+    n! = \begin{cases}
+    1 &amp; \text{if $n = 0$,} \\
+    (n-1)!\times n &amp; \text{if $n &gt; 0$.}
+    \end{cases}
+\]
+
+</div>
+
+<p>A typical recursive function call consists of three parts. Let’s examine the
+function more closely to see them. Here’s the same code again, with more
+discussion.</p>
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Example</strong></p>
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>    <span class="c1">// Here is our base case.</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">// The base case is the smallest problem we can think of,</span>
+                   <span class="c1">// one we know the answer to. This is the "n = 0" case in</span>
+                   <span class="c1">// the mathematical definition.</span>
+
+    <span class="c1">// optional 'else' here</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1">// This is our recursive step. Here we are solving a</span>
+                           <span class="c1">//   smaller version of the same problem. We have to</span>
+                           <span class="c1">//   make a leap of faith here - trust that our</span>
+                           <span class="c1">//   solution to the (n-1) case is correct.  This is</span>
+                           <span class="c1">//   the same as the mathematical definition, where</span>
+                           <span class="c1">//   to figure out n!, we need to first figure out</span>
+                           <span class="c1">//   (n-1)!</span>
+               <span class="o">*</span> <span class="n">n</span>         <span class="c1">// Here is our incremental step. We are transforming</span>
+                           <span class="c1">//   our solution to the smaller problem into the</span>
+                           <span class="c1">//   solution to our larger problem. This is the</span>
+                           <span class="c1">//   same * n from the mathematical definition.</span>
+           <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>  </div>
+</div>
+<h2 id="checking-out-the-code">Checking Out the Code</h2>
+
+<p>After reading this lab specification, the first task is to check out the
+provided code from the class repository.</p>
+
+<p>To check out your files for the third lab, run the following command in your
+<code class="highlighter-rouge">cs225git</code> directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/lab_quacks <span class="nt">-m</span> <span class="s2">"Merging initial lab_quacks files"</span>
+</code></pre></div></div>
+
+<p>This should update your directory to contain a new directory called
+<code class="highlighter-rouge">lab_quacks</code>.</p>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong>STL Stack and Queue</strong> 
+These activities use the standard template library’s <code class="highlighter-rouge">stack</code> and <code class="highlighter-rouge">queue</code>
+structures. The interfaces of these abstract data types are slightly different
+than in lecture, so it will be helpful for you to look up “STL Stack” and “STL
+Queue” on Google (C++ reference has good information). In particular, note that
+the <code class="highlighter-rouge">pop()</code> operations do not return the element removed, and that you must
+look that up before calling <code class="highlighter-rouge">pop()</code>.</p>
+</div>
+
+<p>As usual, to see all the required functions, check out the <a href="../../doxygen/lab_quacks/index.html">Doxygen</a>.</p>
+
+<h2 id="recursive-exercises">Recursive Exercises</h2>
+
+<div class="alert alert-danger" role="alert">
+  <p><i class="fas fa-radiation-alt"></i> 
+<em>You may not use any loops for this section!</em> Try to think about the problem
+recursively: in terms of a base case, a smaller problem, and an incremental
+step to transform the smaller problem to the current problem.</p>
+</div>
+
+<h3 id="sum-of-digits">Sum of Digits</h3>
+
+<p>Given a non-negative <code class="highlighter-rouge">int n</code>, return the sum of its digits recursively (no
+loops). Note that modulo (<code class="highlighter-rouge">%</code>) by 10 yields the rightmost digit (<code class="highlighter-rouge">126 % 10 ==
+6</code>), while divide (<code class="highlighter-rouge">/</code>) by 10 removes the rightmost digit (<code class="highlighter-rouge">126 / 10 == 12</code>).</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">sumDigits</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sumDigits(126) -&gt; 1 + 2 + 6 -&gt; 9
+sumDigits(49)  -&gt; 4 + 9     -&gt; 13
+sumDigits(12)  -&gt; 1 + 2     -&gt; 3
+</code></pre></div></div>
+
+<h3 id="triangle">Triangle</h3>
+
+<p>We have triangle made of blocks. The topmost row has 1 block, the next row down
+has 2 blocks, the next row has 3 blocks, and so on:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       *        1 block
+     *   *      2 blocks
+   *   *   *    3 blocks
+ *   *   *   *  4 blocks
+............... n blocks
+</code></pre></div></div>
+
+<p>Compute recursively (no loops or multiplication) the total number of blocks in
+such a triangle with the given number of rows.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">triangle</span><span class="p">(</span><span class="kt">int</span> <span class="n">rows</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>triangle(0) -&gt; 0
+triangle(1) -&gt; 1
+triangle(2) -&gt; 3
+</code></pre></div></div>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Note</strong> 
+These examples were stolen from <a href="http://codingbat.com/java/Recursion-1">http://codingbat.com/java/Recursion-1</a>. All
+credit goes to CodingBat. If you are having a hard time with <code class="highlighter-rouge">sum</code> (below), we
+encourage you to go to CodingBat and try more recursive exercises. These are in
+Java, but there are links at the bottom of the page describing the differences
+of strings and arrays in Java from C++, which are minor.</p>
+</div>
+
+<h3 id="the-sum-function">The <code class="highlighter-rouge">sum</code> Function</h3>
+
+<p>Write a function called <code class="highlighter-rouge">sum</code> that takes one stack by reference, and returns
+the sum of all the elements in the stack, leaving the original stack in the
+same state (unchanged). You may modify the stack, as long as you restore it to
+its original values. You may use only two local variables of type <code class="highlighter-rouge">T</code> in your
+function. Note that this function is templatized on the stack’s type, so stacks
+of objects overloading the addition operator (<code class="highlighter-rouge">operator+</code>) can be summed. Hint:
+think recursively!</p>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong>STL Stack</strong> 
+We are using the Standard Template Library (STL) stack in this problem. Its
+<code class="highlighter-rouge">pop</code> function works a bit differently from the stack we built. Try searching
+for “STL stack” to learn how to use it.</p>
+</div>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="n">T</span> <span class="n">QuackFun</span><span class="o">::</span><span class="n">sum</span><span class="p">(</span><span class="n">stack</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="n">s</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="non-recursive-exercises">Non Recursive Exercises</h2>
+
+<h3 id="balancing-brackets-the-isbalanced-function">Balancing Brackets: the <code class="highlighter-rouge">isBalanced</code> Function</h3>
+
+<p>For this exercise, you must write a function called <code class="highlighter-rouge">isBalanced</code> that takes one
+argument, an <code class="highlighter-rouge">std::queue</code>, and returns whether the string represented by the 
+queue has balanced brackets. The queue may contain any characters, although you
+should only consider square bracket characters, ‘[’ and ‘]’, when considering
+whether a string is balanced. To be balanced, a string must not have any unmatched,
+extra, or hanging brackets. For example, the string <code class="highlighter-rouge">[hello][]</code> is balanced, 
+<code class="highlighter-rouge">[[][[]a]]</code> is balanced, <code class="highlighter-rouge">[]]</code> is unbalanced, <code class="highlighter-rouge">][</code> is unbalanced, and <code class="highlighter-rouge">))))[cs225]</code> 
+is balanced. It’s possible to solve this problem without using a stack, but in the
+spirit of this lab, you should use one in your solution!</p>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+For this function, you may only create a single local variable of type <code class="highlighter-rouge">stack&lt;char&gt;</code>! No other <code class="highlighter-rouge">stack</code> or <code class="highlighter-rouge">queue</code> local objects may be declared.</p>
+</div>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="n">isBalanced</span><span class="p">(</span><span class="n">queue</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">input</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="the-scramble-function">The <code class="highlighter-rouge">scramble</code> Function</h3>
+
+<p>Your task is to write a function called <code class="highlighter-rouge">scramble</code> that takes one argument: a
+reference to a <code class="highlighter-rouge">std::queue</code>.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">QuackFun</span><span class="o">::</span><span class="n">scramble</span><span class="p">(</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="n">q</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>You may use whatever local variables you need. The function should reverse the
+order of SOME of the elements in the queue, and maintain the order of others,
+according to the following pattern:</p>
+
+<ul>
+  <li>The first element stays on the front of the queue.</li>
+  <li>Then the next two elements are reversed.</li>
+  <li>Then the next three elements are placed on the queue in their original order.</li>
+  <li>Then the next four elements are reversed.</li>
+  <li>Then the next five elements are place on the queue in their original order.</li>
+  <li>etc.</li>
+</ul>
+
+<p><strong>Hint</strong>: You’ll want to make a local <code class="highlighter-rouge">stack</code> variable.</p>
+
+<p>For example, given the following queue,</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>front                                         back
+0   1 2   3 4 5   6 7 8 9   10 11 12 13 14   15 16
+</code></pre></div></div>
+
+<p>we get the following result:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>front                                         back
+0   2 1   3 4 5   9 8 7 6   10 11 12 13 14   16 15
+</code></pre></div></div>
+
+<p>Any “leftover” numbers should be handled as if their block was complete. (See
+the way 15 and 16 were treated in our example above.)</p>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong>STL Queue</strong> 
+We are using the Standard Template Library (STL) <code class="highlighter-rouge">queue</code> in this problem. Its
+<code class="highlighter-rouge">pop</code> function works a bit differently from the queue we built. Try searching
+for “STL queue” to learn how to use it.</p>
+</div>
+
+<h2 id="extra-credit-the-verifysame-function">(Extra-Credit) The <code class="highlighter-rouge">verifySame</code> function</h2>
+
+<div class="alert alert-danger" role="alert">
+  <p><i class="fas fa-radiation-alt"></i> 
+Submitting code that doesn’t compile <strong>will result in a zero</strong> on the entire
+lab. This includes code in the extra credit portion and should be common sense.
+Be sure to test your code before you submit.</p>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+This function is NOT part of the standard lab grade, but is <strong>extra credit</strong>.
+It was also a previous exam question, and something similar could show up
+again.</p>
+</div>
+
+<p>Write the recursive function <code class="highlighter-rouge">verifySame</code> whose function prototype is below.
+The function should return <code class="highlighter-rouge">true</code> if the parameter <code class="highlighter-rouge">stack</code> and <code class="highlighter-rouge">queue</code> contain
+only elements of exactly the same values in exactly the same order, and <code class="highlighter-rouge">false</code>
+otherwise (see example below). You may assume the stack and queue contain the
+same number of items!</p>
+
+<p>We’re going to constrain your solution so as to make you think hard about
+solving it elegantly:</p>
+
+<ul>
+  <li>Your function may not use any loops;</li>
+  <li>In your function you may only declare ONE local boolean variable to use in
+your return statement, and you may only declare TWO local variables of
+parametrized type <code class="highlighter-rouge">T</code> to use however you wish. No other local variables can be
+used; and</li>
+  <li>After execution of <code class="highlighter-rouge">verifySame</code>, the stack and queue must be unchanged. Be
+sure to comment your code VERY well.</li>
+</ul>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Example</strong> 
+This stack and queue are considered to be the same. Note that we match the
+bottom of the stack with the front of the queue. No other queue matches this
+stack.</p>
+
+  <div style="text-align: center;">
+<pre style="display: inline-block; text-align: left; line-height: initial;"><code>Stack
++---+
+| 1 | top
++---+
+| 2 |              Queue
++---+      +---+---+---+---+---+
+| 3 |      | 1 | 2 | 3 | 4 | 5 |
++---+      +---+---+---+---+---+
+| 4 |      back            front
++---+
+| 5 | bottom
++---+
+</code></pre>
+</div>
+</div>
+
+<p><a href="../../assets/assignments/labs/quacks/mallard.jpg">Click here to see the answer</a></p>
+
+<h2 id="testing-your-code">Testing Your Code</h2>
+
+<p>Run the Catch tests as follows:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nb">test</span>
+./test
+</code></pre></div></div>
+
+<h2 id="grading-information">Grading Information</h2>
+
+<p>The following files are used in grading:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">exercises.cpp</code></li>
+  <li><code class="highlighter-rouge">exercises.h</code></li>
+  <li><code class="highlighter-rouge">quackfun.cpp</code></li>
+  <li><code class="highlighter-rouge">quackfun.h</code></li>
+</ul>
+
+<p>All other files including any testing files you have added will not be used for
+grading.</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/quacks/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:31 GMT -->
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/staff/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:19:31 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | Staff</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../static/img/favicon-16x16.png">
+<link rel="manifest" href="../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../static/css/main.css">
+<link rel="stylesheet" href="../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../index.html">
+        <img src="../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container py-4">
+    <style>
+.staff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-gap: 20px;
+    align-items: stretch;
+}
+.card-body {
+    padding: 0.75rem;
+}
+</style>
+
+<div class="container-fluid">
+    <h3 class="display-5">Instructors</h3>
+    <div class="staff-grid">
+    
+    
+    
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/waf.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Wade Fagen-Ulmschneider</h6>
+            <a href="mailto:waf@illinois.edu">waf</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/zilles.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Craig Zilles</h6>
+            <a href="mailto:zilles@illinois.edu">zilles</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/ramais.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Thierry Ramais</h6>
+            <a href="mailto:ramais@illinois.edu">ramais</a>
+        </div>
+    </div>
+    
+</div>
+
+
+    <h3 class="display-5 mt-5">Graduate Teaching Assistants</h3>
+    <div class="staff-grid">
+    
+    
+    
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/aa18.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Abhinav Kohar</h6>
+            <a href="mailto:aa18@illinois.edu">aa18</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/basu9.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Sayantani Basu</h6>
+            <a href="mailto:basu9@illinois.edu">basu9</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/jkim475.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Jaewoo Kim</h6>
+            <a href="mailto:jkim475@illinois.edu">jkim475</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/kasivis2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Rohan Kasiviswanathan</h6>
+            <a href="mailto:kasivis2@illinois.edu">kasivis2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/mariamv2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Mariam Vardishvili</h6>
+            <a href="mailto:mariamv2@illinois.edu">mariamv2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/ml58.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Minghao Liu</h6>
+            <a href="mailto:ml58@illinois.edu">ml58</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/pacole2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Patrick Cole</h6>
+            <a href="mailto:pacole2@illinois.edu">pacole2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/shanbai2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Shan Bai</h6>
+            <a href="mailto:shanbai2@illinois.edu">shanbai2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/srirams4.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Sriram Sundararaman</h6>
+            <a href="mailto:srirams4@illinois.edu">srirams4</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/wzhu26.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Wenjie Zhu</h6>
+            <a href="mailto:wzhu26@illinois.edu">wzhu26</a>
+        </div>
+    </div>
+    
+</div>
+
+
+    <h3 class="display-5 mt-5">Undergraduate Course Assistants</h3>
+    <div class="staff-grid">
+    
+    
+    
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/adbell2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Alecia Bell</h6>
+            <a href="mailto:adbell2@illinois.edu">adbell2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/adevar2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Anu Devarmanai</h6>
+            <a href="mailto:adevar2@illinois.edu">adevar2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/adiraju2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Aparajitha Adiraju</h6>
+            <a href="mailto:adiraju2@illinois.edu">adiraju2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/ajclark3.html" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Adrian Clark</h6>
+            <a href="mailto:ajclark3@illinois.edu">ajclark3</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/anniek2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Annie Kim</h6>
+            <a href="mailto:anniek2@illinois.edu">anniek2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/bz2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Ashley Zhao</h6>
+            <a href="mailto:bz2@illinois.edu">bz2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/dpratap2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Devanshi Pratap</h6>
+            <a href="mailto:dpratap2@illinois.edu">dpratap2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/ezhuang2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Eddie Huang</h6>
+            <a href="mailto:ezhuang2@illinois.edu">ezhuang2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/fc2.html" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Francisco Carreon</h6>
+            <a href="mailto:fc2@illinois.edu">fc2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/grantli2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Grant Li</h6>
+            <a href="mailto:grantli2@illinois.edu">grantli2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/hrimaw2.html" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Hana Rimawi</h6>
+            <a href="mailto:hrimaw2@illinois.edu">hrimaw2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/jackah2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Jack Henhapl</h6>
+            <a href="mailto:jackah2@illinois.edu">jackah2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/jamesw5.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>James Wang</h6>
+            <a href="mailto:jamesw5@illinois.edu">jamesw5</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/josborn3.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Jacqueline Osborn</h6>
+            <a href="mailto:josborn3@illinois.edu">josborn3</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/jyhu2.html" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Jeremy Hu</h6>
+            <a href="mailto:jyhu2@illinois.edu">jyhu2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/kawrani2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Utsav Kawrani</h6>
+            <a href="mailto:kawrani2@illinois.edu">kawrani2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/kpunhan2.html" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Kanika Punhani</h6>
+            <a href="mailto:kpunhan2@illinois.edu">kpunhan2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/nozymko2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Natalia Ozymko</h6>
+            <a href="mailto:nozymko2@illinois.edu">nozymko2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/nwalter2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Nathan Walters</h6>
+            <a href="mailto:nwalter2@illinois.edu">nwalter2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/parisfe2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Jordi Paris Ferrer</h6>
+            <a href="mailto:parisfe2@illinois.edu">parisfe2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/piotrjg2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Piotr Galusza</h6>
+            <a href="mailto:piotrjg2@illinois.edu">piotrjg2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/rahulr2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Rahul Rameshbabu</h6>
+            <a href="mailto:rahulr2@illinois.edu">rahulr2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/rittika2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Rittika Adhikari</h6>
+            <a href="mailto:rittika2@illinois.edu">rittika2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/rnowak6.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Rose Nowak</h6>
+            <a href="mailto:rnowak6@illinois.edu">rnowak6</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/simengl2.html" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Simeng Liu</h6>
+            <a href="mailto:simengl2@illinois.edu">simengl2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/smeng10.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Siping Meng</h6>
+            <a href="mailto:smeng10@illinois.edu">smeng10</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/srpatil2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Shreyas Patil</h6>
+            <a href="mailto:srpatil2@illinois.edu">srpatil2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/sspal2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Sam Pal</h6>
+            <a href="mailto:sspal2@illinois.edu">sspal2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/tln2.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Tamara Nelson-Fromm</h6>
+            <a href="mailto:tln2@illinois.edu">tln2</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/xc14.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Jenny Chen</h6>
+            <a href="mailto:xc14@illinois.edu">xc14</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img class="card-img-top" src="../assets/staff/xinyul4.jpg" onerror="this.src='../assets/staff/blank_profile.png';" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h6>Xinyu Li</h6>
+            <a href="mailto:xinyul4@illinois.edu">xinyul4</a>
+        </div>
+    </div>
+    
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/staff/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:20:16 GMT -->
+</html>

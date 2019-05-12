@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/guides/gdb/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:19:30 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | GDB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<article class="container py-4">
+    <a href="../../pages/resources.html">Back to Guides</a>
+    <h1 id="gdb">GDB</h1>
+
+<p>To launch your program using gdb, run the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gdb <span class="o">[</span>program name]
+</code></pre></div></div>
+
+<p>To run your program with optional command line arguments:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) run [arguments]
+</code></pre></div></div>
+
+<p>Alternatively, you can do this in one line with the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gdb <span class="nt">--args</span> ./program_name <span class="o">[</span>optional] <span class="o">[</span>args] <span class="o">[</span>here]
+</code></pre></div></div>
+
+<p>This allows you to simply type</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) run
+</code></pre></div></div>
+
+<p>to start your program.</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Note</strong>
+Throughout the lab, we’ll use the notation</p>
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) command...
+</code></pre></div>  </div>
+  <p>to indicate that the <code class="highlighter-rouge">command</code> should be run from within GDB.</p>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Tip</strong>
+GDB will provide several helpful features. First, it will output similar
+debugging information as Valgrind upon errors such as segmentation faults.
+Second, and more important, it allows you to stop the program execution, move
+around, and view the state of the running program at any point in time.</p>
+
+  <p>To do that, we will use the following common commands (see more details in the
+slides). We’ll also define the abbreviations of these commands, so you don’t
+have to type the full names of these commands when you want to use them.</p>
+
+  <ul>
+    <li><strong>Walking through your code.</strong>
+      <ul>
+        <li><code class="highlighter-rouge">break [file:line number]</code>
+          <ul>
+            <li><em>Example usage</em>: <code class="highlighter-rouge">break skipList.cpp:40</code></li>
+            <li>Create a breakpoint at the specified line. This will stop the
+  program’s execution when it is being ran. (See <code class="highlighter-rouge">run</code>).</li>
+            <li>When your program is stopped (by a previous use of <code class="highlighter-rouge">break</code>) in a
+  certain file, <code class="highlighter-rouge">break n</code> will create a breakpoint at line <code class="highlighter-rouge">n</code> in that
+  same file.</li>
+            <li><strong>Note</strong>: There are other variations on how to use <code class="highlighter-rouge">break</code>
+  <a href="http://www.delorie.com/gnu/docs/gdb/gdb_29.html">here</a>. One
+  variation is breaking at a function belonging to a class.  <em>Example</em>:
+  <code class="highlighter-rouge">break SkipList::insert</code>.</li>
+            <li>Abbreviation: <code class="highlighter-rouge">b</code>. <em>Example usage</em>: <code class="highlighter-rouge">b skipList.cpp:40</code></li>
+          </ul>
+        </li>
+        <li><code class="highlighter-rouge">clear [file:line number]</code>
+          <ul>
+            <li>Removes a breakpoint designated by <code class="highlighter-rouge">break</code>.</li>
+          </ul>
+        </li>
+        <li><code class="highlighter-rouge">run (arguments)</code>
+          <ul>
+            <li>Runs the program, starting from the main function.</li>
+            <li>Abbreviation: <code class="highlighter-rouge">r</code>.</li>
+          </ul>
+        </li>
+        <li><code class="highlighter-rouge">list</code>
+          <ul>
+            <li>Shows the next few lines where the program is stopped.</li>
+          </ul>
+        </li>
+        <li><code class="highlighter-rouge">layout src</code>
+          <ul>
+            <li>Shows an updating window with your source code and the current line of execution.</li>
+            <li>Usually easier than type <code class="highlighter-rouge">list</code> every line or referring back to your open code</li>
+          </ul>
+        </li>
+        <li><code class="highlighter-rouge">next</code>
+          <ul>
+            <li>Continues to the next line executed. This does not enter any
+  functions.  (See <code class="highlighter-rouge">step</code> for this).</li>
+            <li>Abbreviation: <code class="highlighter-rouge">n</code>.</li>
+          </ul>
+        </li>
+        <li><code class="highlighter-rouge">step</code>
+          <ul>
+            <li>Continues to the next line executed. Unlike <code class="highlighter-rouge">next</code>, this will <em>step</em>
+  into any proceeding functions</li>
+            <li>Abbreviation: <code class="highlighter-rouge">s</code>.</li>
+          </ul>
+        </li>
+        <li><code class="highlighter-rouge">finish</code>
+          <ul>
+            <li>Steps out of a function.</li>
+            <li>Abbreviation: <code class="highlighter-rouge">fin</code>.</li>
+          </ul>
+        </li>
+        <li><code class="highlighter-rouge">continue</code>
+          <ul>
+            <li>Continues the execution of the program <it>after it's already started
+  to run.</it> <code class="highlighter-rouge">continue</code> is usually used after you hit a breakpoint.</li>
+            <li>Abbreviation: <code class="highlighter-rouge">c</code>.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><strong>Viewing the state of your code.</strong>
+      <ul>
+        <li><code class="highlighter-rouge">info args</code>
+          <ul>
+            <li>Shows the current arguments to the function.</li>
+            <li>If you are stopped within a class’s function, the <code class="highlighter-rouge">this</code> variable
+  will appear.</li>
+          </ul>
+        </li>
+        <li><code class="highlighter-rouge">info locals</code>
+          <ul>
+            <li>Shows the local variables in the current function.</li>
+          </ul>
+        </li>
+        <li><code class="highlighter-rouge">print [variable]</code>
+          <ul>
+            <li>Prints the value of a variable or expression.
+  <em>Example</em>: <code class="highlighter-rouge">print foo(5)</code></li>
+            <li>The functionality of <code class="highlighter-rouge">print</code> is usually superseded by <code class="highlighter-rouge">info locals</code>
+  if you are looking to print local variables. But if you want to view
+  object member variables, <code class="highlighter-rouge">print</code> is the way to go.</li>
+            <li><em>Example</em>: <code class="highlighter-rouge">print list-&gt;head</code>. Or <code class="highlighter-rouge">print *integer_ptr</code>.</li>
+            <li>Abbreviation: <code class="highlighter-rouge">p</code>.</li>
+          </ul>
+        </li>
+        <li><code class="highlighter-rouge">display [variable]</code>
+          <ul>
+            <li>Display the value of a variable or expression every time you iterate through the code. Unlike <code class="highlighter-rouge">print</code>, <code class="highlighter-rouge">display</code> is persistent.
+  <em>Example</em>: <code class="highlighter-rouge">display foo(5)</code></li>
+            <li><em>Example</em>: <code class="highlighter-rouge">display list-&gt;head</code>. Or <code class="highlighter-rouge">display *integer_ptr</code>.</li>
+          </ul>
+        </li>
+        <li><a href="ftp://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_42.html"><code class="highlighter-rouge">backtrace</code></a>
+          <ul>
+            <li>Shows the call stack of your program</li>
+            <li>The list of which function has called the function you are in, recursively</li>
+          </ul>
+        </li>
+        <li><a href="https://sourceware.org/gdb/onlinedocs/gdb/Frames.html"><code class="highlighter-rouge">frame [n]</code></a>
+          <ul>
+            <li>Used to go to the frame numbers as seen in backtrace</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><strong>Other useful commands.</strong>
+      <ul>
+        <li><kbd>ctrl-l</kbd> (clears the screen)</li>
+        <li><kbd>ctrl-a</kbd> (moves cursor to beginning of prompt)</li>
+        <li><kbd>ctrl-e</kbd> (moves cursor to end of prompt)</li>
+        <li><kbd>ctrl-o</kbd> (lets you switch between <code class="highlighter-rouge">layout</code> window and gdb prompt)</li>
+      </ul>
+    </li>
+    <li><strong>Add C++ STL Support For libc++</strong>
+      <ul>
+        <li>If you are a Mac user, you are probably going to prefer using <code class="highlighter-rouge">lldb</code> over <code class="highlighter-rouge">gdb</code> to print the STL data types.</li>
+        <li>If you are an On Your Own Machine user in general, you will probably prefer installing <code class="highlighter-rouge">lldb</code> over using the pretty printer for <code class="highlighter-rouge">gdb</code>.</li>
+        <li>The following instructions will help you be able to print C++ STL structures like vectors nicely in <code class="highlighter-rouge">gdb</code>.
+          <ol>
+            <li>Make a directory for <code class="highlighter-rouge">gdb</code> pretty printers
+  with the command <code class="highlighter-rouge">mkdir -p ~/gdb_printers/python</code></li>
+            <li>Clone the pretty printer source code.
+  <code class="highlighter-rouge">git clone https://github.com/koutheir/libcxx-pretty-printers ~/libcxx-pretty-printers</code></li>
+            <li>Move the pretty printer folder inside the repo into your <code class="highlighter-rouge">~/gdb_printers/python</code> directory using <code class="highlighter-rouge">mv ~/libcxx-pretty-printers/src/libcxx ~/gdb_printers/python</code></li>
+            <li>Remove the <code class="highlighter-rouge">~/libcxx-pretty-printers</code> directory.
+  <code class="highlighter-rouge">rm -rf ~/libcxx-pretty-printers</code></li>
+            <li>Now, lets setup the <code class="highlighter-rouge">~/.gdbinit</code> file to load the <code class="highlighter-rouge">gdb</code> pretty printer.
+              <ul>
+                <li>If you do not have a <code class="highlighter-rouge">~/.gdbinit</code> file, run the following command.
+                  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> echo "python\nimport sys\nsys.path.insert(0, '$HOME/gdb_printers/python')\nfrom libcxx.v1.printers import register_libcxx_printers\nregister_libcxx_printers (None)\nend\n" &gt; ~/.gdbinit
+</code></pre></div>                  </div>
+                </li>
+                <li>If you do have pretty printers setup in your <code class="highlighter-rouge">~/.gdbinit</code>, add the following lines before the end statement.
+                  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> from libcxx.v1.printers import register_libcxx_printers
+ register_libcxx_printers (None)
+</code></pre></div>                  </div>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+</div>
+
+</article>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/guides/gdb/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:19:30 GMT -->
+</html>

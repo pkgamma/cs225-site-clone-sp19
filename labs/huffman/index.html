@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/huffman/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:34 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | lab_huffman</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_lab.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>lab_huffman</h1>
+                <h2 class="h5">Hazardous Huffman Trees</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Due: <span>Mar 03, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/lab_huffman/files.html" role="button">Doxygen</a>
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/huffman/cs225sp19-lab_huffman-handout.pdf">Lab handout</a>
+                    
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/huffman/cs225sp19-lab_huffman-handout-solution.pdf">Handout solution</a>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<h2 id="assignment-description">Assignment Description</h2>
+
+<p>In this lab, you will be exploring a different tree application (<a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman
+Trees</a>), which allow for efficient
+lossless compression of files. There are a lot of files in this lab, but you
+will only be modifying <code class="highlighter-rouge">huffman_tree.cpp</code>.</p>
+
+<h2 id="lab-insight">Lab Insight</h2>
+
+<p>Huffman encoding is a fundamental compression algorithms for data. Compressing
+data is a very powerful tool that can represent a given set of information in less
+space, thus allowing the data to be transferred more efficiently. Different types of
+compression can be seen within images formats like JPG(lossy) or PNG(lossless). It
+can also be seen in ZIP files for compressing multiple files. The concept of
+encoding data can be seen in future courses CS 438, Communication Networks, dealing
+with transferring large amounts of data, and CS 461, Computer Security, which deals
+with encoding data for a layer of privacy.</p>
+
+<h2 id="getting-set-up">Getting Set Up</h2>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/lab_huffman <span class="nt">-m</span> <span class="s2">"Merging initial lab_huffman files"</span>
+</code></pre></div></div>
+
+<p>If you’re on your own machine, you may need to run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge <span class="nt">--allow-unrelated-histories</span> release/lab_huffman <span class="nt">-m</span> <span class="s2">"Merging initial lab_huffman files"</span>
+</code></pre></div></div>
+
+<p>Upon a successful merge, your lab_huffman files are now in your <code class="highlighter-rouge">lab_huffman</code> directory.</p>
+
+<p>The code for this activity resides in the <code class="highlighter-rouge">lab_huffman/</code> directory. Get
+there by typing this in your working directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>lab_huffman/
+</code></pre></div></div>
+
+<h2 id="video-intro">Video Intro</h2>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+The following is meant to help you understand the task for this lab. It is
+strongly recommended that you watch the video to understand the motivation for
+why we’re talking about Huffman Encoding as well as how the algorithm works.</p>
+</div>
+
+<p>There is a video introduction for this lab! If you are interested in seeing a
+step-by-step execution of the Huffman Tree algorithms, please watch it:</p>
+
+<!--
+[Huffman Encoding
+Video](https://www.youtube.com/watch?v=fWk6Y8Rd6bs&feature=youtu.be).
+-->
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fWk6Y8Rd6bs?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+
+<h2 id="the-huffman-encoding">The Huffman Encoding</h2>
+
+<p>In 1951, while taking an Information Theory class as a student at MIT, David A. Huffman and his classmates were given a choice by the professor Robert M. Fano: they can either take the final exam, or if they want to opt out of it they need to find the most efficient binary code. Huffman took the road less traveled and the rest they say is history.</p>
+
+<p>Put simply, Huffman encoding takes in a text input and generates a binary code (a string of 0’s and 1’s) that represents that text.
+Let’s look at an example:
+Input message: “feed me more food”</p>
+
+<h3 id="building-the-huffman-tree">Building the Huffman tree</h3>
+
+<p><strong>Input:</strong> “feed me more food”</p>
+
+<p><strong>Step 1:</strong> Calculate frequency of every character in the text, and order by increasing frequency. Store in a queue.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>r : 1 | d : 2 | f : 2 | m : 2 | o : 3 | 'SPACE' : 3 | e : 4
+</code></pre></div></div>
+
+<p><strong>Step 2:</strong> Build the tree from the bottom up. Start by taking the two least frequent characters and merging them (create a parent node for them). Store the merged characters in a new queue:</p>
+
+<script type="x/graph" style="max-width: 300px;">
+digraph {
+    graph [ordering="out"];
+    "rd:3" -> "r:1" [ label="0" ];
+    "rd:3" -> "d:2" [ label="1" ];
+}
+</script>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SINGLE: f : 2 | m : 2 | o : 3 | 'SPACE' : 3 | e : 4
+
+MERGED: rd : 3
+</code></pre></div></div>
+
+<p><strong>Step 3:</strong> Repeat Step 2 this time also considering the elements in the new queue. ‘f’ and ‘m’ this time are the two elements with the least frequency, so we merge them:</p>
+
+<script type="x/graph" style="max-width: 300px;">
+digraph {
+    graph [ordering="out"];
+    "rd:3" -> "r:1" [ label="0" ];
+    "rd:3" -> "d:2" [ label="1" ];
+    "fm:4" -> "f:2" [ label="0" ];
+    "fm:4" -> "m:2" [ label="1" ];
+}
+</script>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SINGLE: o : 3 | 'SPACE' : 3 | e : 4
+
+MERGED: rd : 3 | fm : 4
+</code></pre></div></div>
+
+<p><strong>Step 4:</strong> Repeat Step 3 until there are no more elements in the SINGLE queue, and only one element in the MERGED queue:</p>
+
+<script type="x/graph" style="max-width: 300px;">
+digraph {
+    graph [ordering="out"];
+    "rd:3" -> "r:1" [ label="0" ];
+    "rd:3" -> "d:2" [ label="1" ];
+    "fm:4" -> "f:2" [ label="0" ];
+    "fm:4" -> "m:2" [ label="1" ];
+    "o+SPACE:6" -> "o:3" [ label="0" ];
+    "o+SPACE:6" -> "SPACE:3" [ label="1" ];
+}
+</script>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SINGLE: e : 4
+
+MERGED: rd : 3 | fm : 4 | o+SPACE : 6
+</code></pre></div></div>
+
+<script type="x/graph" style="max-width: 300px;">
+digraph {
+    graph [ordering="out"];
+    "rd:3" -> "r:1" [ label="0" ];
+    "rd:3" -> "d:2" [ label="1" ];
+    "fm:4" -> "f:2" [ label="0" ];
+    "fm:4" -> "m:2" [ label="1" ];
+    "o+SPACE:6" -> "o:3" [ label="0" ];
+    "o+SPACE:6" -> "SPACE:3" [ label="1" ];
+    "rde:7" -> "e:4" [ label="1" ];
+    "rde:7" -> "rd:3" [ label="0" ];
+}
+</script>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SINGLE:
+
+MERGED: fm : 4 | o+SPACE : 6 | rde: 7
+</code></pre></div></div>
+
+<script type="x/graph" style="max-width: 300px;">
+digraph {
+    graph [ordering="out"];
+    "rd:3" -> "r:1" [ label="0" ];
+    "rd:3" -> "d:2" [ label="1" ];
+    "fm:4" -> "f:2" [ label="0" ];
+    "fm:4" -> "m:2" [ label="1" ];
+    "o+SPACE:6" -> "o:3" [ label="0" ];
+    "o+SPACE:6" -> "SPACE:3" [ label="1" ];
+    "rde:7" -> "e:4" [ label="1" ];
+    "rde:7" -> "rd:3" [ label="0" ];
+    "fmo+SPACE:10" -> "fm:4" [ label="0" ];
+    "fmo+SPACE:10" -> "o+SPACE:6" [ label="1" ];
+
+}
+</script>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SINGLE:
+
+MERGED: rde: 7 | fmo+SPACE: 10
+</code></pre></div></div>
+
+<script type="x/graph" style="max-width: 300px;">
+digraph {
+    graph [ordering="out"];
+    "rd:3" -> "r:1" [ label="0" ];
+    "rd:3" -> "d:2" [ label="1" ];
+    "fm:4" -> "f:2" [ label="0" ];
+    "fm:4" -> "m:2" [ label="1" ];
+    "o+SPACE:6" -> "o:3" [ label="0" ];
+    "o+SPACE:6" -> "SPACE:3" [ label="1" ];
+    "rde:7" -> "e:4" [ label="1" ];
+    "rde:7" -> "rd:3" [ label="0" ];
+    "fmo+SPACE:10" -> "fm:4" [ label="0" ];
+    "fmo+SPACE:10" -> "o+SPACE:6" [ label="1" ];
+    "rdefmo+SPACE:17" -> "rde:7" [ label="0" ];
+    "rdefmo+SPACE:17" -> "fmo+SPACE:10" [ label="1" ];
+
+}
+</script>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SINGLE:
+
+MERGED: rdefmo+SPACE: 17
+</code></pre></div></div>
+
+<h3 id="from-text-to-binary">From Text to Binary</h3>
+
+<p>Now that we built our Huffman tree, its time to see how to encode our original message “feed me more food” into binary code.</p>
+
+<p><strong>Step 1:</strong> Label the branches of the Huffman tree with a ‘0’ or ‘1’. BE CONSISTENT: in this example we chose to label all left branches with ‘0’ and all right branches with ‘1’. In the case of our visualizations, some of the nodes may be swapped for convenience of placement. However, any path with label ‘1’ is intended to be on the right side, and any path with label ‘0’ is intended to be on the left side.</p>
+
+<p><strong>Step 2:</strong> Taking one character at a time from our message, traverse the Huffman tree to find the leaf node for that character. The binary code for the character is the string of 0’s and 1’s in the path from the root to the leaf node for that character. For example: ‘f’ has the binary code: <code class="highlighter-rouge">100</code></p>
+
+<p>So our message “feed me more food” becomes <code class="highlighter-rouge">10001010011111111010111111110111000001111111100110110001</code></p>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Efficiency of Huffman Encoding</strong> 
+Notice that in our Huffman tree, the more frequent a character is, the closer it is to the root, and as a result the shorter its binary code is. Can you see how this will result in compressing the encoded text?</p>
+</div>
+<h3 id="from-binary-code-to-text">From Binary Code to Text</h3>
+
+<p>We can also decode strings of 0’s and 1’s into text using our Huffman tree. What word does the code <code class="highlighter-rouge">00001001</code> translate to?</p>
+
+<h3 id="what-about-the-rest-of-the-alphabet">What About the Rest of the Alphabet?</h3>
+
+<p>Notice that in our example above, the Huffman tree that we built does not have all the alphabet’s letters; so while we can encode our message and some other words like “door” or “deer”, it won’t help us if we need to send a message containing a letter that’s not in the tree. For our Huffman encoding to be applicable in the real world we need to build a huffman tree that contains all the letters of the alphabet; which means instead of using “feed me more food” to build our tree, we should use a text document that contains all letters of the alphabet to build our Huffman tree. As a fun example, here is the Huffman tree that results when we use the text of the Declaration of Independence to build it.</p>
+
+<!--
+    <script type="x/graph" style="max-width: 300px;">
+    digraph G {
+        edge [label=0];
+        graph [ranksep=0];
+        U [shape=record, label="{{U|6}|00000}"];
+        W [shape=record, label="{{W|6}|00001}"];
+        L [shape=record, label="{{L|7}|00010}"];
+        P [shape=record, label="{{P|7}|00011}"];
+        T [shape=record, label="{{T|29}|001}"];
+        S [shape=record, label="{{S|16}|0100}"];
+        D [shape=record, label="{{D|8}|01010}"];
+        Q [shape=record, label="{{Q|1}|01011000}"];
+        Y [shape=record, label="{{Y|1}|01011001}"];
+        B [shape=record, label="{{B|2}|0101101}"];
+        G [shape=record, label="{{G|2}|0101110}"];
+        V [shape=record, label="{{V|3}|0101111}"];
+        H [shape=record, label="{{H|19}|0110}"];
+        N [shape=record, label="{{N|19}|0111}"];
+        E [shape=record, label="{{E|39}|100}"];
+        C [shape=record, label="{{C|10}|10100}"];
+        I [shape=record, label="{{I|10}|10101}"];
+        A [shape=record, label="{{A|20}|1011}"];
+        R [shape=record, label="{{R|10}|11000}"];
+        F [shape=record, label="{{F|5}|110010}"];
+        M [shape=record, label="{{M|6}|110011}"];
+        O [shape=record, label="{{O|22}|1101}"];
+        SPACE [shape=record, label="{{SPACE|52}|111}"];
+    
+        300 -> 126 -> 55 -> 26 -> 12 -> U;
+        14 -> L;
+        71 -> 33 -> S;
+        17 -> D;
+        9 -> 4 -> 2 -> Q;
+        5 -> G;
+        38 -> H;
+        174 -> 79 -> E;
+        40 -> 20 -> C;
+        95 -> 43 -> 21 -> R;
+        11 -> F;12 -> W [label=1];
+        26 -> 14 -> P [label=1];
+        55 -> T [label=1];
+        2 -> Y [label=1];
+        4 -> B [label=1];
+        33 -> 17 -> 9 -> 5 -> V [label=1];
+        126 -> 71 -> 38 -> N [label=1];
+        20 -> I [label=1];
+        79 -> 40 -> A [label=1];
+        21 -> 11 -> M [label=1];
+        43 -> O [label=1];
+        300 -> 174 -> 95 -> SPACE [label=1];
+    
+    }
+    </script>
+-->
+
+<p>Here is the Doxygen generated <a href="../../doxygen/lab_huffman/files.html">list of files and their uses</a>.</p>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Static Keyword</strong> 
+The static keyword means that the variable or function is shared by all
+instances of the class. This means that if a static function is used that
+inside the function, no references to the functions member variables may be
+used (no access to <code class="highlighter-rouge">this</code> pointer). Static functions can be beneficial when
+it is inconvient to make a new instance of a class, but it would be nice to
+use the member function. For example, if you’re inside a member function
+and want to call a static function of that class you can do
+<code class="highlighter-rouge">myStaticHelper(args)</code> the same way you’d call another member function.</p>
+</div>
+
+<h2 id="implement-buildtree-and-removesmallest">Implement <code class="highlighter-rouge">buildTree()</code> and <code class="highlighter-rouge">removeSmallest()</code></h2>
+
+<p>Your first task will be to implement the <code class="highlighter-rouge">buildTree()</code> function on a
+<code class="highlighter-rouge">HuffmanTree</code>. This function builds a <code class="highlighter-rouge">HuffmanTree</code> based on a collection of
+sorted <code class="highlighter-rouge">Frequency</code> objects. Please see the <a href="../../doxygen/lab_huffman/classHuffmanTree.html#a228b8105e30834541031e93815579bd7">Doxygen for
+<code class="highlighter-rouge">buildTree()</code></a> for details on the algorithm. You also will
+probably want to consult the <a href="../../doxygen/lab_huffman/classHuffmanTree_1_1TreeNode.html#aed6adfe9e0595b046986a2bcf57c87d7">list of constructors for
+<code class="highlighter-rouge">TreeNode</code>s</a>.</p>
+
+<p>You should implement <a href="../../doxygen/lab_huffman/classHuffmanTree.html#a7187cc0001a39bd17848a2dfe3bd1d8b"><code class="highlighter-rouge">removeSmallest()</code></a> first as it will help you in writing
+<code class="highlighter-rouge">buildTree()</code>!</p>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Tie Breaking</strong> 
+To facilitate grading, make sure that when building internal nodes, the left
+child has the smallest frequency.</p>
+
+  <p>In <code class="highlighter-rouge">removeSmallest()</code>, <strong>break ties by taking the front of the <code class="highlighter-rouge">singleQueue</code></strong>!</p>
+</div>
+
+<h2 id="implement-decode">Implement <code class="highlighter-rouge">decode()</code></h2>
+
+<p>Your next task will be using an existing <code class="highlighter-rouge">HuffmanTree</code> to decode a given binary
+file. You should start at the root and traverse the tree using the description
+given in the Doxygen. <a href="../../doxygen/lab_huffman/classHuffmanTree.html#a88b1d0fb9cc2462db265703e4fe57c59">Here is the Doxygen for <code class="highlighter-rouge">decode()</code></a>.</p>
+
+<p>You will probably find the Doxygen for <a href="../../doxygen/lab_huffman/classBinaryFileReader.html"><code class="highlighter-rouge">BinaryFileReader</code> useful
+here</a>.</p>
+
+<p>We’re using a standard <code class="highlighter-rouge">stringstream</code> here to build up our output. To append
+characters to it, use the following syntax:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="n">myChar</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="implement-writetree-and-readtree">Implement <code class="highlighter-rouge">writeTree()</code> and <code class="highlighter-rouge">readTree()</code></h2>
+
+<p>Finally, you will write a function used for writing <code class="highlighter-rouge">HuffmanTrees</code> to files in
+an efficient way, and a function to read this efficiently stored file-based
+representation of a <code class="highlighter-rouge">HuffmanTree</code>.</p>
+
+<p>Here is <a href="../../doxygen/lab_huffman/classHuffmanTree.html#a1ace4e9949877f75f0d57411e325f941">the Doxygen for <code class="highlighter-rouge">writeTree()</code></a> and <a href="../../doxygen/lab_huffman/classHuffmanTree.html#a0e4caab284b358a648d1f1f0835e8055">the Doxygen for
+<code class="highlighter-rouge">readTree()</code></a>.</p>
+
+<p>You will probably find the Doxygen for <a href="../../doxygen/lab_huffman/classBinaryFileWriter.html"><code class="highlighter-rouge">BinaryFileWriter</code> useful
+here</a>.</p>
+
+<h2 id="testing-your-code">Testing Your Code!</h2>
+
+<p>We’ve provided you with a collection of data files to help you explore Huffman encoding. Run the following command to download and extract the files. They will be in a newly-created <code class="highlighter-rouge">data</code> directory.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://courses.engr.illinois.edu/cs225/sp2019/assets/assignments/labs/huffman/lab_huffman_data.tar <span class="o">&amp;&amp;</span> <span class="nb">tar</span> <span class="nt">-xf</span> lab_huffman_data.tar <span class="o">&amp;&amp;</span> <span class="nb">rm </span>lab_huffman_data.tar
+</code></pre></div></div>
+
+<p>When you run <code class="highlighter-rouge">make</code>, two programs should be generated: <code class="highlighter-rouge">encoder</code>
+and <code class="highlighter-rouge">decoder</code>, with the following usages:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./encoder
+Usage:
+	./encoder input output treefile
+		input: file to be encoded
+		output: encoded output
+		treefile: compressed huffman tree for decoding
+
+$ ./decoder
+Usage:
+	./decoder input treefile output
+		input: file to be decoded
+		treefile: compressed huffman tree to use for decoding
+		output: decompressed file
+</code></pre></div></div>
+
+<p>Use your <code class="highlighter-rouge">encoder</code> to encode a file in the data directory, and then use your
+compressed file an the huffman tree it built to <code class="highlighter-rouge">decode</code> it again using the
+decoder. If <code class="highlighter-rouge">diff</code>-ing the files produces no output, your <code class="highlighter-rouge">HuffmanTree</code> should
+be working!</p>
+
+<p>When testing, try using small files at first such as <code class="highlighter-rouge">data/small.txt</code>. Open it
+up and look inside. Imagine what the tree should look like, and see what’s
+happening when you run your code.</p>
+
+<p>Now try running your code:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./encoder data/small.txt output.dat treefile.tree
+Printing generated HuffmanTree...
+                                  ______________ 28 _____________
+                   ______________/                               \______________
+          ______ 11 _____                                                 ______ 17 _____
+   ______/               \______                                   ______/               \______
+s:5                           __ 6 __                         __ 8 __                         __ 9 __
+                           __/       \__                   __/       \__                   __/       \__
+                        y:3              3              l:4             i:4              4               :5
+                                       /   \                                           /   \
+                                    h:1     t:2                                      2       2
+                                                                                    / \     / \
+                                                                                 \n:1 r:1 o:1 a:1
+Saving HuffmanTree to file...
+</code></pre></div></div>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Differing Output</strong> 
+It is possible to get different output than this tree and still pass catch.
+<strong>Use the provided test cases on catch to see if your code is passing.</strong></p>
+</div>
+
+<p>You can also test under catch as usual by running:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nb">test</span> <span class="o">&amp;&amp;</span> ./test
+</code></pre></div></div>
+
+<h2 id="submitting-your-work">Submitting Your Work</h2>
+
+<p>The following files are used to grade this assignment:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">huffman_tree.cpp</code></li>
+  <li><code class="highlighter-rouge">huffman_tree.h</code></li>
+  <li><code class="highlighter-rouge">partners.txt</code></li>
+</ul>
+
+<p>All other files including any testing files you have added will not be used for grading.</p>
+
+<h2 id="good-luck">Good luck!</h2>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/huffman/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:41 GMT -->
+</html>

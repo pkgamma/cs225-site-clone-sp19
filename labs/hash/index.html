@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/hash/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:52 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | lab_hash</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_lab.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>lab_hash</h1>
+                <h2 class="h5">Hellish Hash Tables</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Due: <span>Mar 31, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/lab_hash/files.html" role="button">Doxygen</a>
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/hash/cs225sp19-lab_hash-handout.pdf">Lab handout</a>
+                    
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/hash/cs225sp19-lab_hash-handout-solution.pdf">Handout solution</a>
+                    
+                    
+                    <a class="btn btn-light" href="https://docs.google.com/presentation/d/1ALOR2thpcgm2Qku_9nPKqkeNrRnPMiPoDX9v3B0CTPs/edit?usp=sharing">Lab slides</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<h2 id="assignment-description">Assignment Description</h2>
+
+<p>In this lab you will be implementing functions on hash tables with three
+different collision resolution strategies — separate chaining, linear probing,
+and double hashing. These hash tables serve an implementation of the dictionary
+abstract data type.</p>
+
+<h2 id="lab-insight">Lab Insight</h2>
+
+<p>Hashing is very powerful as it enables us to build data structure like hash tables and maps. On top of which, there are variations of hashing that can be used to help encrypt data. If you are interested in learning more about the applications of hashing, you can take CS 498 Applied Cryptography, CS 461 Computer Security I, and CS 463 Computer Security II.</p>
+
+<h2 id="getting-set-up">Getting Set Up</h2>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/lab_hash <span class="nt">-m</span> <span class="s2">"Merging initial lab_hash files"</span>
+</code></pre></div></div>
+
+<p>If you’re on your own machine, you may need to run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge <span class="nt">--allow-unrelated-histories</span> release/lab_hash <span class="nt">-m</span> <span class="s2">"Merging initial lab_hash files"</span>
+</code></pre></div></div>
+
+<p>Upon a successful merge, your lab_hash files are now in your <code class="highlighter-rouge">lab_hash</code> directory.</p>
+
+<p>The code for this activity resides in the <code class="highlighter-rouge">lab_hash/</code> directory. Get
+there by typing this in your working directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>lab_hash/
+</code></pre></div></div>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+If you want to speed up compile time on a <code class="highlighter-rouge">make</code>, try using <code class="highlighter-rouge">make -j &lt;target&gt;</code>,
+ie <code class="highlighter-rouge">make -j test</code></p>
+</div>
+
+<h2 id="notes-about-list-iterators">Notes About <code class="highlighter-rouge">list</code> Iterators</h2>
+
+<p>When you are working with the Separate Chaining Hash Table, you will need to
+iterate over the linked list of a given bucket. Since the hash tables are
+templatized, however, this causes us a slight headache syntactically in C++. To
+define a <code class="highlighter-rouge">list</code> iterator on a given bucket, you will need to declare it as
+follows:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typename</span> <span class="n">list</span><span class="o">&lt;</span> <span class="n">pair</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">begin</span><span class="p">();</span>
+</code></pre></div></div>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+If you use the <code class="highlighter-rouge">list::erase()</code> function, be advised that if you erase the
+element pointed to by an iterator that the parameter iterator is no longer
+valid. For instance:</p>
+
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typename</span> <span class="n">list</span><span class="o">&lt;</span> <span class="n">pair</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">begin</span><span class="p">();</span>
+<span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">erase</span><span class="p">(</span><span class="n">it</span><span class="p">);</span>
+<span class="n">it</span><span class="o">++</span><span class="p">;</span>
+</code></pre></div>  </div>
+
+  <p>is invalid because <code class="highlighter-rouge">it</code> is invalidated after the call to <code class="highlighter-rouge">erase()</code>. <strong>So, if
+you are looping with an iterator, remember a <code class="highlighter-rouge">break</code> statement after you call
+<code class="highlighter-rouge">erase()</code>!</strong></p>
+</div>
+
+<h2 id="separate-chaining-hash-table">Separate Chaining Hash Table</h2>
+
+<p>Open your <code class="highlighter-rouge">schashtable.cpp</code>. In this file, several functions have not been
+implemented—your job is to implement them.</p>
+
+<h3 id="insert"><code class="highlighter-rouge">insert</code></h3>
+<ul>
+  <li><code class="highlighter-rouge">insert</code>, given a <code class="highlighter-rouge">key</code> and a <code class="highlighter-rouge">value</code>, should insert the <code class="highlighter-rouge">(key, value)</code> pair
+into the hash table.</li>
+  <li>You do not need to concern yourself with duplicate keys. When in client code
+and using our hash tables, the proper procedure for updating a key is to
+first remove the key, then re-insert the key with the new data value.</li>
+  <li>Here is the <a href="../../doxygen/lab_hash/classHashTable.html#a58911ead3da7cc3c897268e9ee5e54f9">Doxygen for <code class="highlighter-rouge">insert</code></a>.</li>
+</ul>
+
+<h3 id="find"><code class="highlighter-rouge">find</code></h3>
+<ul>
+  <li>given a <code class="highlighter-rouge">key</code>, should return the corresponding <code class="highlighter-rouge">value</code> associated with that key</li>
+  <li>Here is the <a href="../../doxygen/lab_hash/classHashTable.html#a2c27ff59f5b5659cc267ef2dc42e227e">Doxygen for <code class="highlighter-rouge">find</code></a>.</li>
+</ul>
+
+<h3 id="remove"><code class="highlighter-rouge">remove</code></h3>
+
+<ul>
+  <li>Given a key, remove it from the hash table.</li>
+  <li>If the given key is not in the hash table, do nothing.</li>
+  <li>You may find the <a href="../../doxygen/lab_hash/classSCHashTable.html#a51dde58e1f013e3d5f1bc37c2ee3bd9b">Doxygen for <code class="highlighter-rouge">remove</code></a> helpful.</li>
+</ul>
+
+<h3 id="resizetable"><code class="highlighter-rouge">resizeTable</code></h3>
+
+<ul>
+  <li>This is called when the load factor for our table is <script type="math/tex">\\ge 0.7</script>.</li>
+  <li>It should resize the internal array for the hash table. Use the return value
+of <code class="highlighter-rouge">findPrime</code> with a parameter of double the current size to set the size.
+See other calls to <code class="highlighter-rouge">resize</code> for reference.</li>
+  <li>Here is the <a href="../../doxygen/lab_hash/classHashTable.html#ac9898f4d45a60bf92f0ee0e42ef5d31e">Doxygen for <code class="highlighter-rouge">resizeTable</code></a>.</li>
+</ul>
+
+<h2 id="linear-probing-hash-table">Linear Probing Hash Table</h2>
+
+<p>Open your <code class="highlighter-rouge">lphashtable.cpp</code>. In this file, you will be implementing the
+following functions.</p>
+
+<h3 id="insert-1"><code class="highlighter-rouge">insert</code></h3>
+
+<ul>
+  <li><code class="highlighter-rouge">insert</code>, given a <code class="highlighter-rouge">key</code> and a <code class="highlighter-rouge">value</code>, should insert the <code class="highlighter-rouge">(key, value)</code> pair
+into the hash table.</li>
+  <li>Remember the collision handling strategy for linear probing! (To maintain
+compatibility with our outputs, you should probe by moving forwards through
+the internal array, not backwards).</li>
+  <li>You do not need to concern yourself with duplicate keys. When in client code
+and using our hash tables, the proper procedure for updating a key is to
+first remove the key, then re-insert the key with the new data value.</li>
+  <li>Here is the <a href="../../doxygen/lab_hash/classLPHashTable.html#ab4d706c5322930f06fbd20342cb16adf">Doxygen for <code class="highlighter-rouge">insert</code></a>.</li>
+  <li>You MUST handle collisions in your <code class="highlighter-rouge">insert</code> function, or your hash table will
+be broken!</li>
+</ul>
+
+<h3 id="findindex"><code class="highlighter-rouge">findIndex</code></h3>
+<ul>
+  <li>given a <code class="highlighter-rouge">key</code>, should return the corresponding <code class="highlighter-rouge">index</code> associated with that key</li>
+  <li>Here is the <a href="../../doxygen/lab_hash/classLPHashTable.html#a28b44abf12ea34ae0f0c38edf4e316dc">Doxygen for <code class="highlighter-rouge">findIndex</code></a>.</li>
+</ul>
+
+<h3 id="remove-1"><code class="highlighter-rouge">remove</code></h3>
+
+<ul>
+  <li>Given a key, remove it from the hash table.</li>
+  <li>If the given key is not in the hash table, do nothing.</li>
+  <li>You may find the <a href="../../doxygen/lab_hash/classLPHashTable.html#ae4ec845e61ecbad02e31e71882322966">Doxygen for <code class="highlighter-rouge">remove</code></a> helpful.</li>
+</ul>
+
+<h3 id="resizetable-1"><code class="highlighter-rouge">resizeTable</code></h3>
+
+<ul>
+  <li>This is called when the load factor for our table is <script type="math/tex">\\ge 0.7</script>.</li>
+  <li>It should resize the internal array for the hash table. Use the return value
+of <code class="highlighter-rouge">findPrime</code> with a parameter of double the current size to set the size.
+See other calls to <code class="highlighter-rouge">resize</code> for reference.</li>
+  <li>Here is the <a href="../../doxygen/lab_hash/classLPHashTable.html#a8b36021f715197716ed0ec109a686e45">Doxygen for <code class="highlighter-rouge">resizeTable</code></a>.</li>
+</ul>
+
+<h2 id="double-hashing-hash-table">Double Hashing Hash Table</h2>
+
+<p>Open your <code class="highlighter-rouge">dhhashtable.cpp</code>. In this file, you will be implementing the
+following functions.</p>
+
+<h3 id="insert-2"><code class="highlighter-rouge">insert</code></h3>
+
+<ul>
+  <li><code class="highlighter-rouge">insert</code>, given a <code class="highlighter-rouge">key</code> and a <code class="highlighter-rouge">value</code>, should insert the <code class="highlighter-rouge">(key, value)</code> pair
+into the hash table.</li>
+  <li>Remember the collision handling strategy for double hashing! (To maintain
+compatibility with our outputs, you should probe by moving forwards through
+the internal array, not backwards).</li>
+  <li>You do not need to concern yourself with duplicate keys. When in client code
+and using our hash tables, the proper procedure for updating a key is to
+first remove the key, then re-insert the key with the new data value.</li>
+  <li>Here is the <a href="../../doxygen/lab_hash/classDHHashTable.html#a6bd2e4cac55edd1ce9266726a6ab14e2">Doxygen for <code class="highlighter-rouge">insert</code></a>.</li>
+  <li>You MUST handle collisions in your <code class="highlighter-rouge">insert</code> function, or your hash table will
+be broken!</li>
+</ul>
+
+<h3 id="findindex-1"><code class="highlighter-rouge">findIndex</code></h3>
+<ul>
+  <li>given a <code class="highlighter-rouge">key</code>, should return the corresponding <code class="highlighter-rouge">index</code> associated with that key</li>
+  <li>Here is the <a href="../../doxygen/lab_hash/classDHHashTable.html#a0165b3c73e57d0d7a96035366eba1fda">Doxygen for <code class="highlighter-rouge">findIndex</code></a>.</li>
+</ul>
+
+<h3 id="remove-2"><code class="highlighter-rouge">remove</code></h3>
+
+<ul>
+  <li>Given a key, remove it from the hash table.</li>
+  <li>If the given key is not in the hash table, do nothing.</li>
+  <li>You may find the <a href="../../doxygen/lab_hash/classDHHashTable.html#a0f1d9b9fc9bc93c53f5cc3e6d244f704">Doxygen for <code class="highlighter-rouge">remove</code></a> helpful.</li>
+</ul>
+
+<h2 id="committing-your-code">Committing Your Code</h2>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+<h2 id="grading-information">Grading Information</h2>
+
+<p>The following files (and ONLY those files!!) are used for grading this lab:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">dhhashtable.cpp</code></li>
+  <li><code class="highlighter-rouge">lphashtable.cpp</code></li>
+  <li><code class="highlighter-rouge">schashtable.cpp</code></li>
+</ul>
+
+<p>If you modify any other files, they will not be grabbed for grading and you may
+end up with a “stupid zero.”</p>
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/hash/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:59 GMT -->
+</html>

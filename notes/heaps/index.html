@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/notes/heaps/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:18:08 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | Heaps</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<article class="container py-4">
+    <a href="../index.html">Back to Notes</a>
+    <header class="mb-4">
+        <h1 class="text-dark">Heaps</h1>
+        <span class="text-secondary">by Eddie Huang</span>
+    </header>
+    <div class="row">
+  <div class="col-sm"></div>
+  <div class="col-sm-5">
+    <figure class="figure">
+        <img class="img-fluid" src="../../assets/notes/heap/heap.png" width="100%" />
+        <figcaption class="figure-caption text-center">
+          A heap
+        </figcaption>
+    </figure>
+  </div>
+  <div class="col-sm"></div>
+</div>
+<h2 id="motivation">Motivation</h2>
+
+<div class="row">
+<div class="col-sm-3">
+<figure class="figure">
+    <img class="img-fluid" src="../../assets/notes/heap/sequence.png" width="100%" />
+    <figcaption class="figure-caption">
+      A sequence of stores and removal of elements
+    </figcaption>
+</figure>
+</div>
+<div class="col-sm-8 my-auto">
+    <p>Let’s say a set of at most <code class="highlighter-rouge">n</code> elements, each with an associated priority <code class="highlighter-rouge">p</code><sub><code class="highlighter-rouge">i</code></sub>, is given to you one element at a time. At any point in time, you may be asked to remove the most important (highest priority) element that you currently hold so far. How would you do it?</p>
+
+    <p>A naive solution may be to maintain an array of size <code class="highlighter-rouge">n</code> and simply append new elements to the end of the array. Whenever there is a query, you simply scan through the array to find the most important element. The query would take linear (<code class="highlighter-rouge">O(n)</code>) time and if there were <code class="highlighter-rouge">k</code> queries in total, then the combined query time would be <code class="highlighter-rouge">O(kn)</code>. The total time would therefore be <code class="highlighter-rouge">O(n+kn)</code>.</p>
+
+    <p>We can do better with heaps</p>
+  </div>
+</div>
+
+<h2 id="features-of-heaps">Features of Heaps</h2>
+<p>A heap allows you to store elements and query the most important elements quickly, which is usually logarithmic time.</p>
+
+<p>Heaps are represented as trees where each node is an element with an associated <code class="highlighter-rouge">priority</code> or <code class="highlighter-rouge">weight</code>. There is only one property that the tree must satisfy:</p>
+
+<p class="text-center"><i>The parent has higher priority than any of its children</i></p>
+
+<p>Therefore, the root should always have the highest priority.</p>
+
+<p>In the example above where we are storing elements and querying the most important elements at random times, the total runtime would be <code class="highlighter-rouge">O(n log(n) + k log(n))</code>, where storing elements and removing the most important elements both take <code class="highlighter-rouge">O(log n)</code> time. This runtime is faster if the number of queries <code class="highlighter-rouge">k</code> is larger than <code class="highlighter-rouge">O(log n)</code></p>
+
+<h2 id="binary-heaps">Binary Heaps</h2>
+<p>A heap is an abstract data structure and there are many data structure versions of heaps such as Fibonacci heaps or Binomial heaps that have their own advantages and disadvantages. Binary heaps are one of the most common, simplest heap data structures, and they are also the ones that we cover in this course. Binary heaps are complete binary trees that satisfy the heap property. Since they are complete trees, their heights are always logarithmic to their number of nodes.</p>
+
+<div class="row">
+  <div class="col-sm"></div>
+  <div class="col-sm">
+    <figure class="figure">
+        <img class="img-fluid" src="../../assets/notes/heap/binary_heap.png" width="100%" />
+        <figcaption class="figure-caption">
+          A binary min-heap
+        </figcaption>
+    </figure>
+  </div>
+  <div class="col-sm"></div>
+</div>
+
+<p>Priority is often expressed as a number in which the order of priority can either be the minimum or the maximum between two numbers. Thus, we use the terms <code class="highlighter-rouge">min-heap</code> or <code class="highlighter-rouge">max-heap</code> to name numerical binary heaps.</p>
+
+<h4 id="insertion">Insertion</h4>
+
+<div class="row">
+  <div class="col-sm"></div>
+  <div class="col-sm">
+    <figure class="figure">
+        <img class="img-fluid" src="../../assets/notes/heap/binary_heap.png" width="100%" />
+        <figcaption class="figure-caption">
+          A binary min-heap
+        </figcaption>
+    </figure>
+  </div>
+  <div class="col-sm">
+    <figure class="figure">
+        <img class="img-fluid" src="../../assets/notes/heap/bin_heap_insert_1.png" width="100%" />
+        <figcaption class="figure-caption">
+          Inserting a new element
+        </figcaption>
+    </figure>
+  </div>
+  <div class="col-sm">
+    <figure class="figure">
+        <img class="img-fluid" src="../../assets/notes/heap/bin_heap_insert_2.png" width="100%" />
+        <figcaption class="figure-caption">
+          <code>Heapify up</code>: Repeatedly swap with parent until heap property is satisfied
+        </figcaption>
+    </figure>
+  </div>
+  <div class="col-sm"></div>
+</div>
+
+<p>When inserting a node in a binary heap, we add it to the next leaf position such that the heap remains a complete tree. Until the new node has lower priority than its parent, we repeatedly swap this node with its parent, which will then restore the tree’s heap property. This repeated swapping is called <code class="highlighter-rouge">heapify up</code>.</p>
+
+<p>The number of swaps is at most the height of the tree, so insertion takes logarithmic time.</p>
+
+<h4 id="removal">Removal</h4>
+
+<div class="row">
+  <div class="col-sm"></div>
+  <div class="col-sm">
+    <figure class="figure">
+        <img class="img-fluid" src="../../assets/notes/heap/binary_heap.png" width="100%" />
+        <figcaption class="figure-caption">
+          A binary min-heap
+        </figcaption>
+    </figure>
+  </div>
+  <div class="col-sm">
+    <figure class="figure">
+        <img class="img-fluid" src="../../assets/notes/heap/bin_heap_remove_1.png" width="100%" />
+        <figcaption class="figure-caption">
+          Removing the most important element and replacing it with the rightmost leaf
+        </figcaption>
+    </figure>
+  </div>
+  <div class="col-sm">
+    <figure class="figure">
+        <img class="img-fluid" src="../../assets/notes/heap/bin_heap_remove_2.png" width="100%" />
+        <figcaption class="figure-caption">
+          <code>Heapify down</code>: Repeatedly swap with higher priority child until heap property is satisfied
+        </figcaption>
+    </figure>
+  </div>
+  <div class="col-sm">
+    <figure class="figure">
+        <img class="img-fluid" src="../../assets/notes/heap/bin_heap_remove_3.png" width="100%" />
+        <figcaption class="figure-caption">
+          <code>Heapify down</code>: Repeatedly swap with higher priority child until heap property is satisfied
+        </figcaption>
+    </figure>
+  </div>
+  <div class="col-sm"></div>
+</div>
+
+<p>To remove the highest priority element, we simply remove the root and move the rightmost leaf in its place. Until this former leaf node has higher priority than both its children, we repeatedly swap this node with the child of higher priority, which will then restore the tree’s heap property. This repeated swapping is called <code class="highlighter-rouge">heapify down</code>.</p>
+
+<p>The number of swaps is at most the height of the tree and so removal takes logarithmic time.</p>
+
+<h4 id="implementing-complete-trees-with-arrays">Implementing complete trees with arrays</h4>
+<div class="row">
+  <div class="col-sm"></div>
+  <div class="col-sm">
+    <figure class="figure">
+        <img class="img-fluid" src="../../assets/notes/heap/array_impl.png" width="100%" />
+        <figcaption class="figure-caption">
+          Representing a complete tree with a 1-indexed array
+        </figcaption>
+    </figure>
+  </div>
+  <div class="col-sm"></div>
+</div>
+
+<p>A complete tree can be implemented with an 1-indexed array where the <code class="highlighter-rouge">[a = 2</code><sup><code class="highlighter-rouge">i</code></sup><code class="highlighter-rouge">+j, j &lt; 2</code><sup><code class="highlighter-rouge">i</code></sup><code class="highlighter-rouge">]</code>‘th index of the array, represents the <code class="highlighter-rouge">j</code>‘th node of the <code class="highlighter-rouge">i</code>‘th level of the tree.</p>
+<ul>
+  <li>The parent is at the <code>&lfloor;a/2&rfloor;</code>‘th index.</li>
+  <li>The left and right child are at the <code class="highlighter-rouge">2a</code>‘th index and <code class="highlighter-rouge">2a+1</code>‘th index respectively.</li>
+</ul>
+
+<p>Since heaps are complete trees, you can implement them with arrays as well.</p>
+
+<blockquote class="text-secondary ml-4 pl-3" style="border-left: 3px solid">
+  <small>You can also model complete trees with a 0-indexed array, but it's arguably not as elegant</small>
+</blockquote>
+
+<h4 id="turning-an-unordered-complete-tree-into-a-binary-heap">Turning an unordered complete tree into a binary heap</h4>
+<div class="row">
+  <div class="col-sm"></div>
+  <div class="col-sm">
+    <figure class="figure">
+        <img class="img-fluid" src="../../assets/notes/heap/build_heap.png" width="100%" />
+        <figcaption class="figure-caption">
+          Turning an unordered complete tree into a heap
+        </figcaption>
+    </figure>
+  </div>
+  <div class="col-sm"></div>
+</div>
+
+<p>The most efficient way of turning an unordered complete tree into a binary heap is to <code class="highlighter-rouge">heapify down</code> all the nodes, starting with the lowest level of the tree and working your way up.</p>
+
+<p>This takes <em>linear</em> time</p>
+
+<h2 id="applications">Applications</h2>
+
+<h4 id="priorty-queues">Priorty Queues</h4>
+<p>Heaps can be used to implement priority queues, which are abstract data types that always dequeue the element with the highest priority.</p>
+
+<blockquote class="text-secondary ml-4 pl-3" style="border-left: 3px solid">
+  <small>Abstract data types are more abstract than data structures in that simply describe the behavior of what they do and give no indication of the conceptual model</small>
+</blockquote>
+
+<h4 id="heap-sort">Heap Sort</h4>
+<p>Heaps can be used to sort elements as well. Simply add all elements to the heap and then dequeue them. The result will be the elements coming out in order.</p>
+
+<p>Let <code class="highlighter-rouge">n</code> be the number of elements. With a binary heap the runtime of each insertion is logarithmic and each removal is also logarithmic, so the overall runtime is <code class="highlighter-rouge">O(n log(n) + n log(n)) = O(n log(n))</code>.</p>
+
+</article>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/notes/heaps/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:18:18 GMT -->
+</html>

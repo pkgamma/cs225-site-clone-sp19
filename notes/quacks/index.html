@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/notes/quacks/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:19:02 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | Queues and Stacks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<article class="container py-4">
+    <a href="../index.html">Back to Notes</a>
+    <header class="mb-4">
+        <h1 class="text-dark">Queues and Stacks</h1>
+        <span class="text-secondary">by Jenny Chen, Eddie Huang</span>
+    </header>
+    <script type="text/javascript">
+  function loadCSS(filename){
+     var file = document.createElement("link");
+     file.setAttribute("rel", "stylesheet");
+     file.setAttribute("type", "text/css");
+     file.setAttribute("href", filename);
+     document.head.appendChild(file);
+  }
+
+  loadCSS("../../static/css/datacanvas.css")
+</script>
+
+<h5 class="text-dark">Try Me</h5>
+<!-- Data Structure Visualization -->
+<div class="center mt-2" style="width: 100%;">
+  <!-- Buttons for data structures -->
+  <nav class="center data-canvas btn-group">
+    <button type="button" class="btn btn-lg btn-light active" id="stackButton"> Stack </button>
+    <button type="button" class="btn btn-lg btn-light" id="queueButton"> Queue </button>
+  </nav>
+</div>
+
+<!-- stack inputs -->
+<div class="center mt-2" id="stackInputs">
+  <div class="center" style="width: 80%;">
+    <!-- data input -->
+    <div class="input-group flex-item" style="width: auto;">
+      <div class="input-group-prepend">
+        <span class="input-group-text " >Data</span>
+      </div>
+      <input type="text" class="form-control" value="myData" id="stackData">
+    </div>
+    <!-- push and pop -->
+    <div class="flex-item">
+      <button type="button" class="btn btn-primary"id="push">Push</button>
+    </div>
+    <div class="flex-item">
+      <button type="button" class="btn btn-success" id="pop">Pop</button>
+    </div>
+    <!-- bounce checkbox -->
+    <div class="input-group flex-item myHide" style="width: auto;">
+      <div class="input-group-prepend">
+        <span class="input-group-text ">
+          <input type="checkbox" name="bounce" id="bounce">
+        </span>
+      </div>
+      <div class="input-group-append">
+        <span class="input-group-text ">Bounce</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- queue inputs -->
+<div class="center mt-2 myHide" id="queueInputs">
+  <div class="center" style="width: 80%;">
+    <!-- data input -->
+    <div class="input-group flex-item" style="width: auto;">
+      <div class="input-group-prepend">
+        <span class="input-group-text " >Data</span>
+      </div>
+      <input type="text" class="form-control" value="myData" id="queueData">
+    </div>
+    <!-- enqueue and dequeue -->
+    <div class="flex-item">
+      <button type="button" class="btn btn-primary"id="enqueue">Enqueue</button>
+    </div>
+    <div class="flex-item">
+      <button type="button" class="btn btn-success" id="dequeue">Dequeue</button>
+    </div>
+  </div>
+</div>
+
+<div class="center" id="container">
+  <!-- stack animation  -->
+  <div id="stackAnimation" class="text-center"></div>
+  <!-- queue animation -->
+  <div id="queueAnimation" class="myHide text-center"></div>
+</div>
+
+<div class="text-center mb-4">
+    <i>
+        This animation is provided by Jenny Chen and Yanchen Lu
+    </i>
+</div>
+
+
+<h5 class="text-dark">Introduction</h5>
+<div class="row">
+    <div class="col">
+        <p>
+            Queues and stacks (quacks) are data structures for storing and querying elements in particular linear orders.
+            Queues and stacks share a common interface:
+        </p>
+        <ul>
+            <li><code>push</code> - adds an element. (For queues, this is also known as <code>enqueue</code>)</li>
+            <li><code>pop</code> - queries/removes an element. (For queues, this is also known as <code>dequeue</code>)</li>
+        </ul>
+    </div>
+
+</div>
+
+<h5 class="text-dark">Queues</h5>
+<div class="row">
+    <div class="col-sm"></div>
+    <div class="col-sm">
+        <figure class="figure">
+            <img src="../../assets/notes/quacks/queue.png" class="img-fluid">
+            <figcaption class="figure-caption">A queue returns elements in the order in which they were stored.</figcaption>
+        </figure>
+    </div>
+    <div class="col-sm"></div>
+</div>
+<div class="row">
+    <div class="col">
+        <p>
+            Queues return elements in the order in which they were stored.
+            We call this kind of data structure <em>first-in-first-out (FIFO)</em>.
+        </p>
+    </div>
+
+</div>
+
+<h5 class="text-dark">Stack</h5>
+<div class="row">
+    <div class="col-sm"></div>
+    <div class="col-sm">
+        <figure class="figure">
+            <img src="../../assets/notes/quacks/stack.png" class="img-fluid">
+            <figcaption class="figure-caption">A stack outputs elements in the <em>reverse</em> order in which they were stored</figcaption>
+        </figure>
+    </div>
+    <div class="col-sm"></div>
+</div>
+<div class="row">
+    <div class="col">
+        <p>
+            Stacks return elements in the reverse order in which they are stored; that is, the most recent element to be added is returned.
+            We call this kind of data structure <em>last-in-first-out (LIFO)</em>.
+        </p>
+    </div>
+</div>
+
+<h5 class="text-dark">Implementations</h5>
+<div class="row">
+    <div class="col">
+        <p>
+            Queues and stacks are often implemented with either linked lists or arrays.
+        </p>
+    </div>
+</div>
+<h6 class="text-dark">Linked Lists</h6>
+<div class="row">
+    <div class="col-sm">
+        <figure class="figure">
+            <img src="../../assets/notes/quacks/queue_ll_enqueue.png" class="img-fluid">
+            <figcaption class="figure-caption">Enqueueing an element in a linked list implementation of a <b>queue</b></figcaption>
+        </figure>
+    </div>
+    <div class="col-sm">
+        <figure class="figure">
+            <img src="../../assets/notes/quacks/stack_ll_push.png" class="img-fluid">
+            <figcaption class="figure-caption">Pushing an element in a linked list implementation of a <b>stack</b></figcaption>
+        </figure>
+    </div>
+</div>
+<div class="row text-center">
+    <div class="col-sm"></div>
+    <div class="col-sm">
+        <figure class="figure">
+            <img src="../../assets/notes/quacks/quack_ll_pop.png" class="img-fluid">
+            <figcaption class="figure-caption">Popping/dequeueing an element in a linked list implementation of a <b>queue</b> <em>or</em> <b>stack</b></figcaption>
+        </figure>
+    </div>
+    <div class="col-sm"></div>
+</div>
+<h6 class="text-dark">Arrays</h6>
+<p>
+    When implementing queues and stacks with arrays, it's important to visualize them as "circular" arrays.
+    The beginning and end of an array do not matter to a stack or a queue.
+    Simply keep track of the indices that locate the front and back of the queue/stack.
+    One of the limitations with this implementation is that it gives a limit to the amount of elements the data structure can store.
+</p>
+<div class="row">
+    <div class="col-sm">
+        <figure class="figure">
+            <img src="../../assets/notes/quacks/quack_array.png" class="img-fluid">
+            <figcaption class="figure-caption">An array implementation of a queue/stack</figcaption>
+        </figure>
+    </div>
+    <div class="col-sm">
+        <figure class="figure">
+            <img src="../../assets/notes/quacks/quack_circ_array.png" class="img-fluid">
+            <figcaption class="figure-caption">A circular array visualization of a queue/stack</figcaption>
+        </figure>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm">
+        <figure class="figure">
+            <img src="../../assets/notes/quacks/quack_array_cross.png" class="img-fluid">
+            <figcaption class="figure-caption">The queue/stack wraps around the ends of the array</figcaption>
+        </figure>
+    </div>
+    <div class="col-sm">
+        <figure class="figure">
+            <img src="../../assets/notes/quacks/quack_circ_array_cross.png" class="img-fluid">
+            <figcaption class="figure-caption">A circular array visualization of a queue/stack</figcaption>
+        </figure>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../static/js/quacks/SVG.js"></script>
+<script type="text/javascript" src="../../static/js/quacks/svg.easing.min.js"></script>
+<script type="text/javascript" src="../../static/js/quacks/queue.js"></script>
+<script type="text/javascript" src="../../static/js/quacks/stack.js"></script>
+<script type="text/javascript" src="../../static/js/quacks/datacanvas.js"></script>
+
+</article>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/notes/quacks/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:19:17 GMT -->
+</html>

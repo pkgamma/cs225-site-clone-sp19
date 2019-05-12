@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/mps/traversals/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:15:14 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | mp_traversals</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_mp.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>mp_traversals</h1>
+                <h2 class="h5">Terrible Traversals</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Extra credit: <span>Mar 04, 23:59 PM</span></small>
+                
+                <small>Due: <span>Mar 11, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/mp_traversals/annotated.html" role="button">Doxygen</a>
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong>Solo MP</strong>
+This MP, as well as all other MPs in CS 225, are to be completed without a partner.</p>
+
+  <p>You are welcome to get help on the MP from course staff, via open lab hours, or Piazza!</p>
+</div>
+
+<h2 id="checking-out-the-code">Checking Out the Code</h2>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/mp_traversals <span class="nt">-m</span> <span class="s2">"Merging initial mp_traversals files"</span>
+</code></pre></div></div>
+
+<p>If you’re on your own machine, you may need to run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge <span class="nt">--allow-unrelated-histories</span> release/mp_traversals <span class="nt">-m</span> <span class="s2">"Merging initial mp_traversals files"</span>
+</code></pre></div></div>
+
+<p>Upon a successful merge, your mp_traversals files are now in your <code class="highlighter-rouge">mp_traversals</code> directory.</p>
+
+<h2 id="image-and-image-traversal">Image and Image Traversal</h2>
+<p>Mathematically, an image can be considered as a function of two variables, f(x, y), where x and y are spatial coordinates and the value of the function at given pair
+of coordinates (x, y) is called the intensity value.</p>
+
+<p>In the figure below - Values in the grid represent the grayscale intensity of the image on the right. A) Intensity values shown in a grid of same dimension as image. B) Image as seen on monitor</p>
+
+<p><img src="../../assets/assignments/mps/4/Image.jpg" style="max-height: 250px" class="img-fluid" /></p>
+
+<p>One way to traverse the image is in row first order. Figure below describes this Note that rows are being accessed one after the other. This is known as ‘Row First Traversal’. The graphic suggests that in the current iteration, x = 4 and y = 3 both starting from 0.</p>
+
+<p><img src="../../assets/assignments/mps/4/rowfirst.jpg" style="max-height: 250px" class="img-fluid" /></p>
+
+<!--Below is the sample code how you can create and use an iterator for row first traversal for a simple image class. We are creating the image class as a class over double, you'd use a template instead. This code is for simple illustration purposes only.
+
+```
+class Image{
+
+    class RowIterator;
+
+    friend class RowIterator;
+
+    private:
+        vector<vector<double> > img_data;
+
+    public:
+
+        RowIterator row_iterator(const unsigned int row);
+
+    }
+
+class Image::RowIterator{
+
+    private:
+        Image* parent;
+        unsigned int row;
+        unsigned int col;
+
+    public:
+
+        double& operator * ();
+        RowIterator& operator++()
+}
+
+double& Image::RowIterator::operator * (){
+    return parent->data[row][col];
+}
+Image::RowIterator& Image::RowIterator::operator++(){
+    col++;
+    return *this;
+}
+```
+This can be used like:
+```
+for(Image::RowIterator it = image.row_iterator(desired_row); it != image.columns(); it++)
+```
+-->
+
+<h2 id="part-1--image-traversals">Part 1 : Image Traversals</h2>
+
+<p>As you learned in lecture, there are many ways to traverse a data structure.  In this MP, you will use object-oriented programming techniques to develop classes that traverse an image in a generic way.</p>
+
+<h3 id="background--understanding-an-imagetraversal">Background – Understanding an ImageTraversal</h3>
+
+<p>The goal of an ImageTraversal is to create a traversal that starts at some <code class="highlighter-rouge">start</code> point and visits every point within some <code class="highlighter-rouge">tolerance</code> in a specific order.</p>
+
+<p>For example, consider a “Block I” image that is exactly 6 pixels wide and 7 pixels tall:</p>
+
+<div class="container mb-3 text-center">
+    <div class="row">
+        <div class="col-sm mt-3">
+            <img src="../../assets/assignments/mps/4/blockI.png" style="max-height: 250px" class="img-fluid" />
+        </div>
+        <div class="col-sm mt-3">
+            <img src="../../assets/assignments/mps/4/blockI-coords.png" style="max-height: 250px" class="img-fluid" />
+        </div>
+    </div>
+</div>
+
+<p>One possible traversal of this image is a <strong>Row First Traversal</strong>, where every pixel in a single row (within a <code class="highlighter-rouge">tolerance</code>) is visited before a pixel in any other row is visited.  Starting at (2, 3), such a traversal visits every pixel in Row 2 before moving to Row 3 and visited everying pixel in Ro 3 before moving to Row 4:</p>
+
+<div class="container mb-3 text-center">
+    <div class="row">
+        <div class="col-sm mt-3">
+            <img src="../../assets/assignments/mps/4/blockI-2-3.png" style="max-height: 250px" class="img-fluid" />
+        </div>
+        <div class="col-sm mt-3">
+            <img src="../../assets/assignments/mps/4/blockI-rowFirst-visited.png" style="max-height: 250px" class="img-fluid" />
+        </div>
+    </div>
+</div>
+
+<p>Two things to note:</p>
+
+<ol>
+  <li>The blue pixels are not visited, because they are outside of a <code class="highlighter-rouge">tolerance</code></li>
+  <li>The traversal requires only that all pixels in a row are visited before visiting the next row.  Therefore, the order may vary depending on the implementation.</li>
+</ol>
+
+<!--We will explore building an iterator to perform this traversal.-->
+
+<p>Below are few traversals with iterators (only the pixels within the shape are within the ‘tolerance’ ):</p>
+<table>
+<thead>
+<tr>
+<th align="center">Entire Image</th>
+<th align="center">Rectangle</th>
+<th align="center">Circle</th>
+<th align="center">Line</th>
+<th align="center">Polygon</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img src="../../assets/assignments/mps/4/grid_map_iterator.gif" alt="Grid map iterator" style="max-width:100%;" /></td>
+<td align="center"><img src="../../assets/assignments/mps/4/submap_iterator.gif" alt="Submap iterator" style="max-width:100%;" /></td>
+<td align="center"><img src="../../assets/assignments/mps/4/circle_iterator.gif" alt="Circle iterator" style="max-width:100%;" /></td>
+<td align="center"><img src="../../assets/assignments/mps/4/line_iterator.gif" alt="Line iterator" style="max-width:100%;" /></td>
+<td align="center"><img src="../../assets/assignments/mps/4/polygon_iterator.gif" alt="Polygon iterator" style="max-width:100%;" /></td>
+</tr>
+<tr>
+<td align="center"><strong>Ellipse</strong></td>
+<td align="center"><strong>Spiral</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><img src="../../assets/assignments/mps/4/ellipse_iterator.gif" alt="Ellipse iterator" style="max-width:100%;" /></td>
+<td align="center"><img src="../../assets/assignments/mps/4/spiral_iterator.gif" alt="Spiral iterator" style="max-width:100%;" /></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="components-of-an-imagetraversal">Components of an ImageTraversal</h3>
+
+<p><code class="highlighter-rouge">ImageTraversal</code> is an <code class="highlighter-rouge">abstract</code> class that provides the setup to build a generic traversal library.  <code class="highlighter-rouge">ImageTraversal</code> contains five pure virtual functions:</p>
+<ul>
+  <li><code class="highlighter-rouge">ImageTraversal::begin()</code> and <code class="highlighter-rouge">ImageTraversal::end()</code>, used to return iterators</li>
+  <li><code class="highlighter-rouge">ImageTraversal::add</code></li>
+</ul>
+
+<h3 id="developing-an-imagetraversal">Developing an ImageTraversal</h3>
+
+<p>Consider a simple image of 16 pixels:</p>
+
+<p><img src="../../assets/assignments/mps/4/4by4.png" style="max-height: 250px" /></p>
+
+<p>Every <code class="highlighter-rouge">ImageTraversal</code> will start at a provided <code class="highlighter-rouge">Point</code>.  In this image above, suppose we
+start in the bottom-left corner <code class="highlighter-rouge">(0, 3)</code>.  The first pixel a traversal will “visit” will
+almost always be that starting point <code class="highlighter-rouge">(0, 3)</code>.</p>
+
+<p>As part of “visiting” a point, a traversal must <code class="highlighter-rouge">add</code> all of the neighbors that will be
+visited <em>at some time in the future</em>.  Every point has up to four neighbors (and the
+neighbors <strong>MUST</strong> be added in the following order):</p>
+
+<ul>
+  <li>The pixel to the right, <code class="highlighter-rouge">(x + 1)</code>,</li>
+  <li>The pixel below, <code class="highlighter-rouge">(y + 1)</code>, and</li>
+  <li>The pixel to the left, <code class="highlighter-rouge">(x - 1)</code>.</li>
+  <li>The pixel above, <code class="highlighter-rouge">(y - 1)</code>,</li>
+</ul>
+
+<p>As our starting point <code class="highlighter-rouge">(0, 3)</code> is a corner, it has only two neighbors <code class="highlighter-rouge">(1, 3)</code> and <code class="highlighter-rouge">(0, 2)</code>:</p>
+
+<p><img src="../../assets/assignments/mps/4/4by4-neighbors.png" style="max-height: 250px" class="img-fluid" /></p>
+
+<p>After visiting the first point (the starting point), the next point visited is determined
+by our <code class="highlighter-rouge">ImageTraversal</code>.  The logic in <code class="highlighter-rouge">add</code> and <code class="highlighter-rouge">pop</code> determines the order the nodes are visited.
+For example, if we visit the point that was most recently added, we create the following traversal:</p>
+
+<p><img src="../../assets/assignments/mps/4/4by4-dfs.png" style="max-height: 250px" class="img-fluid" /></p>
+
+<p>Finally, in the image above, only orange pixels were visited.  A point must <strong>NOT</strong> be visited in a traversal if <strong>either</strong> of the following statements are true:</p>
+
+<ol>
+  <li>The point has already been visited (a traversal never visits the same point twice), OR</li>
+  <li>The pixel at the point is greater than or equal to a given <code class="highlighter-rouge">tolerance</code> away from the pixel at the starting point.
+The function <code class="highlighter-rouge">ImageTraversal::calculateDelta</code> is provided for you to calculate the difference between two pixels.</li>
+</ol>
+
+<h3 id="part-1a-create-a-dfs-imagetraversal">Part 1a: Create a DFS ImageTraversal</h3>
+
+<p>Implement the traversal described above in <code class="highlighter-rouge">imageTraversal/DFS.{cpp,h}</code>.  It is not necessary to implement the <code class="highlighter-rouge">begin</code> and <code class="highlighter-rouge">end</code> functions yet.</p>
+
+<ul>
+  <li>Feel free to use a <code class="highlighter-rouge">std::vector</code>, <code class="highlighter-rouge">std::list</code>, <code class="highlighter-rouge">std::stack</code>, or <code class="highlighter-rouge">std::queue</code> if they would be helpful.</li>
+</ul>
+
+<h3 id="part-1b-create-a-bfs-imagetraversal">Part 1b: Create a BFS ImageTraversal</h3>
+
+<p>Implement the second ImageTraversal, BFS, by visiting the first earliest point that was added that has not yet been visited.  It is not necessary to implement the <code class="highlighter-rouge">begin</code> and <code class="highlighter-rouge">end</code> functions yet.</p>
+
+<ul>
+  <li>Feel free to use a <code class="highlighter-rouge">std::vector</code>, <code class="highlighter-rouge">std::list</code>, <code class="highlighter-rouge">std::stack</code>, or <code class="highlighter-rouge">std::queue</code> if they would be helpful.</li>
+</ul>
+
+<h3 id="part-1c-create-the-imagetraversaliterator">Part 1c: Create the ImageTraversal::Iterator</h3>
+
+<p>Finally, create an iterator that uses the <code class="highlighter-rouge">ImageTraversal</code>s that you have built.  You need only to create the simplest of all the iterators – a forward iterator – which requires three operations:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">operator*</code>, to access the current Point in the image traversal</li>
+  <li><code class="highlighter-rouge">operator++</code>, to advance to the next Point in our image traversal</li>
+  <li><code class="highlighter-rouge">operator!=</code>, to check if two iterators are different</li>
+</ul>
+
+<p>A call to <code class="highlighter-rouge">DFS::begin()</code> or <code class="highlighter-rouge">BFS::begin()</code> must return an <code class="highlighter-rouge">ImageTraversal::Iterator</code> that starts at the starting point
+(eg: <code class="highlighter-rouge">*(dfs.begin()) == startingPoint</code>) and must move through the traversal you created in parts 1a and 1b.</p>
+
+<p>As you work through this:</p>
+
+<ul>
+  <li>You may assume the <code class="highlighter-rouge">PNG</code> image will not change after your object is created.</li>
+  <li>Iterators must be independent (moving one iterator forward does not change other instances of an iterator).</li>
+  <li>There are <em>at least</em> four very different ways to build your iterator. You may need to create a copy of your entire <code class="highlighter-rouge">BFS</code> or <code class="highlighter-rouge">DFS</code> object within your iterator, this is okay.</li>
+  <li>Remember that <code class="highlighter-rouge">begin()</code> returns an iterator at the starting point, but <code class="highlighter-rouge">end()</code> returns an iterator <em>one past the end</em>.</li>
+  <li>It is common for <code class="highlighter-rouge">end()</code> to be a sentinel value (eg: a <code class="highlighter-rouge">NULL</code> pointer, etc).  It should not be necessary to run through the full traversal to get to <em>one past the end</em>.</li>
+</ul>
+
+<p>Finally, simple test cases for this part can be run with the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nb">test</span>
+./test <span class="o">[</span><span class="nv">part</span><span class="o">=</span>1]
+</code></pre></div></div>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong>Optional test cases</strong> We’ve included some additional test cases in <code class="highlighter-rouge">tests/tests-part1-BFS-DFS.cpp</code>.
+These tests are worth <strong>0 points</strong> and will not affect your grade.
+If you feel particularly lost, you can use these test cases to help guide you
+towards one of the possible ways of implementing this MP. However, if you want
+to do things in a different way that doesn’t pass these tests, you can safely
+ignore them, or even comment them out entirely!</p>
+</div>
+
+<h3 id="extra-credit-submission">Extra Credit Submission</h3>
+
+<p>For extra credit, you can submit the code you have implemented and tested for mp_traversals, Part 1. You must submit your work before the extra credit deadline as listed at the top of this page. Follow the handin instructions given at the bottom of this page.</p>
+
+<h2 id="part-2-curated-flood-fill">Part 2 (Curated): Flood Fill</h2>
+
+<div class="container mb-3 text-center">
+    <div class="row">
+        <div class="col-sm mt-3">
+            <img src="../../assets/assignments/mps/4/bfsghost.gif" />
+        </div>
+        <div class="col-sm mt-3">
+            <img src="../../assets/assignments/mps/4/dfsghost.gif" />
+        </div>
+    </div>
+</div>
+
+<p>In this MP, you will be flood-filling an image using a <code class="highlighter-rouge">ColorPicker</code> and an <code class="highlighter-rouge">ImageTraversal</code>.  You built <code class="highlighter-rouge">ImageTraversal</code> classes in Part 1 and we have provided some <code class="highlighter-rouge">ColorPicker</code> classes for you (including <code class="highlighter-rouge">RainbowColorPicker</code>, <code class="highlighter-rouge">SolidColorPicker</code>, and others).</p>
+
+<p>The <code class="highlighter-rouge">FloodFilledImage</code> class outlines the three member functions you must implement for this part.</p>
+
+<ul>
+  <li>Feel free to use a <code class="highlighter-rouge">std::vector</code>, <code class="highlighter-rouge">std::list</code>, <code class="highlighter-rouge">std::stack</code>, or <code class="highlighter-rouge">std::queue</code> if they would be helpful.</li>
+</ul>
+
+<h2 id="part-3-creative-your-flood-fill">Part 3 (Creative): Your Flood Fill!</h2>
+
+<p>Finally, time to be creative with what you built!  Two seperate things are required:</p>
+
+<ol>
+  <li>
+    <p>Create a new color picker called <code class="highlighter-rouge">MyColorPicker</code>, found in the <code class="highlighter-rouge">colorPicker</code> folder.  This picker may be anything, but must be different than the color pickers we provided.</p>
+  </li>
+  <li>
+    <p>Modify <code class="highlighter-rouge">main.cpp</code> to create a <code class="highlighter-rouge">FloodFilledImage</code> using <strong>at least two</strong> flood fill operations (two calls to <code class="highlighter-rouge">addFloodFill</code>).  Your <code class="highlighter-rouge">main.cpp</code> must save the last frame as <code class="highlighter-rouge">myFloodFill.png</code>.</p>
+  </li>
+</ol>
+
+<div class="mb-3" style="border-radius: 20px; border: solid 1px hsla(273, 100%, 13%, 1); background-color: hsla(273, 100%, 29%, 1); color: hsla(273, 100%, 90%, 1); padding: 10px 10px 0px 10px;">
+  <i class="fas fa-share fa-lg" style="font-size: 30px; float: left; margin-left: 10px; margin-right: 10px; margin-bottom: 5px;"></i>
+  <b class="text-light">You just made something awesome that never existed before -- you should share your art (but do not have to)!</b>
+  <p class="text-light">
+    <i>If you share your art on Facebook, Twitter, or Instagram with <b class="text-light">#cs225</b>, I will <i class="far fa-thumbs-up"></i> or <i class="fas fa-heart"></i> the post as soon as I see it.  I think many of your peers will too!</i> &nbsp; &mdash; Wade
+  </p>
+</div>
+
+<h3 id="testing">Testing</h3>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong>ImageMagick</strong>
+Note that you must have ImageMagick installed if you’re developing on your
+personal machine. You can test for this requirement by running</p>
+
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>convert
+</code></pre></div>  </div>
+
+  <p>in your terminal. Windows users should visit
+<a href="http://www.imagemagick.org/script/binary-releases.php">ImageMagick</a> to
+download the latest binary. OSX users can use homebrew or MacPorts to install
+it if missing. Linux users likely already have it installed. If not, then you
+can install it via your system’s package manager.</p>
+</div>
+
+<p>To run all of the tests for this MP:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nb">test</span>
+./test
+</code></pre></div></div>
+
+<h2 id="grading-information">Grading Information</h2>
+
+<p>The following files are used to grade mp_traversals:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">imageTraversal/BFS.cpp</code> (Part 1)</li>
+  <li><code class="highlighter-rouge">imageTraversal/BFS.h</code> (Part 1)</li>
+  <li><code class="highlighter-rouge">imageTraversal/DFS.cpp</code> (Part 1)</li>
+  <li><code class="highlighter-rouge">imageTraversal/DFS.h</code> (Part 1)</li>
+  <li><code class="highlighter-rouge">imageTraversal/ImageTraversal.cpp</code> (Part 1)</li>
+  <li><code class="highlighter-rouge">imageTraversal/ImageTraversal.h</code> (Part 1)</li>
+  <li><code class="highlighter-rouge">FloodFilledImage.cpp</code> (Part 2)</li>
+  <li><code class="highlighter-rouge">FloodFilledImage.h</code> (Part 2)</li>
+  <li><code class="highlighter-rouge">colorPicker/MyColorPicker.cpp</code> (Part 3)</li>
+  <li><code class="highlighter-rouge">colorPicker/MyColorPicker.h</code> (Part 3)</li>
+  <li><code class="highlighter-rouge">main.cpp</code> (Part 3)</li>
+  <li><code class="highlighter-rouge">myFloodFill.png</code> (Part 3)</li>
+</ul>
+
+<p>All other files including any testing files you have added will not be used for grading.</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+<h2 data-toc-skip="">Good Luck!</h2>
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/mps/traversals/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:15:33 GMT -->
+</html>

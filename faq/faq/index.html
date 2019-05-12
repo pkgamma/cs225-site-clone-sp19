@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/faq/faq/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:20:16 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | FAQ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container py-4">
+    <h1 id="faq">FAQ</h1>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+This page answers common questions students have about the course, but does not
+describe the basics of the course syllabus. For those, see the
+<a href="../../info/syllabus/index.html">Course Syllabus</a>.</p>
+</div>
+
+<h2 id="enrollment">Enrollment</h2>
+
+<h3 id="can-i-enroll-if-im-missing-the-cs-125--ece-220-prereq">Can I enroll if I’m missing the CS 125 / ECE 220 prereq?</h3>
+
+<p>Many introductory programming courses that cover the listed materials will
+suffice, including CS 125, CS 126, and ECE 220.  However, CS 101, 103, 105,
+or 107 are <strong>not</strong> adequate preparation for the programming you’ll be
+doing in this class (you should take CS 125 first).</p>
+
+<h3 id="can-i-enroll-if-im-missing-the-cs-173--math-213-prereq">Can I enroll if I’m missing the CS 173 / MATH 213 prereq?</h3>
+
+<p>No. The discrete math requirement for the course is real. Most of the claims we
+make about algorithm performance will be rigorously justified using the proof
+techniques from CS173 or MATH 213.</p>
+
+<h3 id="if-i-do-not-have-a-prereq-will-i-be-dropped-from-cs-225">If I do not have a prereq, will I be dropped from CS 225?</h3>
+
+<p>Yes.  If you do not have credit to satisfy both the theory prereq (CS 173/MATH 213)
+and the programming prereq (CS 125/ECE 220), you must to satisfy both of
+these prereqs before enrolling in CS 225.</p>
+
+<h3 id="should-i-enrolled-if-i-struggled-in-cs-125">Should I enrolled if I struggled in CS 125?</h3>
+
+<p>If you received a B- or below in CS 125 you will almost certainly have a hard
+time being successful in CS 225.</p>
+
+<h3 id="i-want-to-enroll-but-the-course-is-full">I want to enroll but the course is full.</h3>
+
+<p>Monitor registration frequently, as several students drop within the first two weeks
+while it is still possible to add the course.</p>
+
+<h3 id="i-dont-have-an-ews-account-can-you-make-me-one">I don’t have an EWS account! Can you make me one?</h3>
+
+<ul>
+  <li>Try <a href="https://passwords.cites.uiuc.edu/">resetting your AD password</a>.</li>
+  <li>If that doesn’t work, <a href="#">post a question on piazza</a>.</li>
+</ul>
+
+<h2 id="lectures">Lectures</h2>
+
+<h3 id="i-cant-find-the-online-recorded-lectures">I can’t find the online recorded lectures</h3>
+
+<p>A link to the recorded lectures is available on the <a href="../../pages/lectures.html">Lectures</a> page.</p>
+
+<h2 id="mps-and-labs">MPs and Labs</h2>
+
+<h3 id="can-i-attend-a-different-lab-section">Can I attend a different lab section?</h3>
+
+<p>No—at least not for credit. Due to the growth of the class, we require that
+you attend the lab section you are registered for. There will be <strong>no
+exceptions</strong> to this policy, as up to four labs are extra credit.</p>
+
+<p>If an exam in another class conflicts with your lab section, you can either
+attend a different lab section (without getting attendance credit; see below)
+or <a href="http://studentcode.illinois.edu/article3_part2_3-202.html">ask the other class for a
+conflict</a>.</p>
+
+<p>You can attend a different lab section if you don’t take away a seat/computer
+from someone registered for that section. The safest way to make sure that
+doesn’t happen is to bring your own machine. (You will not, however, get
+attendance credit.)</p>
+
+<h3 id="can-i-work-on-the-mps--labs-from-home">Can I work on the MPs / labs from home?</h3>
+
+<p>Yes! For remote connecting to EWS, see the <a href="#">Resources</a> page. For setting up the CS 225
+environment on a personal computer, see <a href="#">CS 225 on Your Own Machine</a>.</p>
+
+<h3 id="i-got-a-zero-on-the-mp-but-my-code-works">I got a ZERO on the MP but my code works!</h3>
+
+<p>The test cases used for grading cover your code more thoroughly than the test
+cases we provide you with the MP. If you have code that doesn’t abide by C++’s
+conventions (or for other reasons), your code may compile with the provided
+code but not with the grading test cases.</p>
+
+<p>We almost never accept regrade requests for mistakes on your part, however
+trivial they seem. However, if there is an error with our test cases
+themselves, we will fix those for no penalty.</p>
+
+<h3 id="can-i-post-code-on-piazza-if-i-have-problems">Can I post code on Piazza if I have problems?</h3>
+
+<p>It is almost never okay to post your code on a public post. If it is code
+unrelated to the MP for clarification purposes, or maybe just a couple lines
+that does not give any information about your implementation then it should be
+fine. A better solution for more than ~5 lines of code is to submit your code
+to the repository so course staff can see all of the necessary files and debug from
+that, then post a private question with your NetID and a description of your
+error/bug.</p>
+
+<h2 id="grading">Grading</h2>
+
+<h3 id="is-there-a-curve">Is there a curve?</h3>
+
+<p>Individual MPs, labs, and Exams are not curved. The total scores for the course
+may be curved (before any extra credit is calculated). The grade cutoffs will
+never be any higher than <a href="#">posted</a>, however they may be lowered. Score distributions for CS 225
+remain fairly consistent over semesters, and these cutoffs are already set
+reasonably. They almost certainly will not be lowered significantly.</p>
+
+<h3 id="something-was-graded-incorrectly-on-my-exam">Something was graded incorrectly on my exam.</h3>
+
+<p>If you believe there was an error in a problem on your exam, just post your
+concerns privately on piazza. We’ll take a look, and let you know.</p>
+
+</div>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/faq/faq/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:20:16 GMT -->
+</html>

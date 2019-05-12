@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/avl/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:41 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | lab_avl</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_lab.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>lab_avl</h1>
+                <h2 class="h5">Awful AVL Trees</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Due: <span>Mar 10, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/lab_avl/annotated.html" role="button">Doxygen</a>
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/avl/cs225sp19-lab_avl-handout.pdf">Lab handout</a>
+                    
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/avl/cs225sp19-lab_avl-handout-solution.pdf">Handout solution</a>
+                    
+                    
+                    <a class="btn btn-light" href="https://docs.google.com/presentation/d/16_JJoUMhwjh75Gl9QaytXasffHTsfiD_Xvr591tVzDw/edit?usp=sharing">Lab slides</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<h2 id="assignment-description">Assignment Description</h2>
+
+<p>In this lab we’ll practice AVL tree rotations and insertions, and see some
+silly test cases.</p>
+
+<h2 id="lab-insight">Lab Insight</h2>
+
+<p>AVL trees can be used to build data structures like sorted maps and sets. To be quite honest, the Red-Black tree, a counter part to the AVL tree, is used more in these application because the work to insert a node for a Red-Black tree is less than that of an AVL trees. However, the general search performance of an AVL tree is better than a Red-Black tree. However, the general principle of a self-balancing tree is very powerful, so you can avoid situations where you end up with an O(n) search because you built a BST that looks like a linked list. A practical application of AVLs could include building the lookup datastructure for things like Yellowpages, a phone directory service. One could do an alphabetical search through the AVL tree to find the right number, if you may not know the persons full name, etc.</p>
+
+<h2 id="checking-out-the-code">Checking Out The Code</h2>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/lab_avl <span class="nt">-m</span> <span class="s2">"Merging initial lab_avl files"</span>
+</code></pre></div></div>
+
+<p>If you’re on your own machine, you may need to run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge <span class="nt">--allow-unrelated-histories</span> release/lab_avl <span class="nt">-m</span> <span class="s2">"Merging initial lab_avl files"</span>
+</code></pre></div></div>
+
+<p>Upon a successful merge, your lab_avl files are now in your <code class="highlighter-rouge">lab_avl</code> directory.</p>
+
+<p>As usual, don’t forget to take a look at <a href="../../doxygen/lab_avl/classAVLTree.html">Doxygen for lab_avl</a>.</p>
+
+<h2 id="implement-rotation-functions">Implement Rotation Functions</h2>
+
+<p>You must implement <a href="../../doxygen/lab_avl/classAVLTree.html#a8bfe122da38a956015c7af3e304f896e"><code class="highlighter-rouge">rotateLeft()</code></a>, <a href="../../doxygen/lab_avl/classAVLTree.html#a91e4906f0bfb5122e13fd9b98679f8d5"><code class="highlighter-rouge">rotateRight()</code></a>, and <a href="../../doxygen/lab_avl/classAVLTree.html#a3c042f40d54af2496cf899640bdc072c"><code class="highlighter-rouge">rotateRightLeft()</code></a>. We
+have implemented <a href="../../doxygen/lab_avl/classAVLTree.html#ade7fb6416a16426e79f03135c4186f45"><code class="highlighter-rouge">rotateLeftRight()</code></a> for you as an example for implementing
+<a href="../../doxygen/lab_avl/classAVLTree.html#a3c042f40d54af2496cf899640bdc072c"><code class="highlighter-rouge">rotateRightLeft()</code></a>.</p>
+
+<h2 id="implement-the-rebalance-function">Implement the <code class="highlighter-rouge">rebalance()</code> Function</h2>
+
+<p>You must implement <a href="../../doxygen/lab_avl/classAVLTree.html#a584ee80687e32907e37e0cc650c83784"><code class="highlighter-rouge">rebalance()</code></a> function. <code class="highlighter-rouge">rebalance()</code> should, given a
+subtree, rotate the subtree so that it is balanced. You should assume that the
+subtree’s <code class="highlighter-rouge">left</code> and <code class="highlighter-rouge">right</code> children are both already balanced trees. The
+node’s <code class="highlighter-rouge">height</code> should always be updated, even if no rotations are required.</p>
+
+<h2 id="implement-the-insert-function">Implement the <code class="highlighter-rouge">insert()</code> Function</h2>
+
+<p>You must implement the <a href="../../doxygen/lab_avl/classAVLTree.html#a1c37e665142f78d9917c1fce344d02d1"><code class="highlighter-rouge">insert()</code></a> function. <code class="highlighter-rouge">insert()</code> should add a node with
+a key and value at the correct location in the tree, then rebalance
+appropriately (while returning from each recursive function) to fix the tree’s
+balance.</p>
+
+<h2 id="implement-the-remove-function">Implement the <code class="highlighter-rouge">remove()</code> Function</h2>
+
+<p>You must implement the <a href="../../doxygen/lab_avl/classAVLTree.html#a83857394781544f99dcc3a07ef71cd2a"><code class="highlighter-rouge">remove()</code></a> function. <code class="highlighter-rouge">remove()</code> should remove the node
+with the specified key from the tree, then rebalance appropriately (while
+returning from each recursive function) to fix the tree’s balance. You can
+assume that the key exists in the tree. You may want to use the <a href="../../doxygen/lab_avl/classAVLTree.html#a1448460c3deb927e7e6689897edbf1f0"><code class="highlighter-rouge">swap()</code></a>
+method.</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+To match the provided output (and grading scripts), you should use IOP (in
+order predecessor) for removing a node with 2 children.</p>
+</div>
+
+<h2 id="testing-your-code">Testing Your Code</h2>
+
+<p>To test your code, compile using <code class="highlighter-rouge">make</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make
+</code></pre></div></div>
+
+<p>Then run it with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./testavl color
+</code></pre></div></div>
+
+<p>You will see that the output is colored — green means correct output, red
+means incorrect output, and underlined red means expected output that was not
+present. This mode is a bit experimental, and it might cause problems with your
+own debugging output (or other problems in general). To turn it off, simply
+leave off the “color” argument:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./testavl
+</code></pre></div></div>
+
+<p>You may also <code class="highlighter-rouge">diff</code> your solution with our expected output:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./testavl | diff <span class="nt">-u</span> - soln_testavl.out
+</code></pre></div></div>
+
+<p>Type <kbd>[Escape] [:] [q] [a] [ENTER]</kbd> to exit <code class="highlighter-rouge">vimdiff</code>.</p>
+
+<p>To make the <code class="highlighter-rouge">catch</code> test suite, run:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make test
+</code></pre></div></div>
+
+<p>After compiling the test suite, run the tests using:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./test
+</code></pre></div></div>
+
+<h2 id="submitting-your-work">Submitting Your Work</h2>
+
+<p>The following files are used in grading:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">avltree.cpp</code></li>
+  <li><code class="highlighter-rouge">avltree.h</code></li>
+</ul>
+
+<p>All other files including any testing files you have added will not be used for
+grading.</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/avl/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:45 GMT -->
+</html>

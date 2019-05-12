@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/trees/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:31 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | lab_trees</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_lab.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>lab_trees</h1>
+                <h2 class="h5">Tempestuous Trees</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Due: <span>Feb 24, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/lab_trees/annotated.html" role="button">Doxygen</a>
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/trees/cs225sp19-lab_trees-handout.pdf">Lab handout</a>
+                    
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/trees/cs225sp19-lab_trees-handout-solution.pdf">Handout solution</a>
+                    
+                    
+                    <a class="btn btn-light" href="https://docs.google.com/presentation/d/1AM4-WNJa9YljUfc4mqjBovK4XOtNqiTRlMfQmlVbmk0/edit?usp=sharing">Lab slides</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<h2 id="assignment-description">Assignment Description</h2>
+
+<p>In this lab we’ll explore some cool helper functions for binary trees, learn
+about creating helper functions and thinking both iterately and recursively, and hopefully see
+some fancy ascii trees on the terminal!</p>
+
+<h2 id="lab-insight">Lab Insight</h2>
+
+<p>Trees are a very powerful structure for lookups and finding data quickly. Examples of 
+use cases for this data structure includes search enginer optimization and fast sorted data 
+retrieval. CS 410, Text Information Systems, is a course that delves into topics involving 
+text manipulation such as test search lookups. Trees can even be used for syntax 
+and language grammar analysis which relates a lot with CS 421, Programming Lnaguages and Compilers.</p>
+
+<h2 id="a-new-c-thing">A new C++ thing</h2>
+
+<p>We’ll be using templates again in this lab, and unfortunately, this means we
+have to walk into a dark scary corner of C++. But hopefully we can take our
+lantern and cast some light here before any compiler errors bite.</p>
+
+<p>The following function definitions won’t compile:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="n">Node</span> <span class="o">*</span> <span class="n">BinaryTree</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">myHelperFunction</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span> <span class="n">node</span><span class="p">)</span>
+<span class="c1">// The compiler doesn't know what a Node is, since the return type isn't scoped</span>
+<span class="c1">// with the function.</span>
+</code></pre></div></div>
+
+<p>So we have to scope it:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="n">BinaryTree</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">Node</span> <span class="o">*</span> <span class="n">BinaryTree</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">myHelperFunction</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span> <span class="n">node</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Using g++, the latter will show an error such as:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>error: expected constructor, destructor, or type conversion before '*' token
+</code></pre></div></div>
+
+<p>Clang gives a more helpful error message:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fatal error: missing 'typename' prior to dependent type name 'BinaryTree&lt;T&gt;::Node'
+</code></pre></div></div>
+
+<p>Without going into the ugly details of it, this is happening because your
+compiler thinks <code class="highlighter-rouge">Node</code> is a member variable of the <code class="highlighter-rouge">BinaryTree&lt;T&gt;</code> class (since
+it’s a template). We can resolve this issue simply by adding a nice, friendly,
+<code class="highlighter-rouge">typename</code> keyword before our <code class="highlighter-rouge">BinaryTree&lt;T&gt;::Node</code> type. This lets the
+compiler know that <code class="highlighter-rouge">Node</code> really is a type, not a variable:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">typename</span> <span class="n">BinaryTree</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">Node</span> <span class="o">*</span> <span class="n">BinaryTree</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">myHelperFunction</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span> <span class="n">node</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The above, fixed, definition compiles correctly. Since you’ll probably want to
+create your own helper functions for this lab, this is important to remember
+when you see the strange error above. You won’t be responsible for this nuance
+of templates on any exam in this class.</p>
+
+<h2 id="getting-set-up">Getting Set Up</h2>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull
+git fetch release
+git merge release/lab_trees <span class="nt">-m</span> <span class="s2">"Merging initial lab_trees files"</span>
+</code></pre></div></div>
+
+<p>If you’re on your own machine, you may need to run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull
+git fetch release
+git merge <span class="nt">--allow-unrelated-histories</span> release/lab_trees <span class="nt">-m</span> <span class="s2">"Merging initial lab_trees files"</span>
+</code></pre></div></div>
+
+<p>Part of good “git hygene” is to run <code class="highlighter-rouge">git pull</code> before you do anything else.</p>
+
+<p>Upon a successful merge, your lab_trees files are now in your <code class="highlighter-rouge">lab_trees</code> directory.</p>
+
+<p>The code for this activity resides in the <code class="highlighter-rouge">lab_trees/</code> directory. Get
+there by typing this in your working directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>lab_trees/
+</code></pre></div></div>
+
+<p>A reference for the lab is provided for you in <a href="../../doxygen/lab_trees/annotated.html">Doxygen</a> form.</p>
+
+<h2 id="testing-your-code">Testing Your Code</h2>
+
+<p>To test your code, compile using make:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make
+</code></pre></div></div>
+
+<p>Then run it with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./treefun color
+</code></pre></div></div>
+
+<p>You will see that the output is colored — green means correct output, red
+means incorrect output, and underlined red means expected output that was not
+present. This mode is a bit experimental, and it might cause problems with your
+own debugging output (or other problems in general). To turn it off, simply
+leave off the “color” argument:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./treefun
+</code></pre></div></div>
+
+<h2 id="helper-functions-and-recursion">Helper Functions and Recursion</h2>
+
+<p>You’ll want to be thinking about the following problems recursively. To do
+this, though, you’ll have to make your own helper functions to help implement
+the functions, so that you can recursively act differently on different nodes.
+There is room in the <code class="highlighter-rouge">.h</code> file for you to declare these extra functions. A
+helper function stub for <code class="highlighter-rouge">height()</code> has been provided for you.</p>
+
+<h2 id="the-height-function">The <code class="highlighter-rouge">height()</code> Function</h2>
+
+<p>There is a function called <code class="highlighter-rouge">height()</code> that returns the height of the binary
+tree. Recall that the height of a binary tree is just the length of the longest
+path from the root to a leaf, and that the height of an empty tree is -1.</p>
+
+<p>We have implemented <code class="highlighter-rouge">height()</code> for you (see <code class="highlighter-rouge">binarytree.cpp</code>) to help you get a
+sense of recursive functions. Please read through the code, and ask questions
+if you are unsure of how it finds the height of a tree.</p>
+
+<h2 id="the-printlefttoright-function">The <code class="highlighter-rouge">printLeftToRight()</code> Function</h2>
+
+<p>There is a function called <code class="highlighter-rouge">printLeftToRight()</code> that prints out the values of
+the nodes of a binary tree in order. That is, everything to the left of a node
+will be printed out before that node itself, and everything to the right of a
+node will be printed out after that node.</p>
+
+<p>We have implemented <code class="highlighter-rouge">printLeftToRight()</code> for you (see <code class="highlighter-rouge">binarytree.cpp</code>). Please
+read through the code, and ask questions if you are unsure of how it works.
+Note that <code class="highlighter-rouge">printLeftToRight()</code> uses an in-order-traversal to print out the
+nodes of a tree. You will need to use one of the three traversals covered in
+lecture for some of the following functions.</p>
+
+<h2 id="the-mirror-function">The <code class="highlighter-rouge">mirror()</code> Function</h2>
+
+<p>The <code class="highlighter-rouge">mirror()</code> function should flip our tree over a vertical axis, modifying
+the tree itself (not creating a flipped copy).</p>
+
+<p>For example, if our original tree was</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                        ______ 8 ______
+                 ______/               \______
+            __ 5 __                            9 __
+         __/       \__                             \__
+       2               7                               10
+     /   \           /
+   1       4       6
+          /
+         3
+</code></pre></div></div>
+
+<p>Our mirrored tree would be</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                        ______ 8 ______
+                 ______/               \______
+            __ 9                            __ 5 __
+         __/                             __/       \__
+       10                              7               2
+                                         \           /   \
+                                           6       4       1
+                                                    \
+                                                     3
+</code></pre></div></div>
+
+<h2 id="the-treetraversals-family">The <code class="highlighter-rouge">TreeTraversals</code> Family</h2>
+
+<p>Class Hierarchy for TreeTraversals family:</p>
+
+<script type="x/graph">
+digraph {
+    node [shape=record,style=filled,fillcolor=gray95,fontname="Courier",fontnames="gd"];
+    edge [dir=back, arrowtail=empty];
+
+    TreeTraversal [label = "{TreeTraversal||+begin() : Iterator\n+end() : Iterator\n+add(typename BinaryTree<T>::Node*& treeNode) : void\n+pop() : typename BinaryTree<T>::Node*\n+peek() const : typename BinaryTree<T>::Node*\n+empty() const : bool}"];
+    PreorderTraversal [label = "{PreorderTraversal|-stack : stack<typename BinaryTree<T>::Node*>|\n-root : typename BinaryTree<T>::Node*}"];
+    InorderTraversal [label = "{PreorderTraversal|-stack : stack<typename BinaryTree<T>::Node*>|\n-root : typename BinaryTree<T>::Node*}"];
+
+    TreeTraversal -> PreorderTraversal;
+    TreeTraversal -> InorderTraversal;
+}
+</script>
+
+<p>We’ve already implemented PreorderTraversal class for you(see TreeTraversals/PreorderTraversal.h). Your task is to implement the the following constructors and functions for InorderTraversal class:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">InorderTraversal(typename BinaryTree&lt;T&gt;::Node* root)</code></li>
+  <li><code class="highlighter-rouge">void add(typename BinaryTree&lt;T&gt;::Node *&amp; treeNode)</code></li>
+</ul>
+
+<p>Test your InorderTraversal class:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>clang++ -std=c++1y -stdlib=libc++ main.cpp -o main #run these commands INSIDE TreeTraversals folder
+./main
+</code></pre></div></div>
+
+<h2 id="the-isordered-family">The <code class="highlighter-rouge">isOrdered()</code> Family</h2>
+
+<p>The <code class="highlighter-rouge">isOrdered()</code> family includes two functions, one should be implemented 
+iteratively, the other should be implemented recursively.</p>
+
+<p>Both functions return true if an in-order traversal of the tree
+would produce a nondecreasing list output values, and false otherwise. (This is
+also the criterion for a binary tree to be a binary search tree.)</p>
+
+<p>For example, <code class="highlighter-rouge">isOrdered()</code> should return <code class="highlighter-rouge">true</code> on the following tree:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>           __ 5 __
+        __/       \__
+      1               8
+        \
+          2
+           \
+            4
+</code></pre></div></div>
+
+<p>but <code class="highlighter-rouge">false</code> for</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>           __ 5 __
+        __/       \__
+      1               8
+        \
+          2
+           \
+            11
+</code></pre></div></div>
+
+<p>You’ll need to implement the following functions:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">bool isOrderedIterative() const</code></li>
+  <li><code class="highlighter-rouge">bool isOrderedRecursive() const</code></li>
+</ul>
+
+<p><strong>Hint</strong>: What conditions need to be true for a tree to be in order (as defined
+above)? How can we check this iteratively? (Your Iterator class might help) How can we check this recursively?
+You might want to write your own helper functions for this exercise.</p>
+
+<h2 id="the-getpathsvectorvectort-paths-function">The <code class="highlighter-rouge">getPaths(vector&lt;vector&lt;T&gt;&gt;&amp; paths)</code> Function</h2>
+
+<p>Good work! We just have one more function for you to write.
+<code class="highlighter-rouge">getPaths(vector&lt;vector&lt;T&gt;&gt;&amp; paths)</code> will use two dimensional vector <code class="highlighter-rouge">paths</code> to
+store all the possible paths from the root of the tree to any leaf node —
+all sequences starting at the root node and continuing downwards, ending at a
+leaf node. Paths ending in a left node should be pushed before paths ending in
+a node further to the right. For example, for the following tree</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>            __ 1 __
+         __/       \__
+       2               3
+     /   \           /   \
+   4       8       6       7
+  / \                     /
+ 5   10                  9
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">paths.size()</code> will be 5 (that means that <code class="highlighter-rouge">vector&lt;vector&lt;int&gt;&gt; paths</code> will
+contain 5 <code class="highlighter-rouge">vector&lt;int&gt;</code>), and each vector in <code class="highlighter-rouge">paths</code> will look like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>paths[0]: 1 2 4 5
+paths[1]: 1 2 4 10
+paths[2]: 1 2 8
+paths[3]: 1 3 6
+paths[4]: 1 3 7 9
+</code></pre></div></div>
+
+<p><strong>Hint</strong>: You’ll need to keep track of the whole path that you took to arrive
+at any point in your traversal, so you can add your entire path when you get to
+a leaf node.
+The <code class="highlighter-rouge">std::vector</code> class might be useful for that.</p>
+
+<h2 id="abstract-syntax-trees">Abstract Syntax Trees</h2>
+
+<p>Binary trees are an amazing data structure with the flexibility to do an assortment of amazing things. One thing binary trees are amazing for is expressing the rules of syntax. One interesting syntax is PEMDAS (Parenthesis Exponentiation Multiplication Division Addition Subtraction). For example, the expression <code class="highlighter-rouge">5 * 3 + 2</code> evaluates to 17, while the expression <code class="highlighter-rouge">5 * (3 + 2)</code> evaluates to 25. We can use binary trees to express these two PEMDAS strings.</p>
+
+<p>For <code class="highlighter-rouge">5 * 3 + 2</code>, we can generate the following binary tree</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       +
+     /   \
+   *       2
+  / \
+ 5   3
+</code></pre></div></div>
+
+<p>For <code class="highlighter-rouge">5 * (3 + 2)</code>, we can generate the following binary tree</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       *
+     /   \
+   5       +
+          / \
+         3   2
+</code></pre></div></div>
+
+<p>What you’ll notice between these two Abstract Syntax Trees is that you first have to calculate all the subtrees before you can do the intial math operation. Basically, you will first need to calculate the value of the operation of each previous subtree before you can compute the value for the current tree.</p>
+
+<p>We have given you the function <code class="highlighter-rouge">double AbstractSyntaxTree::eval()</code>, which will take in a BinaryTree that has <code class="highlighter-rouge">std::string</code> for nodes and return the calculated result from that AST. A helper function may be of use. Also, keep in mind that <code class="highlighter-rouge">AbstractSyntaxTree::getRoot()</code> returns a variable of type <code class="highlighter-rouge">typename BinaryTree&lt;std::string&gt;::Node* const</code>.</p>
+
+<p>You do not need to worry about the exponential operator. We will only be using the addition, subtraction, multiplication, and division operations.</p>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+Also, since the numbers you need for the calculations will be strings, you can use <code class="highlighter-rouge">std::stod(std::string str)</code> to convert strings into doubles.</p>
+
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">stod</span><span class="p">(</span><span class="s">"25"</span><span class="p">);</span> <span class="c1">// x = 25</span>
+</code></pre></div>  </div>
+</div>
+
+<h2 id="extra-credit-the-sumdistances-function">(Extra Credit) The <code class="highlighter-rouge">sumDistances()</code> Function</h2>
+
+<div class="alert alert-danger" role="alert">
+  <p><i class="fas fa-radiation-alt"></i> 
+Submitting code that doesn’t compile <strong>will result in a zero</strong> on the entire
+lab. This includes code in the extra credit portion and should be common sense.
+Be sure to test your code before you submit.</p>
+</div>
+
+<p>Good job getting this far! The following function is for extra credit — its
+output will not be used to grade the regular portion of the lab. Each node in a
+tree has a distance from the root node - the depth of that node, or the number
+of edges along the path from that node to the root. <code class="highlighter-rouge">sumDistances()</code> returns
+the sum of the distances of all nodes to the root node (the sum of the depths
+of all the nodes). Your solution should take \(\mathcal{O}(n)\) time, where
+\(n\) is the number of nodes in the tree.  For example, on the following
+tree:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>           __ 5 __
+        __/       \__
+      0               8
+        \
+          2
+         / \
+        1   4
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">sumDistances()</code> should return <code class="highlighter-rouge">0+1+2+3+3+1 = 10</code>.</p>
+
+<h2 id="testing-your-code-with-catch">Testing Your Code with Catch</h2>
+
+<p>Run the Catch tests as follows (this requires your code to compile when run simply as <code class="highlighter-rouge">make</code>):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nb">test</span>
+./test
+</code></pre></div></div>
+
+<h2 id="submitting-your-work">Submitting Your Work</h2>
+
+<p>The following files are used in grading:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">binarytree.h</code></li>
+  <li><code class="highlighter-rouge">binarytree.cpp</code></li>
+  <li><code class="highlighter-rouge">abstractsyntaxtree.h</code></li>
+  <li><code class="highlighter-rouge">abstractsyntaxtree.cpp</code></li>
+  <li><code class="highlighter-rouge">TreeTraversals\InorderTraversal.h</code></li>
+</ul>
+
+<p>All other files including any testing files you have added will not be used for
+grading.</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+<h2 id="good-luck">Good luck!</h2>
+
+<p>Thanks to Nick Parlante/Stanford, <a href="http://www.cs.princeton.edu/courses/archive/spr01/cs126/exercises/trees.html">Princeton’s CS
+126</a>,
+and CS 473 Spring 2011 for the exercises and inspiration.</p>
+
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/trees/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:34 GMT -->
+</html>

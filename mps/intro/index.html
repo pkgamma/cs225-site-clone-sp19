@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/mps/intro/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:14:59 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | mp_intro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_mp.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>mp_intro</h1>
+                <h2 class="h5">Impregnable Introduction</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Due: <span>Jan 28, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/mp_intro/annotated.html" role="button">Doxygen</a>
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong>Solo MP:</strong> This MP is to be completed without a partner.</p>
+
+  <p>You are welcome to get help on the MP from course staff, via open lab hours, or Piazza!</p>
+</div>
+
+<h2 id="getting-the-files">Getting the files</h2>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/mp_intro <span class="nt">-m</span> <span class="s2">"Merging initial mp_intro files"</span>
+</code></pre></div></div>
+
+<p>If you see an error about unrelated histories, you may need to run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge <span class="nt">--allow-unrelated-histories</span> release/mp_intro <span class="nt">-m</span> <span class="s2">"Merging initial mp_intro files"</span>
+</code></pre></div></div>
+
+<p>Upon a successful merge, your <code class="highlighter-rouge">mp_intro</code> files are now in your <code class="highlighter-rouge">mp_intro</code> directory.</p>
+
+<h3 id="adding-your-hslapixel-class-to-this-project">Adding your HSLAPixel class to this project</h3>
+
+<p>Before starting this MP, make sure you have finished <code class="highlighter-rouge">lab_intro</code>.</p>
+
+<ul>
+  <li>Copy your <code class="highlighter-rouge">cs225/HSLAPixel.cpp</code> and <code class="highlighter-rouge">cs225/HSLAPixel.h</code> files from <code class="highlighter-rouge">lab_intro</code> into <code class="highlighter-rouge">mp_intro</code>.</li>
+  <li>Just like in <code class="highlighter-rouge">lab_intro</code>, these files both go into the <code class="highlighter-rouge">cs225</code> directory within the assignment folder.</li>
+</ul>
+
+<h2 id="part-1-create-a-makefile">Part 1: Create a Makefile</h2>
+
+<p>In CS 225, we feel it’s important you understand how a C++ program compiles.</p>
+
+<p>Go through the <a href="../../guides/maketutorial/index.html">Makefile Tutorial</a> and create a <code class="highlighter-rouge">Makefile</code> for this assignment.  You may find the <code class="highlighter-rouge">lab_intro</code> Makefile useful as a reference.</p>
+
+<p>Your <code class="highlighter-rouge">Makefile</code> must compile together your own solution files, namely <code class="highlighter-rouge">main.cpp</code>, <code class="highlighter-rouge">intro.h</code>, <code class="highlighter-rouge">intro.cpp</code>, and files in the <code class="highlighter-rouge">cs225</code> directory.  Do not have typos in your file names or your <code class="highlighter-rouge">Makefile</code>!  For example, make sure your Makefile compiles a file named <code class="highlighter-rouge">main.cpp</code>, <strong>not</strong> a file named <code class="highlighter-rouge">main.C</code> or <code class="highlighter-rouge">test.cpp</code> or any other such thing.</p>
+
+<p>Please make sure your <code class="highlighter-rouge">Makefile</code> does not compile extra files that are not part of this MP. For example, do not add in files from the <code class="highlighter-rouge">Makefile</code> tutorial by mistake; the only files the <code class="highlighter-rouge">Makefile</code> should be dealing with are the few listed in the paragraph above.</p>
+
+<p>Your <code class="highlighter-rouge">Makefile</code> must produce an executable called <code class="highlighter-rouge">intro</code> (all lowercase).</p>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+After creating a <code class="highlighter-rouge">Makefile</code> that builds <code class="highlighter-rouge">intro</code>, the following two lines can be added to the end of your <code class="highlighter-rouge">Makefile</code> so that you can also build the test cases:</p>
+
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span>: tests.o PNG.o HSLAPixel.o lodepng.o intro.o
+	<span class="k">$(</span>LD<span class="k">)</span> tests.o PNG.o HSLAPixel.o lodepng.o intro.o <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="nt">-o</span> <span class="nb">test
+
+</span>tests.o: tests/tests.cpp tests/catch.hpp cs225/PNG.h cs225/HSLAPixel.h
+	<span class="k">$(</span>CXX<span class="k">)</span> <span class="k">$(</span>CXXFLAGS<span class="k">)</span> tests/tests.cpp
+</code></pre></div>  </div>
+</div>
+
+<h2 id="part-2-rotate-an-image">Part 2: Rotate an Image</h2>
+
+<p>Open <code class="highlighter-rouge">intro.cpp</code> and complete the <code class="highlighter-rouge">rotate</code> function.  This function must:</p>
+
+<ul>
+  <li>Read in <code class="highlighter-rouge">inputFile</code>,</li>
+  <li>Rotate the image 180 degrees,</li>
+  <li>Write the rotated image out as <code class="highlighter-rouge">outputFile</code></li>
+</ul>
+
+<p>Here’s <code class="highlighter-rouge">alma.png</code> rotated 180 degrees:</p>
+
+<div class="row mt-3 mb-3">
+    <div class="col-md-6 text-center">
+        <img class="img-fluid" src="../../assets/assignments/mps/1/alma.png" />
+        <tt>in.png</tt>
+    </div>
+    <div class="col-md-6 text-center">
+        <img class="img-fluid" src="../../assets/assignments/mps/1/alma-rotated.png" />
+        <tt>out.png</tt>
+    </div>
+</div>
+
+<p>In order to complete this, you will need to make use of CS 225’s PNG class, which you learned about in lab_intro.</p>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Hint:</strong> Take a piece of paper and draw a 5x5 grid on it.  Mark the box at (0, 1).  Rotate that paper 180 degrees and note where the marked box is now located.  Repeat for other squares if necessary.</p>
+
+  <p>Can you find the pattern/formula for how the pixel moves?</p>
+</div>
+
+<h3 id="testing-part-2">Testing Part 2</h3>
+
+<p>The <code class="highlighter-rouge">Makefile</code> you created in Part 1 must produce an <code class="highlighter-rouge">intro</code> executable (all lower case <code class="highlighter-rouge">intro</code>).  The following command must make <code class="highlighter-rouge">intro</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make
+</code></pre></div></div>
+
+<p>A <code class="highlighter-rouge">main</code> has been provided for you that will call your <code class="highlighter-rouge">rotate</code> to read in <code class="highlighter-rouge">in.png</code> and output <code class="highlighter-rouge">out.png</code>.  With that, you may use the given files <code class="highlighter-rouge">in_01.png</code>, <code class="highlighter-rouge">out_01.png</code>, <code class="highlighter-rouge">in_02.png</code>, <code class="highlighter-rouge">out_02.png</code>, <code class="highlighter-rouge">in_03.png</code>, and <code class="highlighter-rouge">out_03.png</code> to test your program. First, copy <code class="highlighter-rouge">in_01.png</code> to <code class="highlighter-rouge">in.png</code> by typing</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cp </span>in_01.png <span class="k">in</span>.png
+</code></pre></div></div>
+
+<p>Then run your program:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./intro
+</code></pre></div></div>
+
+<p>Finally, compare the output by opening each file and looking at them or using <code class="highlighter-rouge">diff</code> to compare your output to the expected output:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>diff out.png out_01.png
+</code></pre></div></div>
+
+<p>If <code class="highlighter-rouge">diff</code> exits without any output, then the files are the same! :)</p>
+
+<h2 id="part-3-getting-creative">Part 3: Getting Creative</h2>
+
+<p>Daniel O’Brien, fellow Illini and CS 225 alumni, created a <a href="http://colormush.tumblr.com/">website</a> that now attracts over 40,000 followers that displays randomly generated fusions of color that are both mesmerizing and beautiful.  Here are just a few:</p>
+
+<div class="row">
+    <div class="col-4 col-sm-4 col-md-2 col-lg-2 mb-3"><img class="img-fluid" src="../../assets/assignments/mps/1/colormush1.gif" /></div>
+    <div class="col-4 col-sm-4 col-md-2 col-lg-2 mb-3"><img class="img-fluid" src="../../assets/assignments/mps/1/colormush2.gif" /></div>
+    <div class="col-4 col-sm-4 col-md-2 col-lg-2 mb-3"><img class="img-fluid" src="../../assets/assignments/mps/1/colormush3.gif" /></div>
+    <div class="col-4 col-sm-4 col-md-2 col-lg-2 mb-3"><img class="img-fluid" src="../../assets/assignments/mps/1/colormush4.gif" /></div>
+    <div class="col-4 col-sm-4 col-md-2 col-lg-2 mb-3"><img class="img-fluid" src="../../assets/assignments/mps/1/colormush5.gif" /></div>
+    <div class="col-4 col-sm-4 col-md-2 col-lg-2 mb-3"><img class="img-fluid" src="../../assets/assignments/mps/1/colormush6.gif" /></div>
+</div>
+
+<h3 id="generate-your-own-colored-background">Generate Your Own Colored Background</h3>
+
+<p>Open up <code class="highlighter-rouge">intro.cpp</code> and complete the <code class="highlighter-rouge">myArt</code> function.  The <code class="highlighter-rouge">myArt</code> function must:</p>
+
+<ul>
+  <li>Return a <code class="highlighter-rouge">width</code> x <code class="highlighter-rouge">height</code> PNG image that contains original art you have created.
+    <ul>
+      <li>The <code class="highlighter-rouge">width</code> and <code class="highlighter-rouge">height</code> of your image will always be the same – every image generated must be a square.</li>
+      <li>By default, the <code class="highlighter-rouge">width</code> and <code class="highlighter-rouge">height</code> are both <code class="highlighter-rouge">800</code>.  Your TA will see your art rendered at 800 x 800.</li>
+      <li>You should focus on making sure your art looks the way you like at 800 x 800.  However, your art must scale to any size (eg: be generic).</li>
+    </ul>
+  </li>
+  <li>Your art must be unique and something you find beautiful or meaningful.  There are very few requirements:
+    <ul>
+      <li>Your art must contain at least three unique colors.</li>
+      <li>Your art must not contain any external resources (eg: no loading an image from disk/web)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>That’s it – everything else is up to you!  You are highly encouraged to use gradients, fractals, or other designs in your art.  More than anything else, have fun!  As an extra bit, course staff will award <strong>+1 point</strong> to designs that are particularly unique, creative, beautiful, or stand out from other designs.  Feel free to share it both on Piazza and across social media with <strong>#cs225</strong>!</p>
+
+<p>Finally, you will make use of and see your artwork later in the semester.  Make it something you’ll be happy to see. :)</p>
+
+<h3 id="testing-part-3">Testing Part 3</h3>
+
+<p>The <code class="highlighter-rouge">main.cpp</code> provided for you will produce your artwork instead of an image if you run <code class="highlighter-rouge">./intro</code> with a command line parameter.  If you provide a number after <code class="highlighter-rouge">./intro</code>, it will save your artwork as <code class="highlighter-rouge">art.png</code>.  For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./intro 800
+</code></pre></div></div>
+
+<h3 id="sharing-your-art">Sharing Your Art</h3>
+
+<div class="mb-3" style="border-radius: 20px; border: solid 1px hsla(273, 100%, 13%, 1); background-color: hsla(273, 100%, 29%, 1); color: hsla(273, 100%, 90%, 1); padding: 10px 10px 0px 10px;">
+  <i class="fas fa-share fa-lg" style="font-size: 30px; float: left; margin-left: 10px; margin-right: 10px; margin-bottom: 5px;"></i>
+  <b class="text-light">You just made something awesome that never existed before -- you should share your art (but do not have to)!</b>
+  <p class="text-light">
+    <i>If you share your art on Facebook, Twitter, or Instagram with <b class="text-light">#cs225</b>, I will <i class="far fa-thumbs-up"></i> or <i class="fas fa-heart"></i> the post as soon as I see it.  I think many of your peers will too!</i> &nbsp; &mdash; Wade
+  </p>
+</div>
+
+<h2 id="autograder-testing">Autograder Testing</h2>
+
+<p>We have provided a few automated tests that will test your Part 2 code only.  You can run a subset of the test cases that will be used in the autograder with the following commands:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nb">test</span>
+./test
+</code></pre></div></div>
+
+<h2 id="grading-and-submission">Grading and Submission</h2>
+
+<p>You must submit your work to git for grading.  We will use the following files for grading:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Makefile</code></li>
+  <li><code class="highlighter-rouge">cs225/HSLAPixel.cpp</code></li>
+  <li><code class="highlighter-rouge">cs225/HSLAPixel.h</code></li>
+  <li><code class="highlighter-rouge">intro.cpp</code></li>
+</ul>
+
+<p>All other flies will be ignored in grading.</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/mps/intro/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:15:08 GMT -->
+</html>

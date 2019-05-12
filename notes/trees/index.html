@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/notes/trees/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:18:55 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | Trees</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<article class="container py-4">
+    <a href="../index.html">Back to Notes</a>
+    <header class="mb-4">
+        <h1 class="text-dark">Trees</h1>
+        <span class="text-secondary">by Eddie Huang</span>
+    </header>
+    <h2 id="some-notation">Some Notation</h2>
+<div class="row">
+    <div class="col-sm-3">
+        <figure class="figure">
+            <img src="../../assets/notes/trees/parent_child.png" width="100%" />
+            <figcaption class="figure-caption">Nodes in a tree can have a <code>parent</code> and/or <code>children</code></figcaption>
+        </figure>
+    </div>
+    <div class="col-sm">
+        <figure class="figure">
+            <img src="../../assets/notes/trees/notations.png" width="100%" />
+            <figcaption class="figure-caption">
+                The top node is called the <code>root</code>.
+                Nodes with no children are <code>leaves</code>. All other nodes are <code>internal</code>. The <code>height</code> of a tree is one less than the number of levels. For example, an empty tree has height <code>-1</code> and a tree with just the root has height <code>0</code>
+            </figcaption>
+        </figure>
+    </div>
+    <div class="col-sm">        
+        <figure class="figure">
+            <img src="../../assets/notes/trees/4_ary_tree.png" width="100%" />
+            <figcaption class="figure-caption">This is a 4-ary tree. An <code>n</code>-ary has a maximum of <code>n</code> children among all of its nodes.
+            In this course, we mainly study 2-ary (binary) trees, which are trees with at most 2 children per node</figcaption>
+        </figure>
+    </div>
+</div>
+
+<h2 id="traversals">Traversals</h2>
+<p>Since nodes in a tree can have multiple children, there are multiple ways of traversing trees. Here we discuss three main traversals:</p>
+<ul>
+  <li><code class="highlighter-rouge">Preorder</code>: Visit the <strong>current node</strong>, then recursively preorder traverse on the <strong>left subtree</strong> and <strong>right subtree</strong></li>
+  <li><code class="highlighter-rouge">Inorder</code>: Recursively inorder traverse on the <strong>left subtree</strong>, then visit the <strong>current node</strong>, and then recursively inorder traverse on the <strong>right subtree</strong></li>
+  <li><code class="highlighter-rouge">Postorder</code>: Recursively postorder traverse on the <strong>left subtree</strong> and <strong>right subtree</strong>, and then visit the <strong>current node</strong></li>
+</ul>
+
+<div class="row">
+    <div class="col-sm"></div>
+    <div class="col-sm-7">
+        <figure class="figure">
+            <img src="../../assets/notes/trees/traversals.png" class="img-fluid" />
+            <figcaption class="figure-caption"><code>Preorder</code>, <code>Inorder</code>, and <code>Postorder</code> traversals of a tree</figcaption>
+        </figure>
+    </div>
+    <div class="col-sm"></div>
+</div>
+
+<h2 id="types-of-trees">Types of Trees</h2>
+<div class="row">
+<div class="col-sm">
+<b>Perfect</b>
+<figure class="figure">
+    <img src="../../assets/notes/trees/perfect_tree.png" class="img-fluid" />
+    <figcaption class="figure-caption">Every level is completely filled</figcaption>
+</figure>
+</div>
+<div class="col-sm">
+<b>Complete</b>
+<figure class="figure">
+    <img src="../../assets/notes/trees/complete_tree.png" class="img-fluid" />
+    <figcaption class="figure-caption">Every level except for the last is completely filled, and in the last level all the nodes are pushed to the left as much as possible</figcaption>
+</figure>
+</div>
+<div class="col-sm">
+<b>Full</b>
+<figure class="figure">
+    <img src="../../assets/notes/trees/full_tree.png" class="img-fluid" />
+    <figcaption class="figure-caption">Every node either has no children or the maxmimum number of children possible</figcaption>
+</figure>
+</div>
+</div>
+
+</article>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/notes/trees/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:19:02 GMT -->
+</html>

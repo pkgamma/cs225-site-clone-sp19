@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/memory/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:16 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | lab_memory</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_lab.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>lab_memory</h1>
+                <h2 class="h5">Malevolent Memories</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Due: <span>Feb 03, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/lab_memory/index.html" role="button">Doxygen</a>
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/memory/cs225sp19-lab_memory-handout.pdf">Lab handout</a>
+                    
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/memory/cs225sp19-lab_memory-handout-solution.pdf">Handout solution</a>
+                    
+                    
+                    <a class="btn btn-light" href="https://docs.google.com/presentation/d/1kD_BBXze4IyxfUpI9iLkEo4WpmiG5CucIykB-APaMd8/edit?usp=sharing">Lab slides</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<h2 id="assignment-description">Assignment Description</h2>
+
+<p>In this lab, you will learn about the memory checking utility <code class="highlighter-rouge">valgrind</code>.</p>
+
+<p>The first utility you will learn about is Valgrind.
+Valgrind will help you detect memory errors and practice implementing the big
+three. Valgrind is an extremely useful tool for debugging memory problems and
+for fixing segfaults or other crashes. This
+lab is also particularly important because <strong>we will be checking for memory errors and leaks
+on your assignments</strong>. You will lose points for memory leaks and/or memory errors (we will also
+teach you the difference between a memory leak and a memory error). You should
+check your code with Valgrind before handing it in. You should also be aware that
+Valgrind will only detect a leak if your program allocates memory and then fails to
+deallocate it. It cannot find a leak unless the code containing the leak is
+executed when the program runs. Thus, you should be sure to test your code
+thoroughly and check these tests with Valgrind.</p>
+
+<div class="alert alert-danger" role="alert">
+  <p><i class="fas fa-radiation-alt"></i> 
+Valgrind does not work well or at all on later versions of macOS! In particular,
+we have noticed Valgrind always reporting memory leaks.</p>
+
+  <p><strong>We strongly recommend working on this assignment on an EWS system!</strong></p>
+</div>
+
+<h2 id="lab-insight">Lab Insight</h2>
+
+<p>As you can tell from the description, this lab will be heavily focused on memory management and good practices when dealing with memory management issues such as memory leaks. It is even possible to build lightweight tools similar to Valgrind, where these tools can trace the memory used by the program and report information related to memory management issues such as memory leaks. If this lab is interesting for you, CS 241 is a course that covers both how to write memory allocation models as well as how to develop tools similar to Valgrind in functionality.</p>
+
+<h2 id="code-description">Code Description</h2>
+
+<p>For this lab, you will be fixing bugs in course staff’s Student-To-Room
+allocation program. Since many CS classes are very large (CS 225 has nearly 800 students!), exams are usually spread across several rooms. Before each exam, course staff have to allocate different students to different rooms, so that everyone can take the test with enough space.</p>
+
+<p>For example, if there were only two classrooms of equal size, students in the
+first half of the alphabet (last name letters A - N) might go to Siebel 1404,
+while students in the second half of the alphabet (letters M - Z) might go to
+DCL 1320.</p>
+
+<p>However, with more rooms, this problem becomes more difficult. In the sample
+situation provided, there are 9 classrooms for the exam, varying in seating
+capacity from 43 to 70 seats (i.e. 21 to 35 students seated every-other-desk).
+Although we’ll have to break up the alphabet more, we’d still like to assign
+students with the same first letter of their last name to the same room, as
+this makes going to the right room easier.</p>
+
+<p>We’ve provided you the code to solve this problem, however, it has several
+memory bugs in it. You’ll have to use Valgrind, as well as some debugging skills
+from lab_debug, to find the bugs and fix
+them. Note, <strong>there are no bugs in the <code class="highlighter-rouge">fileio</code> namespace</strong>.</p>
+
+<p>A reference for the lab is provided for you in <a href="../../doxygen/lab_memory/annotated.html">Doxygen</a> form.</p>
+
+<h2 id="checking-out-the-code">Checking Out the Code</h2>
+
+<p>After reading this lab specification, the first task is to check out the
+provided code from the class repository.</p>
+
+<p>To check out your files for the third lab, run the following command in your
+<code class="highlighter-rouge">cs225git</code> directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/lab_memory <span class="nt">-m</span> <span class="s2">"Merging initial lab_memory files"</span>
+</code></pre></div></div>
+
+<p>If <code class="highlighter-rouge">git</code> happens to complain about unrelated histories, use this command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/lab_memory <span class="nt">--allow-unrelated-histories</span> <span class="nt">-m</span> <span class="s2">"Merging initial lab_memory files"</span>
+</code></pre></div></div>
+
+<p>This should update your directory to contain a new directory called
+<code class="highlighter-rouge">lab_memory</code>.</p>
+
+<h2 id="background-on-valgrind">Background on Valgrind</h2>
+
+<p>Valgrind is a useful tool to detect memory errors and memory
+leaks.</p>
+
+<p>Valgrind is a free utility for memory debugging, memory leak detection, and
+profiling. It runs only on Linux systems. To prepare your project to be
+examined by Valgrind you need to compile and to link it with the debug options
+<code class="highlighter-rouge">-g</code> and <code class="highlighter-rouge">-O0</code>. Make sure your <code class="highlighter-rouge">Makefile</code> is using these options when
+compiling. In order to test your program with Valgrind you should use the
+following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>valgrind ./yourprogram
+</code></pre></div></div>
+
+<p>To instruct valgrind to also check for memory leaks, run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>valgrind <span class="nt">--leak-check</span><span class="o">=</span>full ./yourprogram
+</code></pre></div></div>
+
+<p>You will see a report about all found mistakes or inconsistencies. Each row of
+the report starts with the process ID (the process ID is a number assigned by
+the operating system to a running program). Each error has a description, a
+stack trace (showing where the error occurred), and other data about the error.
+It is important to eliminate errors in the order that they occur during
+execution, since a single error early could cause others later on.</p>
+
+<p>Here is a list of some of the errors that Valgrind can detect and report. (Note
+that not all of these errors are present in the exercise code.)</p>
+
+<ul>
+  <li><strong>Invalid read/write errors.</strong>
+This error will happen when your code reads or writes to a memory address which
+you did not allocate. Sometimes this error occurs when an array is indexed
+beyond its boundary, which is referred to as an “overrun” error. Unfortunately,
+Valgrind is unable to check for locally-allocated arrays (i.e., those that are
+on the stack.) Overrun checking is only performed for dynamic memory.</li>
+</ul>
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Example</strong></p>
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="o">*</span> <span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+<span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div>  </div>
+</div>
+
+<ul>
+  <li><strong>Use of an uninitialized value.</strong>
+This type of error will occur when your code uses a declared variable before
+any kind of explicit assignment is made to the variable.</li>
+</ul>
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Example</strong></p>
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</code></pre></div>  </div>
+</div>
+
+<ul>
+  <li><strong>Invalid free error.</strong>
+This occurs when your code attempts to delete allocated memory twice, or delete
+memory that was not allocated with <code class="highlighter-rouge">new</code>.</li>
+</ul>
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Example</strong></p>
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+<span class="k">delete</span> <span class="n">x</span><span class="p">;</span>
+<span class="k">delete</span> <span class="n">x</span><span class="p">;</span>
+</code></pre></div>  </div>
+</div>
+
+<ul>
+  <li><strong>Mismatched <code class="highlighter-rouge">free() / delete / delete []</code>.</strong>
+Valgrind keeps track of the method your code uses when allocating memory. If it
+is deallocated with different method, you will be notified about the error.</li>
+</ul>
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Example</strong></p>
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+<span class="k">delete</span> <span class="n">x</span><span class="p">;</span>
+</code></pre></div>  </div>
+</div>
+
+<ul>
+  <li><strong>Memory leak detection.</strong>
+Valgrind can detect three sources of memory leakage.
+    <ul>
+      <li>A <strong>still reachable block</strong> happens when you forget to delete an object,
+  the pointer to the object still exists, and the memory for object is still
+  allocated.</li>
+      <li>A <strong>lost block</strong> is a little tricky. A pointer to some part of the block
+  of memory still exists, but it is not clear whether it is pointing to the
+  block or is independent of it.</li>
+      <li>A <strong>definitely lost block</strong> occurs when the block is not deleted but no
+  pointer to it is found.</li>
+    </ul>
+  </li>
+</ul>
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Example</strong></p>
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span> <span class="c1">// no corresponding delete x</span>
+</code></pre></div>  </div>
+</div>
+
+<p>More information about the Valgrind utility can be found at the following
+links:</p>
+
+<ul>
+  <li><a href="http://www.valgrind.org/docs/manual/quick-start.html">http://www.valgrind.org/docs/manual/quick-start.html</a></li>
+  <li><a href="http://www.valgrind.org/docs/manual/faq.html#faq.reports">http://www.valgrind.org/docs/manual/faq.html#faq.reports</a></li>
+  <li><a href="http://www.valgrind.org/docs/manual/manual.html">http://www.valgrind.org/docs/manual/manual.html</a></li>
+</ul>
+
+<h2 id="fixing-memory-bugs-using-valgrind">Fixing Memory Bugs (using Valgrind)</h2>
+
+<p>Before fixing the bugs, you’ll need to compile the code:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make
+</code></pre></div></div>
+
+<p>This will create an executable file called allocate, which you can
+run with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./allocate
+</code></pre></div></div>
+
+<p>You can then run Valgrind on allocate:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>valgrind ./allocate
+</code></pre></div></div>
+
+<p>This works fine for fixing the memory errors, however, to fix the memory leaks,
+you’ll need to add <code class="highlighter-rouge">--leak-check=full</code> before <code class="highlighter-rouge">./allocate</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>valgrind <span class="nt">--leak-check</span><span class="o">=</span>full ./allocate
+</code></pre></div></div>
+
+<p>Once you have fixed all the Valgrind errors, you can test your program output
+using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./allocate <span class="o">&gt;</span> output.txt
+diff output.txt soln_output.txt
+</code></pre></div></div>
+
+<p>Note that most of the work in this lab consists of fixing Valgrind’s errors and
+memory leaks, rather than the program’s output, which should be correct once
+the memory errors are fixed.</p>
+
+<p>Below is sample code and the corresponding valgrind output to give an idea of the 
+output that vlagrind will give with certain errors.</p>
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Example</strong> 
+Code used:</p>
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">12</span>   <span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="mi">13</span>   <span class="p">{</span>
+<span class="mi">14</span>      <span class="kt">int</span> <span class="o">*</span> <span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+<span class="mi">15</span>	    <span class="kt">int</span> <span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+<span class="mi">16</span>	    <span class="kt">int</span> <span class="o">*</span> <span class="n">y</span><span class="p">;</span>
+<span class="mi">17</span>	    <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">*</span><span class="n">y</span><span class="p">;</span> <span class="c1">// y has not be initialized</span>
+<span class="mi">18</span>	    <span class="k">delete</span> <span class="n">arr</span><span class="p">;</span> <span class="c1">// Wrong delete, should be delete[]</span>
+<span class="mi">19</span>	    <span class="k">delete</span> <span class="n">x</span><span class="p">;</span>
+<span class="mi">20</span>	    <span class="k">delete</span> <span class="n">y</span><span class="p">;</span> <span class="c1">// Should not delete, not on heap</span>
+<span class="mi">21</span>      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="mi">22</span>   <span class="p">}</span>
+</code></pre></div>  </div>
+
+  <p>Valgrind output:</p>
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==22153== Use of uninitialised value of size 8
+==22153==    at 0x4007B9: main (main.cpp:17)
+==22153== 
+==22153== Mismatched free() / delete / delete []
+==22153==    at 0x4C2B1CD: operator delete(void*) (vg_replace_malloc.c:576)
+==22153==    by 0x4007E0: main (main.cpp:18)
+==22153==  Address 0x5a22040 is 0 bytes inside a block of size 40 alloc'd
+==22153==    at 0x4C2A8E8: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==22153==    by 0x40079D: main (main.cpp:14)
+==22153== 
+==22153== Conditional jump or move depends on uninitialised value(s)
+==22153==    at 0x40080F: main (main.cpp:20)
+==22153== 
+==22153== Conditional jump or move depends on uninitialised value(s)
+==22153==    at 0x4C2B180: operator delete(void*) (vg_replace_malloc.c:576)
+==22153==    by 0x400820: main (main.cpp:20)
+==22153== 
+==22153== Invalid free() / delete / delete[] / realloc()
+==22153==    at 0x4C2B1CD: operator delete(void*) (vg_replace_malloc.c:576)
+==22153==    by 0x400820: main (main.cpp:20)
+==22153==  Address 0x400830 is in the Text segment of /home/pacole2/TA/examples/prog
+==22153==    at 0x400830: __libc_csu_init (in /home/pacole2/TA/examples/prog)
+==22153== 
+==22153== 
+==22153== HEAP SUMMARY:
+==22153==     in use at exit: 0 bytes in 0 blocks
+==22153==   total heap usage: 2 allocs, 3 frees, 44 bytes allocated
+==22153== 
+==22153== All heap blocks were freed -- no leaks are possible
+==22153== 
+==22153== For counts of detected and suppressed errors, rerun with: -v
+==22153== Use --track-origins=yes to see where uninitialised values come from
+==22153== ERROR SUMMARY: 5 errors from 5 contexts (suppressed: 0 from 0)
+</code></pre></div>  </div>
+</div>
+<p>The number, 22153, represents the process id (PID) given to the program by the operating
+system. Below is a break down of each error.</p>
+
+<ul>
+  <li>The first error, originating from line 17, is due to the fact that y was never 
+initialized</li>
+  <li>The second error comes from the fact that the wrong delete is being used in line 18. 
+From looking at the declaration of <code class="highlighter-rouge">arr</code> we can see that <code class="highlighter-rouge">delete[]</code> should’ve been 
+used instead.</li>
+  <li>
+    <p>The last error occurs on line 20 when trying to delete something that wasn’t 
+initialized or pointing to the heap.</p>
+  </li>
+  <li><strong>Stack buffer overflow.</strong>
+This error occurs when you go out of bounds within an array created on the
+stack.</li>
+</ul>
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Example</strong></p>
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">arr</span><span class="p">[</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">100</span><span class="p">];</span> <span class="c1">//NOPE</span>
+</code></pre></div>  </div>
+</div>
+
+<ul>
+  <li><strong>Use after return.</strong>
+This error occurs when you return a stack variable at the end of a function and
+try to use it after it’s out of scope.</li>
+</ul>
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Example</strong></p>
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="o">*</span> <span class="n">arr1</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">func</span><span class="p">()</span> <span class="p">{</span>
+   <span class="kt">int</span> <span class="n">arr2</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+   <span class="n">arr1</span> <span class="o">=</span> <span class="n">arr2</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+   <span class="n">func</span><span class="p">();</span>
+   <span class="k">return</span> <span class="n">arr1</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span> <span class="c1">//NOPE</span>
+<span class="p">}</span>
+</code></pre></div>  </div>
+</div>
+
+<ul>
+  <li><strong>Double free or Invalid free.</strong>
+Double free occus when you free an heap object twice. Invalid free’s occur when
+you free a non-heap object.</li>
+</ul>
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Example</strong></p>
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="o">*</span> <span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="k">delete</span> <span class="p">[]</span> <span class="n">arr</span><span class="p">;</span>
+<span class="k">delete</span> <span class="p">[]</span> <span class="n">arr</span><span class="p">;</span> <span class="c1">//NOPE</span>
+</code></pre></div>  </div>
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="k">delete</span> <span class="p">[]</span> <span class="n">arr</span><span class="p">;</span> <span class="c1">//NOPE</span>
+</code></pre></div>  </div>
+</div>
+
+<h2 id="further-testing">Further Testing</h2>
+
+<p>To test the code further, you may use the provided test program to see whether your program runs fine without any memory leaks. We expect that your code produces no memory leaks for both the allocate program and the test program. To compile the test program, please run the following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nb">test</span>
+</code></pre></div></div>
+
+<p>You can test whether the test program successful works without any memory issues by running</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>valgrind ./test
+</code></pre></div></div>
+
+<p>If you notice no errors or memory leak errors outputted from Valgrind, your test program has successfully run as well. If not, it’s time to Valgrind your way through the code once more :)</p>
+
+<p>To get more specific issues about memory leak releated issues with Valgrind, you may get more information by using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>valgrind <span class="nt">--leak-check</span><span class="o">=</span>full ./test
+</code></pre></div></div>
+
+<h2 id="gdb-a-debugger">GDB: A Debugger</h2>
+
+<p>While Valgrind tells you what went wrong in your program after it has been executed, 
+GDB is a debugging tool that allows you to see what is going on ‘inside’ your program WHILE 
+it executes! It can also be used after your program has crashed for debugging purposes as well.
+In particular, Valgrind works well for memory related errors, but GDB can handle crashes
+from those as well as other classes of bugs, such as logic errors.
+To learn how to use GDB for your lab and mps, visit this page:</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/gdb/index.html">
+        <i class="fa fa-book"></i> Guide: Learn GDB
+    </a>
+</div>
+
+<h2 id="grading-information">Grading Information</h2>
+
+<p>The following files are used to grade this assignment:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">allocator.cpp</code></li>
+  <li><code class="highlighter-rouge">allocator.h</code></li>
+  <li><code class="highlighter-rouge">letter.cpp</code></li>
+  <li><code class="highlighter-rouge">letter.h</code></li>
+  <li><code class="highlighter-rouge">room.cpp</code></li>
+  <li><code class="highlighter-rouge">room.h</code></li>
+</ul>
+
+<p>All other files, including <code class="highlighter-rouge">main.cpp</code> and any testing files you have added
+<strong>will not</strong> be used for grading.</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/memory/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:20 GMT -->
+</html>

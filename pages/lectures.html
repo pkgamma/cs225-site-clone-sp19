@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/pages/lectures.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:11:55 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | Lectures</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../static/img/favicon-16x16.png">
+<link rel="manifest" href="../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../static/css/main.css">
+<link rel="stylesheet" href="../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../index.html">
+        <img src="../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item  active">
+                <a class="nav-link" href="lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    .bg-holiday {
+        background-color: #cfcfcf;
+    }
+    .lecture-row .card {
+        height: 100%;
+    }
+    ul.lecture-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    ul.lecture-links li:not(:last-of-type)::after{
+        content: "\2022";
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
+    }
+    .card-body *:last-child {
+        margin-bottom: 0;
+    }
+
+    .lecture-row div[class^="col"]:not(:first-child):not(:last-child):not(:only-child) .card {
+        border-radius: 0;
+    }
+    .lecture-row div[class^="col"]:first-child:not(:only-child) .card {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+        border-right: none;
+    }
+    .lecture-row div[class^="col"]:last-child:not(:only-child) .card {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        border-left: none;
+    }
+
+    @media (max-width: 768px) {
+        .lecture-row div[class^="col"]:first-child:not(:only-child) .card {
+            border-bottom-left-radius: 0.25rem;
+            border-bottom-right-radius: 0.25rem;
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+            border-right: 1px solid rgba(0,0,0,.125);
+            border-top: none;
+        }
+        .lecture-row div[class^="col"]:last-child:not(:only-child) .card {
+            border-top-left-radius: 0.25rem;
+            border-top-right-radius: 0.25rem;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            border-left: 1px solid rgba(0,0,0,.125);
+            border-bottom: none;
+        }
+    }
+</style>
+
+
+<div id="jumbotron" class="mb-4 py-4 text-light text-center position-relative bg-transparent px-0">
+    <div id="particles" style="background-color: #2D882D; position: absolute; top: 0; bottom: 0; width: 100%; z-index: -10;">
+      
+    </div>
+    <div id="title" class="mx-auto">
+        <h1 class="display-4" style="font-weight: 500; text-shadow: 0 0 2rem #2D882D">Lectures</h1>
+    </div>
+    
+<a class="btn btn-light mt-1 mb-2" href="https://echo360.org/">
+    <i class="fas fa-video"></i> Recordings
+</a>
+
+</div>
+
+
+<div class="container py-4">
+    <div class="row">
+      <div class="col-sm-9">
+        <div class="d-flex justify-content-between">
+          <h2>Schedule</h2>
+          
+          
+          
+          
+            <button id='future-button' class="btn btn-sm btn-outline-primary mb-2" type="button" data-toggle="collapse" data-target="#future-courses" aria-expanded="false" aria-controls="future-courses">Show future lectures</button>
+            <script>
+              $('#future-button').click(function(){ //you can give id or class name here for $('button')
+                  $(this).text(function(i,old){
+                      // Could make this more elegant
+                      return old=='Show future lectures' ? 'Hide future lectures' : 'Show future lectures';
+                  });
+              });
+            </script>
+          
+        </div>
+        <div class="mb-3">
+          <strong>Semester Progress</strong>
+          
+          
+          
+          
+          
+          
+          
+          
+          <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 99%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">99%</div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <small>Jan</small>
+            <small>May</small>
+          </div>
+        </div>
+        
+        <div class="collapse" id="future-courses">
+          
+          
+          
+
+          
+          
+          
+          
+
+          
+            
+            
+            
+              
+              </div>
+            
+
+            <h5>Week 16</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 29 Apr</div>
+                          <h5 class="card-title">All Pairs Shortest Path (APSP)</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-42-FloydWarshall-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-42-FloydWarshall-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1A5HuAAsYHxa2YUXD6gyMGdrMH7isrEcFzQVbdzakZVo/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 01 May</div>
+                          <h5 class="card-title">Final Exam Review</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            
+                            
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card bg-holiday">
+                      <div class="card-body">
+                          <div class="text-muted small">Thu, 02 May</div>
+                          <h5 class="card-title">Reading Day and Final Exam</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            
+                            
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+          
+          
+          
+
+          
+            
+            
+            
+
+            <h5>Week 15</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 22 Apr</div>
+                          <h5 class="card-title">Prim's MST Algorithm</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-39-Prims-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-39-Prims-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1rA6aCEeMgw25op4bkgHg0rf67yj3c2iNTK4Lp012pok/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 24 Apr</div>
+                          <h5 class="card-title">Single Source Shortest Path (SSSP)</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-40-Dijkstra-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-40-Dijkstra-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1Dh6uhdn4YyYZ8hTm-r2W01fDJlqV6OuJNK3PAO3BHs0/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Fri, 26 Apr</div>
+                          <h5 class="card-title">Solving Graph Problems</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-41-Dijkstra2-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-41-Dijkstra2-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1WL6RVRptuAPkQArfDKQvWIjT3oQ8nabeSDNx5yohkN8/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+          
+          
+          
+
+          
+            
+            
+            
+
+            <h5>Week 14</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 15 Apr</div>
+                          <h5 class="card-title">Traversals (BFS & DFS)</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-36-BFSDFS-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-36-BFSDFS-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1fkTw4J29jjUCvkFjj3C2PCjyEwqJTOlL1TdEZst4k0U/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 17 Apr</div>
+                          <h5 class="card-title">Minimum Spanning Tree (MST)</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-37-MST-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-37-MST-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1NMXxiGR2XnT0wGk7A22v-9SE2lp-WDcg_ZQ1nbZQzyg/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Fri, 19 Apr</div>
+                          <h5 class="card-title">MST</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-38-MST2-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-38-MST2-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1Ys2cMSbvZdjT5RwnFYNawjB1WgwNyIeg84yFn0S37cA/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+          
+          
+          
+
+          
+            
+            
+            
+
+            <h5>Week 13</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 08 Apr</div>
+                          <h5 class="card-title">Graphs</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-33-GraphImpl-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-33-GraphImpl-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1kxuOsY1M3XYchBJWBYj7bvsfFY_awDcratf7mgvFElY/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 10 Apr</div>
+                          <h5 class="card-title">Graphs</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-34-GraphImpl-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-34-GraphImpl-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1oH2ufQuUctTGJmOtM9CDAzD0ELuiVzx6Sy1WvtoPTpM/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Fri, 12 Apr</div>
+                          <h5 class="card-title">Graphs</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-35-GraphTraversals-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-35-GraphTraversals-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1W_pIUxZCSeQsCWTdCSf_18-ZT8UnYcmXex_JIx4rJBQ/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+          
+          
+          
+
+          
+            
+            
+            
+
+            <h5>Week 12</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 01 Apr</div>
+                          <h5 class="card-title">Heap Analysis & Disjoint Sets</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-30-DisjointSets-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-30-DisjointSets-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1RDAJtmybc9KERCz2rp9SYsUXnfI-EZ5DhF-uAqHslB0/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 03 Apr</div>
+                          <h5 class="card-title">Disjoint Sets Implementation</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-31-DisjointSets2-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-31-DisjointSets2-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1FQ8PsODbCCWF36HOxyzOTmQge_nAqwahCUloxzmHPxQ/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Fri, 05 Apr</div>
+                          <h5 class="card-title">Disjoint Sets Finale and Graphs Intro</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-32-GraphsIntro-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-32-GraphsIntro-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1k-dmlhTROU-l6HWDkB6rNsuDvRDU_POovtNo_6ZBwS8/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+          
+          
+          
+
+          
+            
+            
+            
+
+            <h5>Week 11</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 25 Mar</div>
+                          <h5 class="card-title">Hashing</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-27-Hashing3-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-27-Hashing3-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1TwkWbWEFVxEY8pe7ongAe0gkg4AtQ7rWQElFn8gLmtg/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 27 Mar</div>
+                          <h5 class="card-title">Heaps</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-28-Heaps-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-28-Heaps-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1PKsR5jucFukB__jwzIakv8upM_Et_AI8sKA32TQYoIw/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Fri, 29 Mar</div>
+                          <h5 class="card-title">Heaps II</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-29-HeapOps-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-29-HeapOps-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/19m9FDFonilbl4YJ4bTSUoC2ZhJljZlE2GepezZdokjg/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+          
+          
+          
+
+          
+            
+            
+            
+
+            <h5>Week 10</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card bg-holiday">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 18 Mar</div>
+                          <h5 class="card-title">Spring Break</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            
+                            
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card bg-holiday">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 20 Mar</div>
+                          <h5 class="card-title">Spring Break</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            
+                            
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card bg-holiday">
+                      <div class="card-body">
+                          <div class="text-muted small">Fri, 22 Mar</div>
+                          <h5 class="card-title">Spring Break</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            
+                            
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+          
+          
+          
+
+          
+            
+            
+            
+
+            <h5>Week 9</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 11 Mar</div>
+                          <h5 class="card-title">BTree and BTree Analysis</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-23-BTree-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-23-BTree-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1NYq0MhmEnZ2o4JRHTijQzZD6BzrXE2-I9a8YJ61gNx8/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 13 Mar</div>
+                          <h5 class="card-title">Hashing</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-25-Hashing-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-25-Hashing-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1-PmHMWnnRyrH1pgGNqq5tSCj-_JR4Z1pD15T2cdWLFw/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Fri, 15 Mar</div>
+                          <h5 class="card-title">Hashing</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-26-Hashing2-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-26-Hashing2-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1HLFvjK8l8ORbLIaMcPC2wckEcQs5ENZoZEFMQCZu1FM/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+          
+          
+          
+
+          
+            
+            
+            
+
+            <h5>Week 8</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 04 Mar</div>
+                          <h5 class="card-title">AVL Applications</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-21-AVLApplications-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-21-AVLApplications-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1s2QPSNv0muAhKZP7vYsN5yA1cWYq0byGhbWlu3vDtuk/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 06 Mar</div>
+                          <h5 class="card-title">kd-Tree</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-22-kdTree-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-22-kdTree-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1J48ANxtt_kRZtOVik46WoVBVEqAd9QqWI83kMavg-Gk/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Fri, 08 Mar</div>
+                          <h5 class="card-title">No Class (EOH)</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            
+                            
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+          
+          
+          
+
+          
+            
+            
+            
+
+            <h5>Week 7</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 25 Feb</div>
+                          <h5 class="card-title">BST Analysis</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-18-BSTBalance-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-18-BSTBalance-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-fa18/_lecture/tree/master/16-18-BST">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1fRgSvTedqgsmuzOIITswLRyE1y-7mK19R4ch54cnBa4/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 27 Feb</div>
+                          <h5 class="card-title">AVL</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-19-AVL-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-19-AVL-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-fa18/_lecture/tree/master/19-AVL">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1mWv0-UkmkQvE2Gxpsez470qlynP54oB6dInen3XuA28/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Fri, 01 Mar</div>
+                          <h5 class="card-title">AVL Analysis</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-20-AVLAnalysis-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-20-AVLAnalysis-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-fa18/_lecture/tree/master/19-AVL">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1ngPj6gv5IkgxOJuj0C9D-3Sl4W7GJI1gYqf4T55N06c/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+          
+          
+          
+
+          
+            
+            
+            
+
+            <h5>Week 6</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 18 Feb</div>
+                          <h5 class="card-title">Tree Traversal</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-15-treeTraversal-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-15-treeTraversal-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-fa18/_lecture/tree/master/15-treeTraversal">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1GHBwSXhoor-D-UWqXIv1OEmm3iLmoHGWHmH4wjopUcQ/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 20 Feb</div>
+                          <h5 class="card-title">BST</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-16-BST-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-16-BST-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-fa18/_lecture/tree/master/16-18-BST">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1tSz5UgnaNjb7IZ2Ppnd5YEAOC0U-4ZU6N2u4KyBMoiE/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Fri, 22 Feb</div>
+                          <h5 class="card-title">BST Remove</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-17-BSTRemove-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-17-BSTRemove-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-fa18/_lecture/tree/master/16-18-BST">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1NOTJDObSZc3sv8hN4PStfMOMG0pQKMhr-sEtDEXGwxg/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+          
+          
+          
+
+          
+            
+            
+            
+
+            <h5>Week 5</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 11 Feb</div>
+                          <h5 class="card-title">Iterators</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-12-iterators-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-12-iterators-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-sp19/_lecture/tree/master/12-iterator">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1SRpB2eF7mDgkoJNdnq-U9gt3_5PhgN7Y3kuUo-ALnrk/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 13 Feb</div>
+                          <h5 class="card-title">Trees - Intro</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-13-trees-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-13-trees-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-sp19/_lecture/tree/master/12-iterator">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1-T8U15ZRcMqIKws-cLZunjQttD7XKYzVPQoG9aq32ZQ/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Fri, 15 Feb</div>
+                          <h5 class="card-title">Trees</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-14-treeProof-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-14-treeProof-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1KciwKUFBAFF7W0hvZBwlLV5VyEmoG-B7ZeHkGi75yDM/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+          
+          
+          
+
+          
+            
+            
+            
+
+            <h5>Week 4</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 04 Feb</div>
+                          <h5 class="card-title">List ADT</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-09-linkedMemory-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-09-linkedMemory-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-sp19/_lecture/tree/master/09-linkedMemory">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1mHTc7zu0wXtFGg6mwVEblR9ppWm7IgsY-OE0ZYR2ZvE/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 06 Feb</div>
+                          <h5 class="card-title">List Impl</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-10-listImpl-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-10-listImpl-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-sp19/_lecture/tree/master/10-listImpl">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1weLqtbxUzJHToQjvi-YF58GPFFxUTV-B2bBw9vWlg-M/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Fri, 08 Feb</div>
+                          <h5 class="card-title">Stack and Queues</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-11-stackQueue-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-11-stackQueue-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-sp19/_lecture/tree/master/11-stackQueue">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1ZzLniRHnA2_OSwvxs7EDTXesDUN2vNFDPPrSYuzppH8/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+          
+          
+          
+
+          
+            
+            
+            
+
+            <h5>Week 3</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 28 Jan</div>
+                          <h5 class="card-title">Class Lifecycle</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-06-lifecycle-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-06-lifecycle-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-sp19/_lecture/tree/master/06-lifecycle">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1Lo4fd0Lj4d3EHWk6KmhU82yXQqv9XMYb6S0pcKaYhK8/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 30 Jan</div>
+                          <h5 class="card-title">Inheritance</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-07-inheritance-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-07-inheritance-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-sp19/_lecture/tree/master/07-inheritance">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1a2m0xWCZaz_jQdK5iUA_t1fVTkOYP7e9zo9sM_EX8ow/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Fri, 01 Feb</div>
+                          <h5 class="card-title">Templates</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-08-templates-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-08-templates-handout.pdf">handout</a></li>
+                            
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1liby9HKxThtHlx0tCpbgCb63gD9KLI5BfTI2vAf-JN0/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+          
+          
+          
+
+          
+            
+            
+            
+
+            <h5>Week 2</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card bg-holiday">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 21 Jan</div>
+                          <h5 class="card-title">MLK Day</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            
+                            
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 23 Jan</div>
+                          <h5 class="card-title">Heap Memory</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-04-heap-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-04-heap-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-sp19/_lecture/tree/master/04-heap">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/12-ebOPHM5_CuuScDUO2AiX0kynKEjSCLKPTYTNtRmgg/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Fri, 25 Jan</div>
+                          <h5 class="card-title">Function Parameters</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-05-parameters-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-05-parameters-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-sp19/_lecture/tree/master/05-parameters">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1vEqlVOFRInKDrm8Ao3X0jjYKHqbYCV8XA03TKancQE4/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+          
+          
+          
+
+          
+            
+            
+            
+
+            <h5>Week 1</h5>
+            <div class="row flex-column-reverse flex-md-row lecture-row mb-4 mx-2">
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Mon, 14 Jan</div>
+                          <h5 class="card-title">Introduction</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-01-intro-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-01-intro-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-sp19/_lecture/tree/master/01-intro">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/11FL6QPpuSyEaxcCaRS2VWu1QQLqcceSJviuZyOU7LsY/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Wed, 16 Jan</div>
+                          <h5 class="card-title">Classes</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-02-classes-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-02-classes-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-sp19/_lecture/tree/master/02-classes">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1ExzvE-W7Bwq-c7IVYayUU24uMFCrmbynqf4ASDkvtJo/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+        
+          
+          
+          
+
+          
+              <div class="col-md-4 px-0">
+                  
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="text-muted small">Fri, 18 Jan</div>
+                          <h5 class="card-title">Memory</h5>
+
+                          <ul class="lecture-links mt-2">
+                            
+                            
+                            <li><a href="../assets/lectures/slides/cs225sp19-03-memory-slides.pdf">slides</a></li>
+                            
+                            
+                            <li><a href="../assets/lectures/handouts/cs225sp19-03-memory-handout.pdf">handout</a></li>
+                            
+                            
+                            <li><a href="https://github-dev.cs.illinois.edu/cs225-sp19/_lecture/tree/master/03-memory">code</a></li>
+                            
+                            
+                            <li><a href="https://docs.google.com/document/d/1b_ZkMGhBym1dYOY7qjLnvAuh5l5PLgx3OkdFK03wY5c/edit?usp=sharing">TA lecture notes</a></li>
+                            
+                          </ul>
+                      </div>
+                  </div>
+            </div>
+          
+            
+            
+            </div>
+          
+        
+      </div>
+      <div class="col-sm-3">
+        <h2>Meetings</h2>
+        <h5>Section AL1</h5>
+        <p>Location: <span class="text-secondary">1002 Electrical & Computer Eng Bldg</span></p>
+        <p>Time: <span class="text-secondary">11:00am MWF</span></p>
+
+        <h5>Section AL2</h5>
+        <p>Location: <span class="text-secondary">1002 Electrical & Computer Eng Bldg</span></p>
+        <p>Time: <span class="text-secondary">02:00pm MWF</span></p>
+      </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+$(function() {
+    particlesJS.load('particles', '/cs225/sp2019/static/js/particles.json', function() {});
+})
+</script>
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/pages/lectures.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:13:42 GMT -->
+</html>

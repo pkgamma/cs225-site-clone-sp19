@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/ml/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:17:10 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | lab_ml</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_lab.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>lab_ml</h1>
+                <h2 class="h5">Lazy Machine Learning</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Due: <span>Apr 21, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/lab_ml/annotated.html" role="button">Doxygen</a>
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/ml/cs225sp19-lab_ml-handout.pdf">Lab handout</a>
+                    
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/ml/cs225sp19-lab_ml-handout-solution.pdf">Handout solution</a>
+                    
+                    
+                    <a class="btn btn-light" href="https://docs.google.com/presentation/d/1aZeQ0hezizWBqdJOYzS3ehQntlL5XoXJJYYNXaaydrg/edit?usp=sharing">Lab slides</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<h2 id="assignment-description">Assignment Description</h2>
+
+<p>In this lab you will learn about:</p>
+
+<ul>
+  <li>Using a graph as a state space</li>
+  <li>Reinforcement learning</li>
+  <li>How to teach a computer how to learn to win the game of Nim</li>
+</ul>
+
+<h2 id="checking-out-the-code">Checking Out The Code</h2>
+
+<p>Get the code in the usual way.</p>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/lab_ml <span class="nt">-m</span> <span class="s2">"Merging initial lab_ml files"</span>
+</code></pre></div></div>
+
+<p>If you’re on your own machine, you may need to run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge <span class="nt">--allow-unrelated-histories</span> release/lab_ml <span class="nt">-m</span> <span class="s2">"Merging initial lab_ml files"</span>
+</code></pre></div></div>
+
+<p>In this lab, you will make use of the <a href="../../doxygen/lab_ml/classGraph.html"><code class="highlighter-rouge">Graph</code></a> class.</p>
+
+<ul>
+  <li>Edges are directed.  Adding <code class="highlighter-rouge">insertEdge(u, v)</code> creates directed edge <code class="highlighter-rouge">u -&gt; v</code>.</li>
+</ul>
+
+<p>See the <a href="../../doxygen/lab_ml/files.html">Doxygen</a> for this lab (or check out the file <code class="highlighter-rouge">graph.h</code>).</p>
+
+<h2 id="the-game-of-nim">The Game of Nim</h2>
+
+<p>The Game of Nim is a simple two player game with only a few rules:</p>
+
+<ul>
+  <li>Each game starts with <strong>k</strong> tokens on the table</li>
+  <li>Starting with Player 1, players alternate turns:
+    <ul>
+      <li>Each turn, a player may pick up 1 or 2 tokens</li>
+      <li>The player who picks up the last token (or tokens) wins</li>
+    </ul>
+  </li>
+</ul>
+
+<p>By default, the game usually starts with 10 tokens (<strong>k</strong> == 10).  You should play a few rounds with your lab partner to get an understanding of the game.</p>
+
+<h3 id="part-1-a-state-space-for-nim">Part 1: A State Space for Nim</h3>
+
+<p>A <strong>state space</strong> is a mathematical representation of the state of a physical system.  In our case, the physical system is the game of Nim.</p>
+
+<p>At the start of Nim(10), it is Player 1’s turn with 10 tokens available.  We can label this state <code class="highlighter-rouge">p1-10</code>, for <em>“Player 1 with 10 tokens available”.</em>  When Player 1 takes a token, the state is now <code class="highlighter-rouge">p2-9</code> (or, if Player 1 takes two tokens, <code class="highlighter-rouge">p2-8</code>).</p>
+
+<p>Each state is a vertex on a graph with directed edges connecting vertices when there is a valid move between the two states.  Therefore, the state space with all the valid moves as edges makes the following graph:</p>
+
+<p><img class="img-fluid" src="../../assets/assignments/labs/ml/nim10-full.png" /></p>
+
+<h4 id="programming-nimlearners-constructor">Programming NimLearner’s Constructor</h4>
+
+<p>Complete the <code class="highlighter-rouge">NimLearner</code> constructor, which creates the vertices and edges for the state space of a game of Nim.  In creating this graph, make sure to create a weighted graph where all edge weights are initially set to zero (0).  We will use these edge weights later for reinforcement learning.</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Programming Tips</strong> 
+A few tips that may be useful during programming this part:</p>
+
+  <ul>
+    <li>You will need to modify/construct strings.  There are two popular ways to do this in C++:
+      <ul>
+        <li>Remember that <code class="highlighter-rouge">std::string</code> has an overloaded <code class="highlighter-rouge">operator+</code>.  You can “plus” two strings to concatenate the strings together. If you need to convert an <code class="highlighter-rouge">int</code> to a <code class="highlighter-rouge">std::string</code>, <code class="highlighter-rouge">std::to_string(i)</code> will return a string for an int <code class="highlighter-rouge">i</code>.
+          <ul>
+            <li>Alternatively, a <code class="highlighter-rouge">std::stringstream ss</code> allows you to build a string with the stream interface using the <code class="highlighter-rouge">operator&lt;&lt;</code> (just like <code class="highlighter-rouge">cout</code>).  For example, <code class="highlighter-rouge">ss&lt;&lt;"p"&lt;&lt;player&lt;&lt;"t"&lt;&lt;tokens;</code> and <code class="highlighter-rouge">ss.str()</code> can be used to build a string.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>This graph is a directed acyclic graph.  You can find an order where you create the vertices before you need to create the edges between them.  <em>Which vertex has an out-degree of zero?</em></li>
+  </ul>
+</div>
+
+<p>A few test cases have been provided for you that you can run using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./test <span class="o">[</span><span class="nv">part</span><span class="o">=</span>1]
+</code></pre></div></div>
+
+<h3 id="part-2-creating-a-series-of-choices">Part 2: Creating a Series of Choices</h3>
+
+<p>One of the most classic methods of machine learning is <strong>reinforcement learning</strong>.  In reinforcement learning, an algorithm is rewarded for making a good choice and punished for making a poor choice.  After some training, the algorithm will have a better idea what choices are good and what choices are poor.</p>
+
+<p>To apply reinforcement learning, we need a series of choices.  In this lab, our algorithm will learn Nim through examining random paths through the game.  For example, one random path Nim(10) is the following:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p1-10 ➜ p2-8 ➜ p1-7 ➜ p2-6 ➜ p1-4 ➜ p2-3 ➜ p1-1 ➜ p2-0
+</code></pre></div></div>
+
+<p>Visually:</p>
+
+<p><img class="img-fluid" src="../../assets/assignments/labs/ml/nim10-path.png" /></p>
+
+<h4 id="programming-playrandomgame">Programming <code class="highlighter-rouge">playRandomGame</code></h4>
+
+<p>Compelte <code class="highlighter-rouge">NimLearner::playRandomGame</code>, which returns a random path through the graph of the state space as a <code class="highlighter-rouge">vector&lt;Edge&gt;</code>.</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Programming Tips</strong> 
+A few tips that may be useful during programming this part:</p>
+
+  <ul>
+    <li>The <code class="highlighter-rouge">rand()</code> function returns a random integer between <code class="highlighter-rouge">0</code> and <code class="highlighter-rouge">RAND_MAX</code> (a very large number).  It’s common to use <code class="highlighter-rouge">rand() % size</code> to get a random integer in the range [<code class="highlighter-rouge">0</code>, <code class="highlighter-rouge">size - 1</code>].</li>
+    <li>Every path must start out at <code class="highlighter-rouge">p1-#</code>, where <code class="highlighter-rouge">-#</code> is the number of starting tokens, and must end at <code class="highlighter-rouge">p_-0</code>, where <code class="highlighter-rouge">p_</code> is the losing player.</li>
+  </ul>
+</div>
+
+<p>A few test cases have been provided for you that you can run using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./test <span class="o">[</span><span class="nv">part</span><span class="o">=</span>2]
+</code></pre></div></div>
+
+<h3 id="part-3-teaching-a-machine-to-learn">Part 3: Teaching a Machine to Learn</h3>
+
+<p>Finally, we need to apply reinforcement learning.  Given a path, we want to reward good decisions.  We will define a good decision as <em>all decisions</em> made by the player who won.  Therefore, if Player 1 took the last token (as in our example), all choices made by Player 1 is rewarded.</p>
+
+<p>The reward is captured in our algorithm as the edge weight.  When we consider a path through the graph, we can find the all edges along a path that has Player 1 winning (eg: the last vertex in the path goes to Player 2 with no tokens remaining, or “p2-0”, meaning that Player 1 took the last token), then all choices made by Player 1 (edges where Player 1 is the source vertex) are rewarded by increasing the edge weight by +1 and all choices made by Player 2 are punished by changing the edge weight by -1.</p>
+
+<p>After one update, several edges will have a weight of <code class="highlighter-rouge">1</code>, several edges will have a weight of <code class="highlighter-rouge">-1</code>, though most edges have not been visited and will have their initial weight of <code class="highlighter-rouge">0</code>.  After several thousand updates of random games, edges that result in more victories will have increasingly large edge weights.</p>
+
+<h4 id="programming-updateedgeweights">Programming <code class="highlighter-rouge">updateEdgeWeights</code></h4>
+
+<p>Complete <code class="highlighter-rouge">NimLearner::updateEdgeWeights</code>, which updates the edge weights along a given <code class="highlighter-rouge">path</code> on the graph of the state space.</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Programming Tips</strong> 
+A few tips that may be useful during programming this part:</p>
+
+  <ul>
+    <li>The <code class="highlighter-rouge">Graph</code> class returns a copy of the <code class="highlighter-rouge">Edge</code> structure, not the original one!  Therefore, updating the <code class="highlighter-rouge">Edge::weight</code> property of the edge does not update the edge weight (eg: you can think of it as read-only).</li>
+    <li>Instead, <code class="highlighter-rouge">Graph::setEdgeWeight</code> should be used to update the edge weight of a given edge.</li>
+  </ul>
+</div>
+
+<h2 id="putting-it-together">Putting it Together</h2>
+
+<p>A <code class="highlighter-rouge">main.cpp</code> is provided that plays 10,000 random games of Nim(10) and provides an output of the state space at the end.  You can run this game by:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./lab_ml
+</code></pre></div></div>
+
+<p>Looking at the results, you should be able to answer several questions:</p>
+
+<ul>
+  <li>When there’s exactly two tokens left, what should Player 1 do?  What are the edge weights of the out edges of <code class="highlighter-rouge">p1-2</code> and <code class="highlighter-rouge">p2-2</code>?</li>
+  <li>When there are four tokens left, what can Player 2 do?  What are the edge weights out of <code class="highlighter-rouge">p1-4</code> and <code class="highlighter-rouge">p2-4</code>?</li>
+  <li>Is <code class="highlighter-rouge">p1-10</code> or <code class="highlighter-rouge">p2-9</code> a better spot to be in?</li>
+  <li>Would you prefer to go first or second in Nim(10)?</li>
+</ul>
+
+<h2 id="grading-information">Grading Information</h2>
+
+<p>The following files are used for grading this lab:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">NimLearner.h</code></li>
+  <li><code class="highlighter-rouge">NimLearner.cpp</code></li>
+</ul>
+
+<p>If you modify any other files, they will not be grabbed for grading and you may
+end up with a “stupid zero.”</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+<h2 id="good-luck">Good luck!</h2>
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/ml/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:17:17 GMT -->
+</html>

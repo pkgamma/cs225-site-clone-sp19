@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/mps/mazes/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:15:57 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | mp_mazes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_mp.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>mp_mazes</h1>
+                <h2 class="h5">Maddening Mazes</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Extra credit: <span>Apr 08, 23:59 PM</span></small>
+                
+                <small>Due: <span>Apr 15, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/mp_mazes/annotated.html" role="button">Doxygen</a>
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Partner MP</strong> 
+mp_mazes is a <strong>partner MP</strong>!</p>
+
+  <ul>
+    <li>Part 1 and Part 2 of this MP can be completed with a partner!</li>
+    <li>The creative “Part 3” must be completed by yourself and must be unique (and different from your partner’s work).</li>
+  </ul>
+
+  <p>You should denote who you work with in the PARTNERS.txt file in mp_mazes.  If you worked alone, include only your NetID in PARTNERS.txt.</p>
+</div>
+
+<h2 id="goals-and-overview">Goals and Overview</h2>
+
+<p>In this MP you will:</p>
+
+<ul>
+  <li>Implement the <a href="https://en.wikipedia.org/wiki/Disjoint-set_data_structure">disjoint sets data
+structure</a>.</li>
+  <li>Create a program to generate random mazes.</li>
+  <li>Applying a DFS traversal to a maze structure</li>
+  <li>Represent a maze and its solution on a <code class="highlighter-rouge">PNG</code>.</li>
+</ul>
+
+<h2 id="checking-out-the-code">Checking Out the Code</h2>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/mp_mazes <span class="nt">-m</span> <span class="s2">"Merging initial mp_mazes files"</span>
+</code></pre></div></div>
+
+<p>If you’re on your own machine, you may need to run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge <span class="nt">--allow-unrelated-histories</span> release/mp_mazes <span class="nt">-m</span> <span class="s2">"Merging initial mp_mazes files"</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">mp_mazes</code> directory will contain sample output including all 4 possible 2x2
+mazes and one 50x50 maze. We encourage you to test your code by writing your
+own <code class="highlighter-rouge">main.cpp</code> that uses your classes in different ways.</p>
+
+<h2 id="assignment-requirements">Assignment Requirements</h2>
+
+<p>These are strict requirements that apply to <strong>both</strong> parts of the MP. Failure
+to follow these requirements may result in a failing grade on the MP.</p>
+
+<ul>
+  <li>You are required to comment the MP as per the commenting standard described
+by the <a href="#">Coding Style Policy</a>.</li>
+  <li>You must name all files, public functions, public member variables (if any
+exist), and executables <strong>exactly</strong> as we specify in this document.</li>
+  <li>Your code must produce the <strong>exact</strong> output that we specify: nothing more,
+nothing less. Output includes standard and error output and files such as
+Images.</li>
+  <li>Your code must compile on the EWS machines using <code class="highlighter-rouge">clang++</code>. Being able to
+compile on a different machine is <strong>not</strong> sufficient.</li>
+  <li>Your code must be submitted correctly by the <strong>due date and time</strong>. Late work
+is not accepted.</li>
+  <li>Your code must not have any memory errors or leaks for full credit. ASAN
+tests will be performed separately from the functionality tests.</li>
+  <li>Your public function signatures must match ours <strong>exactly</strong> for full credit.
+If using different signatures prevents compilation, you will receive a zero.
+Tests for <code class="highlighter-rouge">const</code>-correctness may be performed separately from the other
+tests (if applicable).</li>
+</ul>
+
+<h2 id="assignment-description">Assignment Description</h2>
+
+<p>You will be implementing a <code class="highlighter-rouge">Disjoint</code> set data structure and then implementing
+a random maze generator and solver. The assignment is broken up into the two
+following parts:</p>
+
+<ul>
+  <li><a href="#dsets">Part 1</a> — The <code class="highlighter-rouge">DisjointSets</code> data structure and the beginning of a story for use later in the semester.</li>
+  <li><a href="#maze">Part 2</a> — The <code class="highlighter-rouge">SquareMaze</code> random maze generator and solver.</li>
+</ul>
+
+<p>As usual, we recommend implementing, compiling, and testing the functions in Part 1
+before starting Part 2. Submission information is provided for each part in
+the respective sections below.</p>
+
+<h2 id="dsets">Part 1a: The <code class="highlighter-rouge">DisjointSets</code> data structure</h2>
+
+<p>The <code class="highlighter-rouge">DisjointSets</code> class should be declared and defined in <code class="highlighter-rouge">dsets.h</code> and
+<code class="highlighter-rouge">dsets.cpp</code>, respectively. Each <code class="highlighter-rouge">DisjointSets</code> object will represent a family
+of disjoint sets, where each element has an integer index. It should be
+implemented with the optimizations discussed in lecture, as up-trees stored in
+a single <code class="highlighter-rouge">vector</code> of <code class="highlighter-rouge">int</code>s. Specifically, use path compression and
+union-by-size.  Each element of the vector represents a node. (Note that this
+means that the elements in our universe are indexed starting at 0.) A
+nonnegative number is the index of the parent of the current node; a negative
+number in a root node is the negative of the set size.</p>
+
+<p>Note that the default compiler-supplied Big Three will work flawlessly because
+the only member data is a <code class="highlighter-rouge">vector&lt;int&gt;</code> and this vector should initially be
+empty.</p>
+
+<h3 id="the-addelements-function">The <code class="highlighter-rouge">addelements</code> function</h3>
+
+<p>See the <a href="../../doxygen/mp_mazes/classDisjointSets.html#a7fa3c54c335afc82a682b53e3754d354">Doxygen</a> for this function.</p>
+
+<h3 id="the-find-function">The <code class="highlighter-rouge">find</code> function</h3>
+
+<p>See the <a href="../../doxygen/mp_mazes/classDisjointSets.html#a3cfcd9a2f2f55c72234f48b3bf83e844">Doxygen</a> for this function.</p>
+
+<h3 id="the-setunion-function">The <code class="highlighter-rouge">setunion</code> function</h3>
+
+<p>See the <a href="../../doxygen/mp_mazes/classDisjointSets.html#aa0a225ec807498bb04c065f957f47533">Doxygen</a> for this function.</p>
+
+<h3 id="the-size-function">The <code class="highlighter-rouge">size</code> function</h3>
+
+<p>See the <a href="../../doxygen/mp_mazes/classDisjointSets.html#a333b3ed63f48c929e5f61b9ef45979a5">Doxygen</a> for this function.</p>
+
+<h3 id="testing-part-1a">Testing Part 1a</h3>
+
+<p>The following command can be used to compile the <code class="highlighter-rouge">DisjointSets</code> test
+executable:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make testdsets
+</code></pre></div></div>
+
+<p>The following command can be used to run the test executable:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./testdsets
+</code></pre></div></div>
+
+<p>Provided Catch test cases are available as well by running:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nb">test</span>
+./test
+</code></pre></div></div>
+
+<h2 id="part-1b-create-a-choose-your-own-adventure">Part 1b: Create a Choose Your Own Adventure</h2>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong>Solo Portion</strong> 
+This creative part of the MP must be completed individually and must be significantly different from your partner’s creative work.</p>
+</div>
+
+<p>An interactive story presents a reader with a narrative and allows her a choice of options to advance the story. For example, the story may read:</p>
+
+<p><em>Zoey walks into a long hallway, where she sees three doors. The first, a large old oak door, is slightly ajar; the second, a narrow passageway that looks as though it leads into another hallway; and the third, a sterile metal door that is propped open with a large stone. Uncertain which way to travel, she takes a second to consider each choice.</em></p>
+
+<p>From the above narrative, the reader chooses where Zoey advances next through an interactive choice:</p>
+
+<ul>
+  <li><em>After a moment, Zoey chooses to travel through the oak door.</em></li>
+  <li><em>With a bit of fear, Zoey chooses to travel through the narrow passageway.</em></li>
+  <li><em>Walking to the end of the hallway, Zoey chooses to travel through sterile metal door.</em></li>
+</ul>
+
+<p>At the core, every interactive story makes a graph.  Each <strong>vertex</strong> is a narrative and each <strong>edge</strong> is a choice that leads from one narrative to another. In this activity, you will write your own interactive story and construct a graph of your story.</p>
+
+<p><em>You do not need to do anything with the graph or build any graph algorithms!</em>  You will be learning about graphs in CS 225 and this story will be part of a course-wide story-telling project.</p>
+
+<h3 id="story-format-specification">Story Format Specification</h3>
+
+<p>Your story must consist of several Markdown (<code class="highlighter-rouge">.md</code>) files that has one narrative and any options to move forward in the story.  For example, <code class="highlighter-rouge">waf-zoey.md</code> is already in your <code class="highlighter-rouge">story_data</code> folder:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Zoey walks into a long hallway, where she sees three doors. The first, a large old oak door, is slightly ajar; the second, a narrow passageway that looks as though it leads into another hallway; and the third, a sterile metal door that is propped open with a large stone. Uncertain which way to travel, she takes a second to consider each choice.
+
+# waf-zoey-oak
+After a moment, Zoey chooses to travel through the oak door.
+
+# waf-zoey-narrow
+With a bit of fear, Zoey chooses to travel through the narrow passageway.
+
+# waf-zoey-metal
+Walking to the end of the hallway, Zoey chooses to travel through sterile metal door.
+</code></pre></div></div>
+
+<p>Note the following bits:</p>
+
+<ul>
+  <li>The first section of the file is the narrative.</li>
+  <li>Each interactive choice is defined by a line starting with <code class="highlighter-rouge">#</code>, followed by the key (filename, without <code class="highlighter-rouge">.md</code>) for the next vertex.</li>
+  <li>The text for each interactive choice follows the <code class="highlighter-rouge">#</code> header line.</li>
+</ul>
+
+<h3 id="story-requirement">Story Requirement</h3>
+
+<p>To complete Part 1b, your story must feature <strong>at least one</strong> of these following 12 people:</p>
+
+<ul>
+  <li><strong>Bill Gates</strong>, founder of Microsoft, author, and philanthropist - <a href="https://en.wikipedia.org/wiki/Bill_Gates">Wikipedia: Bill Gates</a></li>
+  <li><strong>Taylor Swift</strong>, Taylor Swift (and actually really actually made the list!!) - <a href="https://en.wikipedia.org/wiki/Taylor_Swift">Wikipedia: Taylor Swift</a></li>
+  <li><strong>Lebron James</strong>, basketball superstar - <a href="https://en.wikipedia.org/wiki/LeBron_James">Wikipedia: Lebron James</a></li>
+  <li><strong>Beyoncé</strong>, singer, songwriter, and actress - <a href="https://en.wikipedia.org/wiki/Beyoncé">Wikipedia: Beyoncé</a></li>
+  <li><strong>Albert Einstein</strong>, theoretical physicist, theory of relativity - <a href="https://en.wikipedia.org/wiki/Albert_Einstein">Wikipedia: Albert Einstein</a></li>
+  <li><strong>Sheryl Sandberg</strong>, chief operating officer (COO) of Facebook, author - <a href="https://en.wikipedia.org/wiki/Sheryl_Sandberg">Wikipedia: Sheryl Sandberg</a></li>
+  <li><strong>Karlie Kloss</strong>, “Kode with Klossy”, model, and entrepreneur - <a href="https://en.wikipedia.org/wiki/Karlie_Kloss">Wikipedia: Karlie Kloss</a></li>
+  <li><strong>Elon Musk</strong>, Tesla, SpaceX, and more - <a href="https://en.wikipedia.org/wiki/Elon_Musk">Wikipedia: Elon Musk</a></li>
+  <li><strong>Grace Hopper</strong>, pioneer in programming, invented early compiler related tools - <a href="https://en.wikipedia.org/wiki/Grace_Hopper">Grace Hopper</a></li>
+  <li><strong>Steve Jobs</strong>, former CEO of Apple Inc. - <a href="https://en.wikipedia.org/wiki/Steve_Jobs">Wikipedia: Steve Jobs</a></li>
+  <li><strong>Emma Watson</strong>, actress, activist - <a href="https://en.wikipedia.org/wiki/Emma_Watson">Wikipedia: Emma Watson</a></li>
+  <li><strong>Lil Yachty</strong>,  rapper, singer, songwriter and performer at the <a href="https://www.facebook.com/events/378659286073251/">UIUC Spring Jam</a> - <a href="https://en.wikipedia.org/wiki/Lil_Yachty">Wikipedia: Lil Yachty</a></li>
+</ul>
+
+<p>You do not need to <strong>only</strong> feature these people (<em>you can feature others!</em>) but your story must feature <strong>at least one</strong> of these people.  This will help you find others who have similar stories to join with in the next MP.</p>
+
+<p>In addition to the featured person(s), the following conditions must be met:</p>
+
+<ul>
+  <li>You must delete <code class="highlighter-rouge">waf-*.md</code> files – write your own story! :)</li>
+  <li>Your interactive story must have at least 8 narratives (8 files, 8 vertices). You are encouraged to have more!</li>
+  <li>Your interactive story must have at least 13 choices (13 edges). You are encouraged to have more!</li>
+  <li>At least one narrative must have at least 3 choices (one vertex must have at least 3 outbound edges).</li>
+  <li>No narrative can have more than 10 choices (no vertex may have more than 10 outbound edges).</li>
+  <li>Exactly one narrative must be the beginning of the story (one vertex must have <strong>no incoming edges</strong>, you can never return all the way to the start).</li>
+  <li>At least one narrative must be the ending of the story (an ending vertex will have no outbound edges). You can have multiple endings.</li>
+  <li>Your story must tell a story. It cannot simply be letters/words that lead to other letters/words. Be creative, have fun.</li>
+  <li><strong>Your story must be something you would be proud to show your parents and have your name attached to it.  If your story is beyond “G/PG rated”, you will get a 0 on the full assignment.</strong></li>
+</ul>
+
+<h3 id="testing---part-1b">Testing - Part 1b</h3>
+
+<p>For grading purposes, your story files must be committed in the folder
+<code class="highlighter-rouge">story_data</code>. Because these are new files, you will need to manually git add
+them (<code class="highlighter-rouge">git add -u</code> will not work). You can add all changes to your story files
+by using:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add story_data
+</code></pre></div></div>
+
+<p>This needs to be run any time you add a new story file. Otherwise, you can simply run <code class="highlighter-rouge">git add -u</code> as normal.</p>
+
+<p>We have provided a Python script <code class="highlighter-rouge">story_validator.py</code> for helping you to verify that your story
+matches the requirements above. It requires Python3.6 or above. On EWS, you
+will need to run the following command to load a new enough version of Python:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module load python3/3.7.0
+</code></pre></div></div>
+
+<p>To run the script, simply pass it the path to your story folder. For example, if you are running the script in your <code class="highlighter-rouge">mp_mazes</code> folder, you would run:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 story_validator.py story_data
+</code></pre></div></div>
+
+<h3 id="grading-information--part-1">Grading Information — Part 1</h3>
+
+<p>The following files are used to grade mp_mazes:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">dsets.cpp</code></li>
+  <li><code class="highlighter-rouge">dsets.h</code></li>
+  <li>All <code class="highlighter-rouge">.md</code> files in <code class="highlighter-rouge">story_data/</code></li>
+</ul>
+
+<p>All other files including your testing files will not be used for grading.</p>
+
+<h2 id="part-2-the-squaremaze-random-maze-generator-and-solver">Part 2: The <code class="highlighter-rouge">SquareMaze</code> random maze generator and solver</h2>
+
+<p>The <code class="highlighter-rouge">SquareMaze</code> class should be declared and defined in <code class="highlighter-rouge">maze.h</code> and
+<code class="highlighter-rouge">maze.cpp</code>, respectively. Each <code class="highlighter-rouge">SquareMaze</code> object will represent a
+randomly-generated square maze and its solution. <strong>Note that by “square maze”
+we mean a maze in which each cell is a square; the maze itself need not be a
+square.</strong> As always, we recommend reading the whole specification before
+starting.</p>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong><code class="highlighter-rouge">setWall</code> and <code class="highlighter-rouge">canTravel</code></strong> 
+You should triple check that <code class="highlighter-rouge">setWall</code> and <code class="highlighter-rouge">canTravel</code> function exactly
+according to spec, as an error in these functions will not be caught by making
+your own mazes but can cost you a majority of the points during grading.</p>
+</div>
+
+<h3 id="videos">Videos</h3>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=I7pT3RRmmuE">Cycle Prevention / Detection</a></li>
+</ul>
+
+<h3 id="the-makemaze-function">The <code class="highlighter-rouge">makeMaze</code> function</h3>
+
+<p>See the <a href="../../doxygen/mp_mazes/classSquareMaze.html#aa1e20e39bfdd1a7ee48c31514c302868">Doxygen</a>.</p>
+
+<h3 id="the-cantravel-function">The <code class="highlighter-rouge">canTravel</code> function</h3>
+
+<p>See the <a href="../../doxygen/mp_mazes/classSquareMaze.html#ab6f49894c5179084cefacf65048f71f0">Doxygen</a>.</p>
+
+<h3 id="the-setwall-function">The <code class="highlighter-rouge">setWall</code> function</h3>
+
+<p>See the <a href="../../doxygen/mp_mazes/classSquareMaze.html#aeffe51396a1005370974d25695ad7c76">Doxygen</a>.</p>
+
+<h3 id="the-solvemaze-function">The <code class="highlighter-rouge">solveMaze</code> function</h3>
+
+<p>See the <a href="../../doxygen/mp_mazes/classSquareMaze.html#afeb25ddeaab0ed6204b1877f25c3ccb7">Doxygen</a>.</p>
+
+<h3 id="the-drawmaze-function">The <code class="highlighter-rouge">drawMaze</code> function</h3>
+
+<p>See the <a href="../../doxygen/mp_mazes/classSquareMaze.html#a1872a48b0d27b351d79e270c9f0e47cb">Doxygen</a>.</p>
+
+<h3 id="the-drawmazewithsolution-function">The <code class="highlighter-rouge">drawMazeWithSolution</code> function</h3>
+
+<p>See the <a href="../../doxygen/mp_mazes/classSquareMaze.html#a830ab948aa12c3ff4bcabc40db8f8ca0">Doxygen</a>.</p>
+
+<h3 id="testing-part-2">Testing Part 2</h3>
+
+<h4 id="square-maze-testing">Square Maze Testing</h4>
+
+<p>Since your mazes will be randomly generated, we cannot provide you with any
+sample images to diff against. However, we have provided you with all four
+possible 2x2 mazes. If you have your program create and solve a 2x2 maze, the
+resulting image (with solution) should match one (and only one) of the provided
+images <code class="highlighter-rouge">m0.png</code>, <code class="highlighter-rouge">m1.png</code>, <code class="highlighter-rouge">m2.png</code>, and <code class="highlighter-rouge">m3.png</code>. We strongly suggest that you
+diff against these to make sure that you have formatted the output image
+correctly.</p>
+
+<p>We provide some basic code to test the functionality of <code class="highlighter-rouge">SquareMaze</code>.</p>
+
+<p>The following command can be used to compile the <code class="highlighter-rouge">SquareMaze</code> test executable:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make testsquaremaze
+</code></pre></div></div>
+
+<p>The following command can be used to run the test executable:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./testsquaremaze
+</code></pre></div></div>
+
+<p>You can compare the console output of your program with the expected by
+comparing it with the file <code class="highlighter-rouge">soln_testsquaremaze.out</code>.</p>
+
+<h2 id="part-3-a-final-creative-component">Part 3: A Final Creative Component</h2>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong>Solo Portion</strong> 
+This creative part of the MP must be completed individually and must be significantly different from your partner’s creative work.</p>
+</div>
+
+<p>Similar to Part 2 of this MP, we are leaving the design of the creative component completely up to you!</p>
+
+<p>Use <code class="highlighter-rouge">main.cpp</code> to generate a file, <code class="highlighter-rouge">creative.png</code>, that contains a creative maze.  The only requirement is that this maze <strong>must not</strong> be a rectangular maze similar to Part 2.  For example, what if your maze was a circle?  Or in the shape of a block I?  What if you maze made us of ideas from MP1, MP2, MP4, or MP5?  Be creative.  Have fun.</p>
+
+<p>As you complete Part 3, ensure that your Part 2 still continues to function as described.  This means you may need to add a <code class="highlighter-rouge">drawCreativeMaze()</code> function instead of modifying your <code class="highlighter-rouge">drawMazeWithSolution()</code> or other function.  You should find many of your existing helper functions still useful.</p>
+
+<div class="mb-3" style="border-radius: 20px; border: solid 1px hsla(273, 100%, 13%, 1); background-color: hsla(273, 100%, 29%, 1); color: hsla(273, 100%, 90%, 1); padding: 10px 10px 0px 10px;">
+  <i class="fas fa-share fa-lg" style="font-size: 30px; float: left; margin-left: 10px; margin-right: 10px; margin-bottom: 5px;"></i>
+  <b class="text-light">You just made something awesome that never existed before -- you should share your art (but do not have to)!</b>
+  <p class="text-light">
+    <i>If you share your art on Facebook, Twitter, or Instagram with <b class="text-light">#cs225</b>, I will <i class="far fa-thumbs-up"></i> or <i class="fas fa-heart"></i> the post as soon as I see it.  I think many of your peers will too!</i> &nbsp; &mdash; Wade
+  </p>
+</div>
+
+<h4 id="catch-test-suite">Catch Test Suite</h4>
+
+<p>Additional unit tests similar to how we will grade your MP are provided for you in <code class="highlighter-rouge">tests/test_part2.cpp</code>.  Once you have completed Part 2, you may <strong>uncomment</strong> the Part 2 tests and re-compile to include Part 2 tests:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// uncomment test_part2.cpp
+make <span class="nb">test</span>
+./test
+</code></pre></div></div>
+
+<h3 id="runtime-concerns">Runtime Concerns</h3>
+
+<p>You should strive for the best possible implementation. This MP can be
+implemented so that the given <code class="highlighter-rouge">testsquaremaze.cpp</code> runs in less than a quarter
+of a second on the EWS linux machines. To have a high probability of finishing
+within the time constraints of the grading script, make sure you can run the
+given <code class="highlighter-rouge">testsquaremaze.cpp</code> in under 3 seconds on an unencumbered machine. You
+can time mp_mazes by running the command <code class="highlighter-rouge">time ./testsquaremaze</code>.</p>
+
+<h3 id="grading-information--part-2">Grading Information — Part 2</h3>
+
+<ul>
+  <li>We will use <code class="highlighter-rouge">canTravel</code> to reconstruct your randomly generated maze in our
+own maze class, to check that it’s a tree and to compare your implementation
+to a correct implementation of this MP. This will require <code class="highlighter-rouge">height*width*2</code>
+calls to <code class="highlighter-rouge">canTravel</code>. Therefore, it is very important that <code class="highlighter-rouge">canTravel</code> works,
+and works quickly (constant time). If it doesn’t work, you will lose a lot of
+points.</li>
+  <li>We will use <code class="highlighter-rouge">setWall</code> to replace your maze with our own, for the purpose of
+testing all of your other functions independently of your <code class="highlighter-rouge">createMaze</code>.</li>
+</ul>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong><code class="highlighter-rouge">setWall</code> and <code class="highlighter-rouge">canTravel</code></strong> 
+You should triple check that <code class="highlighter-rouge">setWall</code> and <code class="highlighter-rouge">canTravel</code> function exactly
+according to spec, as an error in these functions will not be caught by making
+your own mazes but can cost you a majority of the points during grading.</p>
+</div>
+
+<p>The following files are used to grade mp_mazes:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">dsets.cpp</code></li>
+  <li><code class="highlighter-rouge">dsets.h</code></li>
+  <li><code class="highlighter-rouge">maze.cpp</code></li>
+  <li><code class="highlighter-rouge">maze.h</code></li>
+  <li><code class="highlighter-rouge">main.cpp</code>, for Part 3 only</li>
+</ul>
+
+<p>All other files will not be used for grading.</p>
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/mps/mazes/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:00 GMT -->
+</html>

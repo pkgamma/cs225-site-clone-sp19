@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/mps/stickers/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:15:08 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | mp_stickers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_mp.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>mp_stickers</h1>
+                <h2 class="h5">Shocking Stickers</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Extra credit: <span>Feb 04, 23:59 PM</span></small>
+                
+                <small>Due: <span>Feb 11, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/mp_stickers/annotated.html" role="button">Doxygen</a>
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong>Solo MP</strong>
+This MP, as well as all other MPs in CS 225, are to be completed without a partner.</p>
+
+  <p>You are welcome to get help on the MP from course staff, via open lab hours, or Piazza!</p>
+</div>
+
+<h2 id="checking-out-the-code">Checking Out the Code</h2>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/mp_stickers <span class="nt">-m</span> <span class="s2">"Merging initial mp_stickers files"</span>
+</code></pre></div></div>
+
+<p>If you’re on your own machine, you may need to run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge <span class="nt">--allow-unrelated-histories</span> release/mp_stickers <span class="nt">-m</span> <span class="s2">"Merging initial mp_stickers files"</span>
+</code></pre></div></div>
+
+<p>Upon a successful merge, your mp_stickers files are now in your <code class="highlighter-rouge">mp_stickers</code> directory.</p>
+
+<h2 id="part-1-curated-the-image-class">Part 1 (Curated): The <code class="highlighter-rouge">Image</code> Class</h2>
+
+<p>An <code class="highlighter-rouge">Image</code> object is a subclass of the <code class="highlighter-rouge">PNG</code> class. This means it inherits all
+the member functions of the <code class="highlighter-rouge">PNG</code> class; so anything you could do with a <code class="highlighter-rouge">PNG</code>,
+you can also do with an <code class="highlighter-rouge">Image</code>.</p>
+
+<p>After creating the <code class="highlighter-rouge">Image</code> class, implement the methods of the <code class="highlighter-rouge">Image</code> class:</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../doxygen/mp_stickers/classImage.html">
+        <i class="fa fa-external-link-alt"></i> Open the doxygen for class Image
+    </a>
+</div>
+
+<h3 id="testing">Testing</h3>
+
+<p>When you’ve finished this part, you can <code class="highlighter-rouge">make</code> and run Part 1 by running:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make testimage
+./testimage
+</code></pre></div></div>
+
+<p>If execution goes smoothly, images named <code class="highlighter-rouge">lighten.png</code>, <code class="highlighter-rouge">saturate.png</code>, and <code class="highlighter-rouge">scale2x.png</code> will be created in your working directory.</p>
+
+<ul>
+  <li>The files <code class="highlighter-rouge">expected-lighten.png</code> and <code class="highlighter-rouge">expected-saturate.png</code> are provided and can be <code class="highlighter-rouge">diff</code>ed with your output.</li>
+  <li>The file <code class="highlighter-rouge">expected-scale2x.png</code> is somewhat misnamed, as there are <strong>many</strong> correct solutions when you scale an image.  <em>It is not necessary to have it <code class="highlighter-rouge">diff</code> to the same image.</em>  So long as your scaling algorithm creates a reasonable scale of the original image, our autograder will see it as a reasonable scaling of the image.  You can verify this by running the automated tests on Part 1.</li>
+</ul>
+
+<h3 id="automated-testing">Automated Testing</h3>
+
+<p>To test your code using Catch, run the following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nb">test</span>
+./test
+</code></pre></div></div>
+
+<h2 id="extra-credit-submission">Extra Credit Submission</h2>
+
+<p>For a few bonus points, you can submit the code you have implemented and tested
+for part one of mp_stickers. You must submit your work before the extra credit
+deadline (given above). Although this is optional, we encourage everyone to do
+this for a couple reasons:</p>
+
+<ul>
+  <li>if you get a sufficient grade on the submission, you will receive bonus
+points to improve your grade.</li>
+  <li>regardless of the quality of your work, you will get feedback that can be
+used to improve your grade on the required submission of mp_stickers.</li>
+</ul>
+
+<p>Be sure to commit and push your work before the extra credit deadline to earn extra credit.</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+<h2 id="part-2-curated-the-stickersheet-class">Part 2 (Curated): The <code class="highlighter-rouge">StickerSheet</code> Class</h2>
+
+<p>Lets add stickers on top of an image!</p>
+
+<p>Your goal in this part of the MP is to make a <code class="highlighter-rouge">StickerSheet</code> composed of a collection of <code class="highlighter-rouge">Image</code>s. To do so, you will create a class <code class="highlighter-rouge">StickerSheet</code> that will maintain an array of pointers to <code class="highlighter-rouge">Image</code> objects. Each <code class="highlighter-rouge">Image</code> in the <code class="highlighter-rouge">Scene</code> will have an index, an <script type="math/tex">x</script>-coordinate, and a <script type="math/tex">y</script>-coordinate. The member functions described below will support creating, modifying, and drawing the collection of <code class="highlighter-rouge">Image</code> stickers in the <code class="highlighter-rouge">StickerSheet</code>.</p>
+
+<p>To implement the <code class="highlighter-rouge">StickerSheet</code> class, you will write a header file that contains a declaration of the <code class="highlighter-rouge">StickerSheet</code> class (<code class="highlighter-rouge">StickerSheet.h</code>) and a source file that contains the implementation of the <code class="highlighter-rouge">StickerSheet</code> class (<code class="highlighter-rouge">StickerSheet.cpp</code>).</p>
+
+<p>To see all the required functions, check out the Doxygen:</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../doxygen/mp_stickers/classStickerSheet.html">
+        <i class="fa fa-external-link-alt"></i> Open the doxygen for class StickerSheet
+    </a>
+</div>
+
+<h2 id="part-3-creative-create-an-image-with-stickers">Part 3 (Creative): Create an image with stickers!</h2>
+
+<p>For the last part of this MP, in the <code class="highlighter-rouge">main</code> function in <code class="highlighter-rouge">main.cpp</code> create a <code class="highlighter-rouge">StickerSheet</code> that contains an image and at least three stickers.  Before exiting <code class="highlighter-rouge">main</code>, save your creation to disk as <code class="highlighter-rouge">myImage.png</code>.</p>
+
+<p>We’ll take a look at your photo filled of stickers!  Keep it clean and something you’re okay being shared with the class so we can show the best ones off to the whole class! :)</p>
+
+<p>To generate your creative <code class="highlighter-rouge">StickerSheet</code>, you can use the following commands.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make
+./stickers
+</code></pre></div></div>
+
+<h3 id="sharing-your-stickersheet">Sharing Your StickerSheet</h3>
+
+<div class="mb-3" style="border-radius: 20px; border: solid 1px hsla(273, 100%, 13%, 1); background-color: hsla(273, 100%, 29%, 1); color: hsla(273, 100%, 90%, 1); padding: 10px 10px 0px 10px;">
+  <i class="fas fa-share fa-lg" style="font-size: 30px; float: left; margin-left: 10px; margin-right: 10px; margin-bottom: 5px;"></i>
+  <b class="text-light">You just made something awesome that never existed before -- you should share your art (but do not have to)!</b>
+  <p class="text-light">
+    <i>If you share your art on Facebook, Twitter, or Instagram with <b class="text-light">#cs225</b>, I will <i class="far fa-thumbs-up"></i> or <i class="fas fa-heart"></i> the post as soon as I see it.  I think many of your peers will too!</i> &nbsp; &mdash; Wade
+  </p>
+</div>
+
+<h3 id="testing-1">Testing</h3>
+
+<p>When you’ve finished Part 2 and Part 3, you can <code class="highlighter-rouge">make</code> the full MP by running:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nb">test</span>
+./test
+</code></pre></div></div>
+
+<h3 id="automated-testing-1">Automated Testing</h3>
+
+<p>To test your code using Catch, you will need to enable the Part 2 test cases.  To do so, go into <code class="highlighter-rouge">tests/part2.cpp</code> and uncomment the commented section at end of the file.</p>
+
+<p>As you saw when you uncommented the test case, the test case is <strong>deliberately insufficient</strong>.  We strongly recommend augmenting
+these tests with your own.</p>
+
+<p>Once you’re ready to run the automated tests, run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nb">test</span>
+./test
+</code></pre></div></div>
+
+<h2 id="handing-in-your-code">Handing in your code</h2>
+
+<p>You must submit your work to git for grading.  We will use the following files for grading:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Image.cpp</code></li>
+  <li><code class="highlighter-rouge">Image.h</code></li>
+  <li><code class="highlighter-rouge">StickerSheet.cpp</code></li>
+  <li><code class="highlighter-rouge">StickerSheet.h</code></li>
+  <li><code class="highlighter-rouge">main.cpp</code></li>
+  <li><code class="highlighter-rouge">myImage.png</code></li>
+</ul>
+
+<p>All other flies (and files) will be ignored in grading.</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/mps/stickers/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:15:11 GMT -->
+</html>

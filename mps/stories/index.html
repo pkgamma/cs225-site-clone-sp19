@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/mps/stories/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:13:48 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | mp_stories</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_mp.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>mp_stories</h1>
+                <h2 class="h5">Sneaky Stories</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Extra credit: <span>Apr 22, 23:59 PM</span></small>
+                
+                <small>Due: <span>Apr 29, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/mp_stories/index.html" role="button">Doxygen</a>
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Partner MP</strong> 
+mp_stories is a <strong>partner MP</strong>!</p>
+
+  <ul>
+    <li>The creative story (submitted with the last MP and will be used in this MP) must be completed by yourself and must be unique (and different from your partner’s work).</li>
+    <li>Everything else in this MP can be completed with a partner!</li>
+  </ul>
+
+  <p>You should denote who you work with in the PARTNERS.txt file in this MP.  If you worked alone, include only your NetID in PARTNERS.txt.</p>
+</div>
+
+<h2 id="goals-and-overview">Goals and Overview</h2>
+
+<p>In this MP you will:</p>
+
+<ul>
+  <li>Merge your creative story into the course-wide CYOA graph</li>
+  <li>Implement an <a href="https://en.wikipedia.org/wiki/Adjacency_list">Adjacency List</a> with correct running times</li>
+  <li>Find interesting sub-structures in the course-wide CYOA story using the shortest path algorithm</li>
+</ul>
+
+<h2 id="checking-out-the-code">Checking Out the Code</h2>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/mp_stories <span class="nt">-m</span> <span class="s2">"Merging initial mp_stories files"</span>
+</code></pre></div></div>
+
+<p>If you’re on your own machine, you may need to run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge <span class="nt">--allow-unrelated-histories</span> release/mp_stories <span class="nt">-m</span> <span class="s2">"Merging initial mp_stories files"</span>
+</code></pre></div></div>
+
+<h2 id="part-1-merge-your-story-to-the-course-wide-graph">Part 1: Merge Your Story to the Course-wide Graph</h2>
+
+<p>For Part 1, we will combine our graphs using <strong>forked repo</strong> (and <strong>git pull requests</strong>), a common way to merge changes in code when working as part of a large team.</p>
+
+<h3 id="part-11-add-your-files">Part 1.1: Add your files</h3>
+
+<p><strong>Part 1.1a</strong>: Fork <code class="highlighter-rouge">_graph</code> repo outside of your CS 225 course repo by clicking the <code class="highlighter-rouge">Fork</code> button at the top right corner.</p>
+
+<ul>
+  <li>If you are in a folder with directories with mp1, mp2, etc, you are still inside of your CS 225 repo.  Move up another directory.</li>
+  <li>
+    <p>Once you are outside of your CS 225 course repo directory, run:</p>
+
+    <p><code class="highlighter-rouge">git clone https://github-dev.cs.illinois.edu/</code><strong>&lt; N E T I D &gt;</strong><code class="highlighter-rouge">/_graph.git mp_stories-graph</code></p>
+  </li>
+</ul>
+
+<p><strong>Part 1.1b</strong>: Move into the <code class="highlighter-rouge">mp_stories-graph</code> repo.</p>
+
+<ul>
+  <li>Run <code class="highlighter-rouge">cd mp_stories-graph</code></li>
+</ul>
+
+<p><strong>Part 1.1c</strong>: Copy your entire <code class="highlighter-rouge">story_data</code> directory from your <code class="highlighter-rouge">mp_mazes</code> folder (eg: the directory of all the .md files that contain your story) into the <code class="highlighter-rouge">mp_stories-graph</code> folder that is the course-wide graph.  Your <code class="highlighter-rouge">mp_stories-graph</code> repo will now contain the <code class="highlighter-rouge">story_data</code> directory.</p>
+
+<p><strong>Part 1.1d</strong>: Validate your graph (again) by running <code class="highlighter-rouge">story_validator.py</code></p>
+
+<ul>
+  <li>On EWS, from the base of the <code class="highlighter-rouge">mp_stories-graph</code> directory:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module load python3/3.7.0
+python3 story_validator.py story_data
+</code></pre></div>    </div>
+  </li>
+  <li>On your own machine with Python installed:
+<code class="highlighter-rouge">python3 story_validator.py story_data</code></li>
+</ul>
+
+<p>More information can be found <a href="../mazes/index.html#testing---part-1b">here</a>.</p>
+
+<p><strong>Part 1.1e</strong>: Commit to your fork:</p>
+
+<ul>
+  <li>Inside of the <code class="highlighter-rouge">mp_stories-graph</code> directory, run the following:</li>
+  <li>Add all your files by running: <code class="highlighter-rouge">git add story_data</code></li>
+  <li>Commit your files by running: <code class="highlighter-rouge">git commit -m “</code><strong>&lt; N E T I D &gt;</strong><code class="highlighter-rouge"> story”</code></li>
+  <li>Push your files by running: <code class="highlighter-rouge">git push origin master</code></li>
+</ul>
+
+<h3 id="part-12-pair-up-and-combine">Part 1.2: Pair Up and Combine</h3>
+
+<p>Pair up with your friend, lab partner, or other CS 225 student to combine your forks into one larger graph.  The two of you should work together to combine the graphs.  Specifically, one of you will create a “pull request” on GitHub, and the other will review the request, and approve the request in order to merge the two branches. This is a common practice in project collaboration to make sure that every change is being reviewed before being merged into the main code base.</p>
+
+<p><strong>Part 1.2a</strong>: Make sure your story is pushed to your fork by checking <code class="highlighter-rouge">https://github-dev.cs.illinois.edu/</code><strong>&lt; N E T I D &gt;</strong><code class="highlighter-rouge">/_graph</code></p>
+
+<p><strong>Part 1.2b</strong>: Make a pull request to the fork you want to merge into:</p>
+
+<ul>
+  <li>Click the “Pull requests” tab</li>
+  <li>Click “New pull request” next to the branch button</li>
+  <li>In the “base” fork selection, select the branch you fork to merge into</li>
+  <li>Make sure that the “compare” branch is your branch</li>
+</ul>
+
+<p><strong>Part 1.2c</strong>: Review and accept the pull request, thus merging the two forks (by the other person):</p>
+
+<ul>
+  <li>The other person will see the pull request and any difference it will make</li>
+  <li>After reviewing the changes and making sure there’s no conflicts, click the arrow next to “Merge pull request”, and select “Rebase and merge”. Then press “Rebase and merge” to merge your changes
+    <ul>
+      <li>While not strictly necessary, this will greatly lower the chances of having conflicts automatically resolved in a way which breaks the story by reporting more conflicts and failing more often. If you are having trouble merging the PR by rebasing and know what you are doing, feel free to merge the PR in a different way.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Part 1.2d</strong>: Modify and/or add new files to ensure that the two graphs are connected.  Remember that there must be exactly one starting vertex (no incoming edges).  This means you must at least modify or add one node, though integrating your stories in an interesting way is ideal!</p>
+
+<p><strong>Part 1.2e</strong>: Validate your graph again by running <code class="highlighter-rouge">story_validator.py</code></p>
+
+<h3 id="part-13-merge-with-other-forks-or-let-others-merge-with-you">Part 1.3: Merge with other forks or let others merge with you!</h3>
+
+<p><strong>Let others merge with you</strong></p>
+
+<p>Suppose you already have your graph with at least 2 people’s work. You can make a pull request to the <code class="highlighter-rouge">cs225-sp19/_graph/master</code> to make your graph pending to be combined with the course-wide graph!</p>
+
+<ul>
+  <li>Make sure your graph is valid by running the validator</li>
+  <li>Click “New pull request” from your branch, select <code class="highlighter-rouge">cs225-sp19/_graph/master</code> as the base (see Part 1.2a&amp;b)</li>
+  <li>Create the pull request to <code class="highlighter-rouge">cs225-sp19/_graph/master</code></li>
+</ul>
+
+<p>This way, your fork will be a pending branch to be forked into <code class="highlighter-rouge">cs225-sp19/_graph/master</code>(the final course-wide graph). Others can also make pull requests to your branch! If you accept their pull request (make sure that the changes don’t break anything), your stories will become one larger story! You can start by inviting your friends to merge into your branch!</p>
+
+<p>As the owner of the branch, this will require a bit of extra work since you have to review and accept other people’s pull requests in order to make your story larger. You are also responsible for maintaining your branch and combine others’ stories with the current one (see Part 1.2d).</p>
+
+<p><strong>Merge with other forks’ pull requests</strong></p>
+
+<p>Alternatively, you can merge into other people’s stories by making pull requests to other people’s forks!</p>
+
+<ul>
+  <li>Navigate to the top-right corner of your fork of <code class="highlighter-rouge">_graph</code> and click the number count next to the <code class="highlighter-rouge">Fork</code> button.</li>
+  <li>Check for open pull requests to <code class="highlighter-rouge">cs225-sp19/_graph/master</code> and find a fork that you like</li>
+  <li>Make a pull request from your fork, select <the-other-fork> as the base</the-other-fork></li>
+</ul>
+
+<p>This way, if your pull request is accepted by the owner of the other fork, your story will be integrated into their story, and it will be combined with the course graph later when their pull request to <code class="highlighter-rouge">cs225-sp19/_graph/master</code> gets accepted. However, you don’t have control over whether they accept your pull request. Again, try starting with your friends!</p>
+
+<h3 id="extra-credits">Extra Credits</h3>
+
+<p>You’ll earn <strong>+7 extra credit</strong> for having your story in the largest pull request by Monday, Apr. 22nd at 11:59pm!  Each smaller pull request will earn progressively less extra credit and CS 225 course staff will merge all remaining large-ish pull requests after Wednesday to generate the full, course-wide dataset.</p>
+
+<h2 id="part-2-adjacency-list">Part 2: Adjacency List</h2>
+
+<p>You have been provided with an incomplete <code class="highlighter-rouge">Graph</code> implementation for an adjacency list implementation.  You must complete all functions in <code class="highlighter-rouge">Graph.hpp</code> without editing <code class="highlighter-rouge">Graph.h</code>.  This means you <strong>must</strong> make use of the <code class="highlighter-rouge">std::unsorted_map</code> that maintains the vertices and <code class="highlighter-rouge">std::list</code> that maintains the edges.</p>
+
+<p>Open the doxygen for class <a href="../../doxygen/mp_stories/classGraph.html"><code class="highlighter-rouge">Graph</code></a>.</p>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+In this MP, we will not be testing for memory leaks. However, we do require that your code is free of any memory <strong>errors</strong>.</p>
+
+  <p>You should see the following output in <code class="highlighter-rouge">valgrind -v</code>.</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==7555== For counts of detected and suppressed errors, rerun with: -v
+==7555== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+</code></pre></div>  </div>
+</div>
+
+<h3 id="runtime-required">Runtime Required</h3>
+
+<p>In this MP, tests are designed to ensure you have an implementation that runs in the running time described in lecture of the adjacency list, with the <strong>exception</strong> of vertex/edge removal.  You will find several test cases require a specific running time to be met.</p>
+
+<p>Most importantly, ensure your <code class="highlighter-rouge">Graph::incidentEdges</code> and <code class="highlighter-rouge">Graph::isAdjacent</code> functions run in times described in lecture.</p>
+
+<h3 id="testing-your-story-with-your-mp">Testing Your Story With Your MP</h3>
+
+<p>The <code class="highlighter-rouge">main.cpp</code> file is used to compile the <code class="highlighter-rouge">./stories</code> that loads your interactive story from your <code class="highlighter-rouge">story_data</code> directory. Copy your <code class="highlighter-rouge">story_data</code> directory from the last MP and replace the <code class="highlighter-rouge">story_data</code> folder in this MP.  A complete implementation of Part 2 will allow you to verify the format of your story from your story_data folder.</p>
+
+<h3 id="tip-on-stdreference_wrapper">Tip on std::reference_wrapper<class T=""></class></h3>
+
+<p><code class="highlighter-rouge">std::reference_wrapper&lt;class T&gt;</code> is a useful utility that lets <code class="highlighter-rouge">std::container</code> based structures like <code class="highlighter-rouge">std::list</code> to be able to store references to data instead of needing to internally copy data into the container data structure. To access the reference from the <code class="highlighter-rouge">std::reference_wrapper&lt;class T&gt;</code>, please use the <code class="highlighter-rouge">std::reference_wrapper&lt;class T&gt;</code> member function <code class="highlighter-rouge">T&amp; get() const noexcept</code> to retrieve the wrapped reference.</p>
+
+<h3 id="test-suite">Test Suite</h3>
+
+<p>Additional unit tests similar to how we will grade your MP are provided for you in <code class="highlighter-rouge">tests</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nb">test</span>
+./test
+</code></pre></div></div>
+
+<h2 id="part-3-creative-sub-structures">Part 3: Creative Sub-Structures</h2>
+
+<p>The next thing to do in mp_stories is to create a shortest path algorithm!  You must find and return the shortest path between a given <code class="highlighter-rouge">start</code> vertex and <code class="highlighter-rouge">end</code> vertex.</p>
+
+<p>There are different implementations for the shortest path algorithm. Compare them and use the one that you see fit the most!</p>
+
+<p>Complete <code class="highlighter-rouge">Graph&lt;K,V&gt;::shortestPath(...)</code> within <code class="highlighter-rouge">Graph2.hpp</code>.   This function will allow you to find your shortest path in the course-wide graph!</p>
+
+<h3 id="grading-information">Grading Information</h3>
+
+<p>The following files are used to grade mp_stories so far:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Graph.hpp</code>, for Part 2</li>
+  <li><code class="highlighter-rouge">Graph2.hpp</code>, for Part 3</li>
+</ul>
+
+<p>All other files will not be used for grading.</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>No Memory Leak Grading!</strong> 
+You do not need to worry about leaking memory in this MP – we will not test (and you will have) unfree’d memory when you program exists.</p>
+</div>
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/mps/stories/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:13:51 GMT -->
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/guides/course-git/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:21:01 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | Git in CS 225</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container py-4">
+    <h1 id="git-in-cs-225">Git in CS 225</h1>
+
+<h2 id="overview">Overview</h2>
+
+<p><code class="highlighter-rouge">git</code> will be used throughout this semester as the version control system for MPs and labs. Specifically, we will be using git for two functions:</p>
+
+<ul>
+  <li>Distribution of provided code.</li>
+  <li>Submission of your code.</li>
+</ul>
+
+<p>While we do not require that you learn and use good version control practices, we cannot stress enough how useful a good version control system can be when good practices are used. The following is a brief list of good version control practices:</p>
+
+<ul>
+  <li>Always use a good commit message which describes the changes in the commit.</li>
+  <li>Never check in broken code. (This is more important when working in groups, but still good practice.)</li>
+  <li>Commit regularly and frequently. For example, commit when you’re done writing a function. This allows both simpler commit messages and greater confidence in the repository.</li>
+</ul>
+
+<p>Again, the above practices are not hard and fast, nor complete, but they should help you complete your MPs and future coding projects should you use <code class="highlighter-rouge">git</code> for them as well.</p>
+
+<h2 id="setting-up-git">Setting up git</h2>
+
+<p>There are two repositories that you’ll be interacting with as part of this course:</p>
+
+<ol>
+  <li>Your personal course repository</li>
+  <li>The release repository (<code class="highlighter-rouge">release</code>)</li>
+</ol>
+
+<p>In general, code will be released to <code class="highlighter-rouge">release</code> and you will merge it into your repository to get the initial code.  You’ll then complete the MP or lab and then commit your code to your repository.  We will view the latest submission you made before the due date to grade your work.</p>
+
+<p>To get everything set up, there are certain things you will need to setup once the entire time you’re in the course, things you need to setup once per computer you use, and things you need to do once per MP.</p>
+
+<h2 id="course-setup-necessary-only-once-for-the-entire-semester">Course Setup (necessary only once for the entire semester)</h2>
+
+<p>The first time you’re accessing the CS 225 repository this semester, you will need to have a CS 225 repository set up for you.  This process is simple:</p>
+
+<ol>
+  <li>Visit <a href="https://edu.cs.illinois.edu/create-ghe-repo/cs225-sp19/">https://edu.cs.illinois.edu/create-ghe-repo/cs225-sp19/</a>.</li>
+  <li>When you view your repostiory, <strong>do not</strong> follow the instructions to create a README.  Instead, just note the URL – it will be similar to <code class="highlighter-rouge">https://github-dev.cs.illinois.edu/cs225-sp19/NETID</code></li>
+</ol>
+
+<h2 id="workspace-setup-necessary-only-once-per-computerdirectory-you-use">Workspace Setup (necessary only once per computer/directory you use)</h2>
+
+<h3 id="create-a-clone-of-your-repository">Create a clone of your repository</h3>
+
+<p>To setup your computer to work on an MP or a lab, you will need to clone your repository onto your comptuer.</p>
+
+<p><em>The URL of your repository will be based on your NetID and you will need to replace NETID with your NetID.</em></p>
+
+<p>To clone your repository, run <code class="highlighter-rouge">git clone</code>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github-dev.cs.illinois.edu/cs225-sp19/NETID.git cs225git
+</code></pre></div></div>
+<p>…you can replace <strong>cs225git</strong> with whatever folder you want created.  For example, you may want to call your folder just “cs225” or “cs225sp19” or anything else.</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Password entry</strong>
+On some systems, git (and other command line programs) will not display anything when you type your password. This is expected: type your password as normal, and then hit enter.</p>
+</div>
+
+<p>Finally, move into the directory you just cloned:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>cs225git
+</code></pre></div></div>
+
+<h3 id="add-the-release-repository-as-a-remote">Add the <code class="highlighter-rouge">release</code> repository as a remote</h3>
+
+<p>To connect to the release repository, you need to add a remote:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add release https://github-dev.cs.illinois.edu/cs225-sp19/_release.git
+</code></pre></div></div>
+
+<p>You’re now all set to begin to work on an assignment! :)</p>
+
+<h2 id="assignment-setup-necessary-only-once-per-assignment">Assignment Setup (necessary only once per assignment)</h2>
+
+<p>To retrieve the latest assignments for CS 225, you need to <code class="highlighter-rouge">fetch</code> and <code class="highlighter-rouge">merge</code> the <code class="highlighter-rouge">release</code> repository into your repository.  This can be done with two commands:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/LAB_NAME <span class="nt">-m</span> <span class="s2">"Merging release repository"</span>
+</code></pre></div></div>
+
+<p>Don’t type <code class="highlighter-rouge">LAB_NAME</code> literally here; on each lab we will provide the proper name to use.</p>
+
+<p>If <code class="highlighter-rouge">git</code> happens to complain about unrelated histories, use this command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git merge release/LAB_NAME <span class="nt">--allow-unrelated-histories</span>
+</code></pre></div></div>
+<!-- git merge release/master -m "Merging release repository" -->
+
+<h2 id="assignment-submission-do-this-often">Assignment Submission (do this often!)</h2>
+
+<p>Every time you want to submit work, you will need to <code class="highlighter-rouge">add</code>, <code class="highlighter-rouge">commit</code>, and <code class="highlighter-rouge">push</code> your work to your git repository.  This can always be done using the following commands on a command line while within your CS 225 directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add <span class="nt">-u</span>
+git commit <span class="nt">-m</span> <span class="s2">"REPLACE THIS WITH YOUR COMMIT MESSAGE"</span>
+git push origin master
+</code></pre></div></div>
+
+<p>You should substitute <code class="highlighter-rouge">"REPLACE THIS WITH YOUR COMMIT MESSAGE"</code> with a short message describing what you did since the commit. This will help both you and course staff understand what you did in a specific commit.</p>
+
+<p>Some examples of “good” commit messages:</p>
+
+<ul>
+  <li>“Fix the segfault in the maze destructor”</li>
+  <li>“Implement the reverse helper function”</li>
+  <li>“Refactor duplicate code into helper method”</li>
+</ul>
+
+<p>Some examples of bad commit messages:</p>
+
+<ul>
+  <li>“REPLACE THIS WITH YOUR COMMIT MESSAGE”</li>
+  <li>“file submission”</li>
+  <li>“commit”</li>
+  <li><a href="https://xkcd.com/1296/">“HAAAAAAAAAAANDS”</a></li>
+</ul>
+
+<h3 id="verify-your-submission">Verify your Submission</h3>
+
+<p>You can always verify your submission by visiting https://github-dev.cs.illinois.edu/ and viewing the files in your repository.  <strong>Only the files that appear on the <code class="highlighter-rouge">master</code> branch of your github-dev repository will be graded.</strong></p>
+
+</div>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/guides/course-git/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:21:01 GMT -->
+</html>

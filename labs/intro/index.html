@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/intro/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:00 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | lab_intro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_lab.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>lab_intro</h1>
+                <h2 class="h5">Ineluctable Introduction</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Due: <span>Jan 20, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/lab_intro/files.html" role="button">Doxygen</a>
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/intro/cs225sp19-lab-intro-handout.pdf">Lab handout</a>
+                    
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/intro/cs225sp19-lab-intro-handout-Solution.pdf">Handout solution</a>
+                    
+                    
+                    <a class="btn btn-light" href="https://docs.google.com/presentation/d/15LFDUlPNCLKzj6rEHMS5b-jck0tpkUTEw8H7UlvKU7A/edit?usp=sharing">Lab slides</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            <h2 id="welcome-to-cs-225">Welcome to CS 225!</h2>
+
+<p>Welcome to CS 225: Data Structures!  In CS 225, you will be using C++
+and the Linux operating system to aid your journey in becoming a master
+of data structures!</p>
+
+<h3 id="setting-up-for-cs-225">Setting Up For CS 225</h3>
+
+<p>Before you can begin working on assignments, you will need to set up EWS and optionally your own computer to begin development work. Afterwards, you will need to set up your git repository, your code base you will use to receive mps and labs/submit them for grading.</p>
+
+<p><strong>Setup your EWS machine…</strong></p>
+
+<p>The first time you use an EWS machine, you will need to configure clang by running:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source</span> /class/cs225/setup
+</code></pre></div></div>
+
+<p>This command only needs to be run once; you don’t have to run it each time you log back in.</p>
+
+<p><strong>or setup your computer locally</strong></p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/own-machine/index.html">
+        <i class="fa fa-book"></i> Guide: How to setup your computer for CS 225
+    </a>
+</div>
+
+<p><strong>Setup Your Git Repository</strong></p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to fetch new assignments into your course repository
+    </a>
+</div>
+
+<h3 id="getting-started">Getting Started</h3>
+
+<p>You’ll be using the command line for much of C++.  If you’re not comfortable with the command line yet, <a href="https://www.codecademy.com/articles/command-line-commands">check out this guide on the command line</a>.</p>
+
+<p>You’ll want to find a text editor you like. Here are some suggestions</p>
+
+<p>Three standard editors that work within a command line interface:</p>
+<ul>
+  <li><code class="highlighter-rouge">nano</code>, simple and user-friendly for quick edits</li>
+  <li><code class="highlighter-rouge">vim</code>, powerful but very un-friendly to beginners</li>
+  <li><code class="highlighter-rouge">emacs</code>, powerful but also un-friendly to beginners</li>
+</ul>
+
+<p>Beginner friendly’s with graphical UI’s:</p>
+<ul>
+  <li><code class="highlighter-rouge">atom</code>, open-source editor developed by github</li>
+  <li><code class="highlighter-rouge">brackets</code>, open-source editor developed by adobe</li>
+  <li><code class="highlighter-rouge">gedit</code>, simple, open-source editor default to most Linux distributions</li>
+  <li><code class="highlighter-rouge">visual studio code</code>, free light-weight editor developed by Microsoft</li>
+</ul>
+
+<h3 id="lab-insight">Lab Insight</h3>
+
+<p>This lab is the starting point in your CS 225 class journey. It will touch some of the starting base concepts that will guide you through the class and be your aid in learning about data structures. Hope you have fun throughout the course.</p>
+
+<h3 id="accessing-your-course-repository">Accessing your course repository</h3>
+
+<p>Once you have set up your repository, you will also need to merge in this particular assignment:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git fetch release
+$ git merge release/lab_intro -m "Merging lab_intro"
+</code></pre></div></div>
+
+<p>If <code class="highlighter-rouge">git</code> happens to complain about unrelated histories, use this command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git fetch release
+$ git merge release/lab_intro --allow-unrelated-histories
+</code></pre></div></div>
+
+<h3 id="setting-up-cs-225-on-ews">Setting up CS 225 on EWS</h3>
+
+<p>If you are using an EWS machine (any lab machine or are SSH’ing into an EWS machine), make sure to run this command to set up your compiler for CS 225:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ source /class/cs225/setup
+</code></pre></div></div>
+
+<h3 id="updating-your-partnerstxt-file">Updating your partners.txt file</h3>
+
+<p>For your <em>lab assignments</em> (not MPs), you may work with a partner!
+If you want to work with a partner, pair up with someone in your lab section
+and  <em>both of you</em> must update the <code class="highlighter-rouge">partners.txt</code> file inside of <code class="highlighter-rouge">lab_intro</code>.</p>
+
+<p>In this file, include each of your netids as one netid per line.  For example:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello2
+world3
+</code></pre></div></div>
+
+<h2 id="understanding-the-hsl-color-space">Understanding the HSL Color Space</h2>
+
+<p>In CS 225, we will not be working with the physical properties of color that you may be familiar with from other sources (the “RGB color space” for red-green-blue channels.)  Instead, we will be using an alternative color space that represents colors by human perception of color.</p>
+
+<p>The HSL color space uses the Hue, Saturation, and Luminance of the color.  From the <em>Adobe Technical Guides</em> page on “The HSB/HLS Color Model”, Adobe explores these terms:</p>
+
+<div class="row">
+<div class="col-md-6">
+<img class="img-fluid" src="../../assets/assignments/labs/intro/hsl_hue.jpg" />
+</div>
+<div class="col-md-6">
+    <p><strong>Hue</strong> <em>(denoted as <code class="highlighter-rouge">h</code>)</em> defines the color itself, for example, red in distinction to blue or yellow. The values for the hue axis run from 0–360° beginning and ending with red and running through green, blue and all intermediary colors like greenish-blue, orange, purple, etc.</p>
+
+    <p>There are two hues that we’ll use later in this lab:</p>
+
+    <ul>
+      <li>“Illini Orange” has a hue of 11</li>
+      <li>“Illini Blue” has a hue of 216</li>
+    </ul>
+  </div>
+</div>
+
+<hr />
+
+<div class="row">
+<div class="col-md-6">
+<img class="img-fluid" src="../../assets/assignments/labs/intro/hsl_saturation.jpg" />
+</div>
+<div class="col-md-6">
+    <p><strong>Saturation</strong> <em>(denoted as <code class="highlighter-rouge">s</code>)</em> indicates the degree to which the hue differs from a neutral gray. The values run from 0%, which is no color saturation, to 100%, which is the fullest saturation of a given hue at a given percentage of illumination.</p>
+  </div>
+</div>
+
+<hr />
+
+<div class="row">
+<div class="col-md-6">
+<img class="img-fluid" src="../../assets/assignments/labs/intro/hsl_lightness.jpg" />
+</div>
+<div class="col-md-6">
+    <p><strong>Luminance</strong> <em>(denoted as <code class="highlighter-rouge">l</code>)</em> indicates the level of illumination. The values run as percentages; 0% appears black (no light) while 100% is full illumination, which washes out the color (it appears white).</p>
+  </div>
+</div>
+
+<hr />
+
+<div class="row">
+<div class="col-md-6">
+<img class="img-fluid" src="../../assets/assignments/labs/intro/hsl.jpg" />
+</div>
+<div class="col-md-6">
+    <p>The <strong>full HSL color space</strong> is a three-dimensional space, but it is not a cube (nor exactly cylindrical).  The area truncates towards the two ends of the luminance axis and is widest in the middle range.  The ellipsoid reveals several properties of the HSL color space:</p>
+
+    <ul>
+      <li>At <code class="highlighter-rouge">l=0</code> or <code class="highlighter-rouge">l=1</code> (the top and bottom points of the ellipsoid), the 3D space is a single point (the color black and the color white).  Hue and saturation values don’t change the color.</li>
+      <li>At <code class="highlighter-rouge">s=0</code> (the vertical core of the ellipsoid), the 3D space is a line (the grayscale colors, defined only by the luminance).  The values of the hue do not change the color.</li>
+      <li>At <code class="highlighter-rouge">s=1</code> (the outer shell of the ellipsoid), colors are vivid and dramatic!</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="writing-your-first-class-hslapixel">Writing your first class: HSLAPixel</h2>
+
+<h3 id="motivation">Motivation</h3>
+
+<p>The very first data structure you will write in CS 225 will be a <code class="highlighter-rouge">class</code> to maintain a single HSL pixel.  We will use this class <strong>a lot</strong> throughout CS 225, so let’s use an API that is simple.</p>
+
+<p>We’ll refer to this <code class="highlighter-rouge">class</code> as an <code class="highlighter-rouge">HSLAPixel</code> and place it inside of the <code class="highlighter-rouge">cs225</code> namespace, an organization of data structures that we’ll use commonly within CS 225.  Following convention, the definition must be placed in a file called <code class="highlighter-rouge">cs225/HSLAPixel.h</code>, and the member function implementations must be placed in a file called <code class="highlighter-rouge">cs225/HSLAPixel.cpp</code>.</p>
+
+<h3 id="specification">Specification</h3>
+
+<p>Create a <code class="highlighter-rouge">class HSLAPixel</code> that contains four <code class="highlighter-rouge">public</code> member variables:</p>
+
+<ul>
+  <li>Let <code class="highlighter-rouge">h</code> denote the hue of the pixel, storing the value of the hue in degrees as a <code class="highlighter-rouge">double</code> from [0, 360).</li>
+  <li>Let <code class="highlighter-rouge">s</code> denote the saturation of the pixel, storing the value as a <code class="highlighter-rouge">double</code> from [0, 1].</li>
+  <li>Let <code class="highlighter-rouge">l</code> denote the luminance of the pixel, storing the value as a <code class="highlighter-rouge">double</code> from [0, 1].</li>
+  <li>Let <code class="highlighter-rouge">a</code> denote the alpha channel, how transparent the pixel is, storing the value as a <code class="highlighter-rouge">double</code> from [0, 1].</li>
+</ul>
+
+<p>Additionally, you will need to complete three constructors defined in the Doxygen:</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../doxygen/lab_intro/classcs225_1_1HSLAPixel.html">
+        <i class="fa fa-external-link-alt"></i> Open the Doxygen for HSLAPixel
+    </a>
+</div>
+
+<h3 id="compile-and-testing">Compile and Testing</h3>
+
+<p>A <code class="highlighter-rouge">Makefile</code> has been provided for you for this lab (you’ll make your own soon!).  To compile your program, run:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ make
+</code></pre></div></div>
+
+<p>If <code class="highlighter-rouge">make</code> fails, you will see error messages.  We use <code class="highlighter-rouge">clang</code>, which aims to provides descriptive error messages that try to help you not only spot the error but also will provide a suggestion on how to fix the bug.</p>
+
+<p>If <code class="highlighter-rouge">make</code> runs successfully, you will see three warning messages:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lab_intro.cpp:57:36: warning: unused parameter 'centerX' [-Wunused-parameter]
+PNG createSpotlight(PNG image, int centerX, int centerY) {
+                                   ^
+lab_intro.cpp:57:49: warning: unused parameter 'centerY' [-Wunused-parameter]
+PNG createSpotlight(PNG image, int centerX, int centerY) {
+                                                ^
+lab_intro.cpp:91:35: warning: unused parameter 'secondImage'
+[-Wunused-parameter]
+PNG watermark(PNG firstImage, PNG secondImage) {
+                                  ^
+</code></pre></div></div>
+
+<p><em>This is expected – you have not written these functions yet.</em></p>
+
+<p>If you get a bunch of “undefined reference” errors like this one:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/include/c++/v1/ostream:773: undefined reference to `__cxa_begin_catch'
+</code></pre></div></div>
+<p>it probably means you did not run that <code class="highlighter-rouge">source /class/cs225/setup</code> command described above.</p>
+
+<h2 id="cs-225s-png-class">CS 225’s PNG Class</h2>
+
+<p>Inside of your <code class="highlighter-rouge">cs225</code> directory, you may have noticed <code class="highlighter-rouge">PNG.h</code> and <code class="highlighter-rouge">PNG.cpp</code>.  We have provided an <strong>already complete</strong> PNG class that saves and loads PNG files and exposes a simple API for you to modify PNG files.</p>
+
+<p>In C++, the scope resolution operator, <code class="highlighter-rouge">::</code>, denotes a function or variable is a member of a class.  The API for the PNG class includes:</p>
+
+<ul>
+  <li>Loading/Saving PNG files:
+    <ul>
+      <li><code class="highlighter-rouge">bool PNG::readFromFile(const std::string &amp; fileName)</code>, loads an image based on the provided file name</li>
+      <li><code class="highlighter-rouge">bool PNG::writeToFile(const std::string &amp; fileName)</code>, writes the current image to the provided file name (overwriting existing files)</li>
+    </ul>
+  </li>
+  <li>Retrieving image and pixel information:
+    <ul>
+      <li><code class="highlighter-rouge">unsigned int PNG::width() const</code>, returns the width of the image</li>
+      <li><code class="highlighter-rouge">unsigned int PNG::height() const</code>, returns the height of the image</li>
+      <li><code class="highlighter-rouge">HSLAPixel &amp; getPixel(unsigned int x, unsigned int y)</code>, returns a pointer to a pixel at a provided location</li>
+    </ul>
+  </li>
+  <li>Methods to create empty PNGs, resizing an image, etc.</li>
+</ul>
+
+<p>Open the doxygen for <code class="highlighter-rouge">PNG</code></p>
+
+<h3 id="example-usage">Example Usage</h3>
+
+<p>Suppose we want to transform an image to grayscale.  Earlier you learned that a pixel with a saturation set to 0% will be a gray pixel.  For example, here’s this transformation applied to the Alma Mater:</p>
+
+<div class="row mt-3 mb-3">
+    <div class="col-md-6 text-center">
+        <img class="img-fluid" src="../../assets/assignments/labs/intro/alma.png" />
+        <tt>alma.png</tt>
+    </div>
+    <div class="col-md-6 text-center">
+        <img class="img-fluid" src="../../assets/assignments/labs/intro/out-grayscale.png" />
+        <tt>out-grayscale.png</tt>
+    </div>
+</div>
+
+<p>The code that was used to create the above image follows:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Function `grayscale` receives a PNG as input by reference</span>
+<span class="kt">void</span> <span class="nf">grayscale</span><span class="p">(</span><span class="n">PNG</span> <span class="o">&amp;</span> <span class="n">png</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Loop through all of pixels of the PNG (width x height):</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">png</span><span class="p">.</span><span class="n">width</span><span class="p">();</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">png</span><span class="p">.</span><span class="n">height</span><span class="p">();</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="c1">// Get a reference to the pixel at (x, y):</span>
+      <span class="n">HSLAPixel</span> <span class="o">&amp;</span> <span class="n">pixel</span> <span class="o">=</span> <span class="n">png</span><span class="p">.</span><span class="n">getPixel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+
+      <span class="c1">// Set the pixel's saturation to 0:</span>
+      <span class="n">pixel</span><span class="p">.</span><span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+      <span class="c1">// ...that's it!  Since `pixel` is a reference, the memory storing the pixel</span>
+      <span class="c1">// is the memory inside of the PNG image.  No need to `set` the pixel.</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="lab-assignment-modify-the-png-in-three-new-ways">Lab Assignment: Modify the PNG in three new ways!</h2>
+
+<p>To complete the lab, complete <code class="highlighter-rouge">illinify</code>, <code class="highlighter-rouge">spotlight</code>, and <code class="highlighter-rouge">watermark</code> functions in <code class="highlighter-rouge">lab_intro.cpp</code>.  You will find a complete <code class="highlighter-rouge">grayscale</code> function (above) is already provided for you.</p>
+
+<p>All C++ programs begin with the <code class="highlighter-rouge">main</code> function, which is usually defined in <code class="highlighter-rouge">main.cpp</code>.  You can find that a <code class="highlighter-rouge">main</code> function has been provided for you that:</p>
+
+<ol>
+  <li>Loads in the image <code class="highlighter-rouge">alma.png</code></li>
+  <li>Calls each image modification function</li>
+  <li>Saves the modified image as <code class="highlighter-rouge">out-MODIFIED.png</code>, where <code class="highlighter-rouge">MODIFIED</code> is the modification (eg: <code class="highlighter-rouge">out-grayscale.png</code>)</li>
+</ol>
+
+<p>A description of each function is provided in <code class="highlighter-rouge">lab_intro.cpp</code> and examples are given below:</p>
+
+<div class="row">
+<div class="col-md-6">
+<img class="img-fluid" src="../../assets/assignments/labs/intro/out-illinify.png" />
+</div>
+<div class="col-md-6">
+    <p>To <strong>illinify</strong> an image is to transform the hue of every pixel to Illini Orange or Illini Blue.</p>
+
+    <p>The hue of every pixel is set to the a hue value of either orange or blue, based on if the pixel’s hue value is closer to orange than blue.  <em>Remember, hue values are a circle!</em></p>
+  </div>
+</div>
+
+<hr />
+
+<div class="row">
+<div class="col-md-6">
+<img class="img-fluid" src="../../assets/assignments/labs/intro/out-spotlight.png" />
+</div>
+<div class="col-md-6">
+    <p>To <strong>spotlight</strong> an image is to create a spotlight centered at a given point: (centerX, centerY).</p>
+
+    <p>A spotlight adjusts the luminance of a pixel based on the Euclidean distance the pixel is away from the center by decreasing the luminance by 0.5% per 1 pixel Euclidean distance away from the center, up to an 80% decrease in luminance.</p>
+
+    <p>For example, a pixel 3 pixels above and 4 pixels to the right of the center is a total of <script type="math/tex">\sqrt{3^2 + 4^2} = \sqrt{25} = 5</script> pixels away and its luminance is decreased by 2.5% (0.975x its original value).  At a distance over 160 pixels away, the luminance will always be decreased by 80% (0.2x its original value).</p>
+  </div>
+</div>
+
+<hr />
+
+<div class="row mb-3">
+<div class="col-md-6">
+<img class="img-fluid" src="../../assets/assignments/labs/intro/out-watermark.png" />
+</div>
+<div class="col-md-6">
+    <p>To <strong>watermark</strong> an image is to lighten a region of an <code class="highlighter-rouge">image</code> based on the contents of a <code class="highlighter-rouge">spotlight</code>, given both images.</p>
+
+    <p>For every pixel that exists within the bounds of both <code class="highlighter-rouge">image</code> and <code class="highlighter-rouge">spotlight</code>, the luminance of <code class="highlighter-rouge">image</code> must be increased by +0.2 (absolute, but not to exceed 1.0) if and only if the luminance of <code class="highlighter-rouge">spotlight</code> at the same pixel is 100%.</p>
+
+    <p>You should not assume anything about the size of the images.  However, you need only consider the range of pixels that exist in both images.</p>
+  </div>
+</div>
+
+<h3 id="compiling-the-code">Compiling the Code</h3>
+
+<p>To compile your code, run the following from your <code class="highlighter-rouge">lab_intro</code> directory:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ make
+</code></pre></div></div>
+
+<h3 id="running-your-code">Running Your Code</h3>
+
+<p>If your code compiled with errors, an executable named <code class="highlighter-rouge">lab_intro</code> will be built.  This executable starts by running the <code class="highlighter-rouge">main</code> function, which calls each of your image manipulation functions.  Run it by running:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./lab_intro
+</code></pre></div></div>
+
+<p>Check out <code class="highlighter-rouge">out-illinify.png</code> and see what your code did!</p>
+
+<h3 id="testing-your-code">Testing Your Code</h3>
+
+<p>In CS 225, we use the widely-used C++ testing framework <code class="highlighter-rouge">catch</code>.  Unit tests are provided for you in the <code class="highlighter-rouge">tests</code> folder and <code class="highlighter-rouge">catch</code> will run each of the unit tests for you.  You are always encouraged to write additional test cases.</p>
+
+<p>To make the test suite, run:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ make test
+</code></pre></div></div>
+
+<p>After compiling the test suite, run the tests using:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./test
+</code></pre></div></div>
+
+<p>For more information on running tests with Catch and interpreting the results, see <a href="../../guides/catch/index.html">Testing with Catch</a>.</p>
+
+<h3 id="submitting-your-work">Submitting Your Work</h3>
+
+<p>You must submit your work to git for grading. We will use the following files for grading:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">cs225/HSLAPixel.cpp</code></li>
+  <li><code class="highlighter-rouge">cs225/HSLAPixel.h</code></li>
+  <li><code class="highlighter-rouge">lab_intro.cpp</code></li>
+</ul>
+
+<p>All other flies will be ignored in grading.</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/intro/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:13 GMT -->
+</html>

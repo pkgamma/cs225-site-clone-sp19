@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/btree/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:45 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | lab_btree</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_lab.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>lab_btree</h1>
+                <h2 class="h5">Belligerent BTrees</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Due: <span>Mar 26, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/lab_btree/annotated.html" role="button">Doxygen</a>
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/btree/cs225sp19-lab_btree-handout.pdf">Lab handout</a>
+                    
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/btree/cs225sp19-lab_btree-handout-solution.pdf">Handout solution</a>
+                    
+                    
+                    <a class="btn btn-light" href="https://docs.google.com/presentation/d/1vm3YFB8qiS9kmJb65r-Z2mvbXlB57XLnStoiTGKx-Jo/edit?usp=sharing">Lab slides</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<h2 id="assignment-description">Assignment Description</h2>
+
+<p>In this lab you’ll learn about BTrees and how they can be used to implement the
+dictionary ADT. Specifically you’ll learn about the algorithms involved in
+finding and inserting into a BTree. In addition to the algorithms, you’ll see
+why BTrees are a useful structure, and a potentially good alternative to
+self-balancing binary search trees.</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+The following serves primarily as a motivation for why BTrees are a useful
+structure. It’s not strictly necessary for completing the lab but it is
+nonetheless important. You will also be able see the potential advantages
+yourself when you chart the real-world speed difference between your BTree and
+a self-balancing binary search tree at the end of the lab.</p>
+</div>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>The Locality Hierarchy</strong></p>
+
+  <p>Let us briefly venture away from the high-level land of CS 225 and talk about
+hardware and the real world. We will make a <em>lot</em> of simplifying assumptions
+and do a lot of hand-waving here since this isn’t the focus of this class. For
+a more formal treatment I will refer you to the nearest architecture class.</p>
+
+  <p>All computation for us is done by some sort of processor we will call the
+central processing unit (CPU). Modern CPUs can do several billion basic
+instructions (e.g. arithmetic operations on two values, moving small pieces of
+data around, &amp;c.) every second. CPUs are cool!  However, there’s a limitation:
+the CPU can only work on bits of data that are extremely close to it. These
+values are stored in “registers” — which are relatively simple circuits that
+can hold a fixed number of bits. The size of the normal registers on your
+computer is determined by the memory address size of your computer; i.e. if you
+have a “32-bit” machine, your memory addresses are 32 bits in size, and hence
+the registers on your computer can hold 32 bits. Similarly for “64-bit”
+machines, which are pretty much ubiquitous. The AMD64/x86-64 architecture (the
+predominant architecture for non-mobile computers at the moment) has 14 general
+purpose registers. That’s only 112 bytes. So the CPU can only “immediately”
+access around a hundred bytes of data. How does the CPU get access to more
+data? It has to load it into registers.</p>
+
+  <p>This is where the random access memory (RAM), or main memory, on your computer
+comes into play. The main memory on your computer can be pretty large compared
+to the paltry 112 bytes your CPU has access to. It’s not unusual for a regular
+laptop to have four or more gigabytes (~ <script type="math/tex">4 \times 10^9</script> bytes) in its main
+memory. That’s a lot of bytes! However, there’s a catch. The CPU can access its
+registers immediately, but main memory is a lot “farther” away in circuit-land;
+it’s not an immediate operation to load something from main memory. We’ll say
+that it takes one clock cycle (remember that the CPU is doing several billion
+of these every second) to access a value from a register. To access something
+from main memory takes approximately 800 cycles (about 100 nanoseconds).
+Unfortunately this means that our CPU, if it wants something from main memory,
+is left twiddling its thumbs for 800 cycles until it can continue doing its
+computation.</p>
+
+  <p>Modern computers usually have a “level” of storage in between registers and
+main memory. It is closer to the CPU in terms of access time, but is
+significantly smaller than main memory. This region is called the “cache”, and
+it exists precisely because main memory is so slow compared to registers. While
+a load from main memory can take 800 CPU cycles, a load from the closest cache
+probably only takes about 4. The idea with the cache is to keep parts of main
+memory which are frequently used (or are likely to be used soon) close to the
+CPU so that it doesn’t have to go all the way to main memory. Caching is a very
+important part of modern computer architecture and it has a lot of real-world
+implications, some of which you’ll see later in this lab.</p>
+
+  <p>RAM and caches aren’t the end of the data storage story. After all, how does
+something get into RAM in the first place? It has to be loaded.</p>
+
+  <p>Before it can be loaded into RAM or registers, your data (programs, text,
+media, &amp;c.) needs to be able to live somewhere <em>persistently</em>, i.e. not
+disappear when you turn off your computer. Neither RAM nor registers retain
+their data when the power gets turned off. There are two main forms of
+persistent storage in use today: hard disk drives (HDDs) and solid state drives
+(SSDs). The former use spinning magnetic disks, the latter uses billions of
+fancy circuits. Typical hard disk drives have access times of around 10
+milliseconds (<script type="math/tex">1 \times 10^7</script> nanoseconds), solid state drives around .1ms
+(<script type="math/tex">1 \times 10^5</script> nanoseconds). Note the difference in order of magnitude
+between accessing something from RAM and accessing something from a HDD. (HDDs
+are still the kings of storage capacity; multi-terabyte (~<script type="math/tex">10^{12}</script> bytes)
+HDDs aren’t uncommon.)</p>
+
+  <p>You should start to notice a pattern here: as we increase the amount of
+available storage there is a proportional increase in the amount of time it
+takes to get data to the CPU.</p>
+
+  <p>What’s even larger than a few terabytes on a HDD? How about your personal files
+somewhere in “the cloud”, i.e. on the internet? The space available with the
+internet is seemingly infinite, but it can be pretty slow too (just think about
+how long it takes to download a few dozen gigabytes over your typical internet
+connection compared to copying a few gigabytes from one part of a hard drive to
+another).</p>
+
+  <p><strong>The Failings of Balanced BSTs</strong></p>
+
+  <p>Suppose we have some obscenely large dictionary implemented as a balanced
+binary search tree. For example, suppose we want to store the US Census records
+in an AVL tree. There are approximately 317,814,000 people in the US according
+to the Census Bureau. Let’s say that each person has a unique entry in our AVL
+tree. On average, the height of an AVL tree is <script type="math/tex">\log_2(n)</script>, so for our
+record, we have a tree of height <script type="math/tex">\log_2(317,814,000)</script>; roughly 28.
+Doesn’t sound so bad right? 28 seems like a totally reasonable number. Well,
+until you consider how much data is probably in this tree. Suppose that for
+each of these keys we store a modest 512 bytes of data in the tree. That means
+that there’s approximately 163 GB of data associated with this tree. Yikes!
+That probably isn’t going to fit in the main memory of our computer. So what do
+we do instead? Well, we use the next largest thing in the storage hierarchy: a
+hard disk.</p>
+
+  <p>To see why the BST becomes a horrible choice when our data is on disk, let’s
+use a small on-disk AVL tree as an example:</p>
+
+  <script type="x/graph" style="max-width: 300px;">
+digraph {
+    graph [ordering="out"];
+    10 -> 1;
+    10 -> 110;
+    1 -> 0;
+    1 -> 2;
+    110 -> 11;
+    110 -> 200;
+}
+</script>
+
+  <p>Remember, none of these nodes are accessible to the CPU immediately; they all
+live on the hard disk. That means in the execution of our program, we have to
+fetch a node from the disk before the CPU can do anything with it. Earlier we
+said that each hard drive disk seek takes approximately 10ms, so suppose that
+we do a find operation, searching for 200 in the above tree. How much time do
+we spend just loading nodes from disk during that operation? Well, first we
+have to load the node 10, then 110, then 200. So in total that’s 30ms spent on
+loading nodes. Doesn’t seem so bad, but then you realize that our friend the
+CPU is <em>crazy</em> fast. 90ms is <script type="math/tex">9 \times 10^7</script> nanoseconds. Our CPU can do
+about 8 instructions every nanosecond, which means that it could have done
+almost <script type="math/tex">10^8</script> instructions in the time we spent loading those nodes! That’s a
+lot of wasted instructions. It gets considerably worse when we remember our
+large census AVL tree has a height of around 28.</p>
+
+  <p><strong><code class="highlighter-rouge">BTree</code>s to the Rescue</strong></p>
+
+  <p>First, a quick definition. The (Knuth) order of a BTree is defined as the
+number of children each node can potentially have. You can also think of a
+BTree’s order as being one plus the maximum number of elements each node can
+have.</p>
+
+  <p>BTrees, unlike BSTs, store multiple keys (determined by the order of the tree)
+in each node, which limits the overall height of the tree. The nature of hard
+drives allows us to load a chunk of data all at once. Now when we are doing our
+search on the tree, each time we load a node we get a whole bunch of keys
+instead of just one. Once the nodes are in memory, the remaining time to
+process the entire node is negligible compared to the time it took to load them
+from disk (remember the orders of magnitude of difference between HDD access
+times and main memory access times).</p>
+
+  <p>Now let’s return to the example of the US Census data. We determined that the
+AVL tree for the data has a height around 28, which translates to a worst case
+of 28 disk accesses or 280ms of time “wasted” loading from disk. What if we
+used a BTree instead? Suppose that our BTree stores 64 keys in each node; this
+means that on each disk seek we will get 64 keys instead of just 1 with the AVL
+tree. A best case for the height of this BTree would be
+<script type="math/tex">\log_{64}(317,814,000)</script>; roughly 5. For this tree that means, in the worst
+case, we would have to load about 5 nodes from disk, meaning that we waste 50ms
+or so doing disk reads. Quite an improvement over 280ms!</p>
+
+  <p>As it turns out, the same logic can be applied to BTrees that live entirely in
+main memory. Just as RAM access time is significantly lower than HDD access
+time, cache access time is significantly lower than RAM access time. The same
+exact thing happens, except for instead of “wasting” time loading from disk,
+the CPU wastes time loading each node from main memory (remember it takes about
+800 cycles to do that). RAM is similar to HDDs in that we can load a bunch of
+values at once into a faster medium. This means that we can get similar
+increases in performance by loading a bunch of keys from RAM into cache and
+then doing the processing to figure out where to go next in the tree. With
+extremely large data sets in memory, these small performance gains start to add
+up. In any situation where we can load a chunk of keys closer to the CPU in
+about the same amount of time it would take to load just one of them BTrees are
+potentially advantageous. This is why BTrees (or some variant of them) are used
+in file systems, databases, and even at <a href="https://code.google.com/p/cpp-btree/wiki/UsageInstructions">Google (for massive in-memory
+dictionaries and
+sets)</a>. In this lab
+you’ll implement functions for an entirely in-memory BTree. You won’t have to
+worry about “loading” things into the cache — that’s all taken care of for
+you by the underlying architecture.</p>
+
+  <p>I highly suggest playing around with BTrees with this <a href="https://www.cs.usfca.edu/~galles/visualization/BTree.html">fun little
+app</a>, as it really
+helps build your intuition for how the BTree algorithms work. Note that you can
+pause and step through the execution of the functions.</p>
+</div>
+
+<h2 id="lab-insight">Lab Insight</h2>
+
+<p>B-Trees are a powerful data structure for distributed data storage. One can optimize
+access to this data structure by potentially splitting each node across a distributed
+system or perhaps even using a data structure like it to build databases
+(applications specifically designed to store and lookup massive amounts of data rapidly).
+To learn more about how B-Trees are used in databases, CS 411 is a database course
+that offers information on this topic.</p>
+
+<h2 id="checking-out-the-code">Checking Out The Code</h2>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/lab_btree -m "Merging initial lab_btree files"
+</code></pre></div></div>
+
+<p>If you’re on your own machine, you may need to run:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge --allow-unrelated-histories release/lab_btree -m "Merging initial lab_btree files"
+</code></pre></div></div>
+
+<p>Upon a successful merge, your lab_btree files are now in your <code class="highlighter-rouge">lab_btree</code> directory.</p>
+
+<p>The code for this activity resides in the <code class="highlighter-rouge">lab_btree/</code> directory. Get
+there by typing this in your working directory:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd lab_btree/
+</code></pre></div></div>
+
+<h2 id="the-btree-class-and-friends">The <code class="highlighter-rouge">BTree</code> Class and Friends</h2>
+
+<p>You’ll find the definition of the <code class="highlighter-rouge">BTree</code> class in <code class="highlighter-rouge">btree.h</code>. Just like
+<code class="highlighter-rouge">AVLTree</code>, <code class="highlighter-rouge">BTree</code> is generic in that it can have arbitrary types for its keys
+(assuming they can be compared) and values. There are two subclasses in
+<code class="highlighter-rouge">BTree</code>: <code class="highlighter-rouge">DataPair</code> and <code class="highlighter-rouge">BTreeNode</code>. A <code class="highlighter-rouge">DataPair</code> is essentially just a key,
+value pair which is useful since our <code class="highlighter-rouge">BTree</code> implements dictionary
+functionality. The <code class="highlighter-rouge">BTreeNode</code> is a node in the <code class="highlighter-rouge">BTree</code>. It contains two
+<code class="highlighter-rouge">vector</code>s: <code class="highlighter-rouge">elements</code> and <code class="highlighter-rouge">children</code>. <code class="highlighter-rouge">elements</code> is the data in the node,
+<code class="highlighter-rouge">children</code> is pointers to the node’s child nodes. Note that <code class="highlighter-rouge">DataPair</code>s can be
+compared with <code class="highlighter-rouge">&lt;</code>, <code class="highlighter-rouge">&gt;</code>, and <code class="highlighter-rouge">==</code> based entirely on their keys (the functions
+are defined in the <code class="highlighter-rouge">DataPair</code> class).</p>
+
+<p>Since <code class="highlighter-rouge">BTreeNode</code> uses <code class="highlighter-rouge">vector</code> pretty heavily, it would probably be a good
+idea to keep a <a href="http://en.cppreference.com/w/cpp/container/vector">reference</a>
+open while working with them (in particular, <code class="highlighter-rouge">vector</code>’s <code class="highlighter-rouge">insert</code> and <code class="highlighter-rouge">assign</code>
+functions will probably prove useful).</p>
+
+<p>The Doxygen for the <a href="../../doxygen/lab_btree/classBTree.html"><code class="highlighter-rouge">BTree</code> class</a> is here.</p>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+Note that due to the nature of the class, it will not be useful for you to
+incrementally test things with provided test cases (except <code class="highlighter-rouge">insertion_idx</code> which
+can be tested separately). Thus, you may write the functions in whatever order
+makes sense to you and then debug them afterwards (using GDB is highly recommended).</p>
+</div>
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+ A friend function of a class is defined outside that class’ scope but it has
+ the right to access all private and protected members of the class. Even though
+ the prototypes for friend functions appear in the class definition, friends are
+ not member functions.
+ You will not be required to create friend functions in this or any other tasks.</p>
+</div>
+
+<h2 id="the-insertion_idx-function">The <code class="highlighter-rouge">insertion_idx</code> Function</h2>
+
+<p>Doxygen for this function is <a href="../../doxygen/lab_btree/btree_8h.html#a8bdf7b34ea8b4ef0c2fdcbeeb8300866">here</a>.</p>
+
+<p>The elements of a <code class="highlighter-rouge">BTreeNode</code> are meant to be kept in sorted order so that they
+can be searched with a binary search to quickly find the key in the node (if it
+exists) or the proper child to explore. There’s a utility function in <code class="highlighter-rouge">btree.h</code>
+called <code class="highlighter-rouge">insertion_idx</code> which serves this purpose. It is not specific to
+<code class="highlighter-rouge">BTree</code>, rather it takes an arbitrary <code class="highlighter-rouge">vector</code> and arbitrary value and tries to
+find the index in the vector the value can be inserted at such that the
+<code class="highlighter-rouge">vector</code> will remain in sorted order. You should be able to safely use
+<code class="highlighter-rouge">operator&lt;</code>, <code class="highlighter-rouge">operator&gt;</code>, and <code class="highlighter-rouge">operator==</code> inside this function when comparing
+the parameter value to the elements in the vector. Thus, I should be able to do
+something like this to <code class="highlighter-rouge">insert</code> 5 into the position that keeps <code class="highlighter-rouge">sorted_vec</code>
+sorted:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* sorted_vec is a sorted vector of ints */</span>
+<span class="kt">size_t</span> <span class="n">insert_idx</span> <span class="o">=</span> <span class="n">insertion_idx</span><span class="p">(</span><span class="n">sorted_vec</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="n">sorted_vec</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">sorted_vec</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="n">insert_idx</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>You can test your function with provided test cases, or you can write your own
+testing functions for it somewhere. Note that because our entire tree is stored
+in memory, using an online algorithm such as a linear search is unnecessary and
+the more efficient binary search can be used.</p>
+
+<h2 id="the-find-function">The <code class="highlighter-rouge">find</code> Function</h2>
+
+<p>The Doxygen for this function is <a href="../../doxygen/lab_btree/classBTree.html#a579148d3be8bd01f3532d65d98e35367">here</a>.</p>
+
+<p>Searching a <code class="highlighter-rouge">BTree</code> is very much like searching a BST. The main difference is
+that instead of only having two possible children to explore, we have
+order-many potential children. As with a BST, it is natural to write <code class="highlighter-rouge">find</code>
+recursively. For a given level of the recursion, the steps are as follows.
+First you must do a binary search on the elements (remember they should always
+be stored in sorted order) using <code class="highlighter-rouge">insertion_idx</code>. If the key at <code class="highlighter-rouge">insertion_idx</code>
+is the one we are looking for, we are done (since keys in the tree are unique)
+and return, otherwise we didn’t <code class="highlighter-rouge">find</code> the key in the current node.  If the
+current node is a leaf node, then we’ve run out of nodes to explore and we are
+also done.  Otherwise, we need to call <code class="highlighter-rouge">find</code> recursively on the proper child
+of the current node. This can be done using the return value of
+<code class="highlighter-rouge">insertion_idx</code>.</p>
+
+<p>Below is a few examples of <code class="highlighter-rouge">find</code> on a small, order 3 <code class="highlighter-rouge">BTree</code>.</p>
+
+<p>The initial tree:</p>
+
+<script type="x/graph" style="max-width: 300px;">
+digraph {
+    graph [ordering="out"];
+    node [shape="record"];
+    l0_0 [label="08  |  20"];
+    l1_0 [label="03  |  05"];
+    l1_1 [label="12"];
+    l1_2 [label="22  |  39"];
+
+    l0_0 -> l1_0;
+    l0_0 -> l1_1;
+    l0_0 -> l1_2;
+}
+</script>
+
+<p>We search for 39. We start at the root, call <code class="highlighter-rouge">insertion_idx</code>, which should
+return 2, since that’s the index in the root node that 39 could be inserted at
+to maintain sorted order. Since this isn’t a valid index in the current node,
+we know we need to explore a child. We also know that 2 is conveniently the index of
+the child pointer (the bar) we want to explore.</p>
+
+<script type="x/graph" style="max-width: 300px;">
+digraph {
+    graph [ordering="out"];
+    node [shape="record"];
+    l0_0 [label="08  |  20" color="red" penwidth="2pt"];
+    l1_0 [label="03  |  05"];
+    l1_1 [label="12"];
+    l1_2 [label="22  |  39"];
+
+    l0_0 -> l1_0;
+    l0_0 -> l1_1;
+    l0_0 -> l1_2 [color="red" penwidth="2pt"];
+}
+</script>
+
+<script type="x/graph" style="max-width: 300px;">
+digraph {
+    graph [ordering="out"];
+    node [shape="record"];
+    l0_0 [label="08  |  20"];
+    l1_0 [label="03  |  05"];
+    l1_1 [label="12"];
+    l1_2 [label="22  |  39" color="red" penwidth="2pt"];
+
+    l0_0 -> l1_0;
+    l0_0 -> l1_1;
+    l0_0 -> l1_2;
+}
+</script>
+
+<p>We call <code class="highlighter-rouge">insertion_idx</code> on this node and <code class="highlighter-rouge">find</code> the key we are looking for.</p>
+
+<p>Now let’s try <code class="highlighter-rouge">find</code>ing something that isn’t in the tree, -2. We use
+<code class="highlighter-rouge">insertion_idx</code> to <code class="highlighter-rouge">find</code> the place we would insert -2, which is index 0. This
+is also the index of the child we want to explore.</p>
+
+<script type="x/graph" style="max-width: 300px;">
+digraph {
+    graph [ordering="out"];
+    node [shape="record"];
+    l0_0 [label="08  |  20" color="red" penwidth="2pt"];
+    l1_0 [label="03  |  05"];
+    l1_1 [label="12"];
+    l1_2 [label="22  |  39"];
+
+    l0_0 -> l1_0 [color="red" penwidth="2pt"];
+    l0_0 -> l1_1;
+    l0_0 -> l1_2;
+}
+</script>
+
+<p>When call <code class="highlighter-rouge">insertion_idx</code> on this node and <code class="highlighter-rouge">find</code> that the key is not in this
+node. Since this node is also a leaf node, the key isn’t in the tree.</p>
+
+<script type="x/graph" style="max-width: 300px;">
+digraph {
+    graph [ordering="out"];
+    node [shape="record"];
+    l0_0 [label="08  |  20"];
+    l1_0 [label="03  |  05" color="red" penwidth="2pt"];
+    l1_1 [label="12"];
+    l1_2 [label="22  |  39"];
+
+    l0_0 -> l1_0;
+    l0_0 -> l1_1;
+    l0_0 -> l1_2;
+}
+</script>
+
+<h2 id="the-split_child-function">The <code class="highlighter-rouge">split_child</code> Function</h2>
+
+<p>The Doxygen for this function is <a href="../../doxygen/lab_btree/classBTree.html#a004b09d1fdbedc11b9df80fa4b295b42">here</a>.</p>
+
+<p><code class="highlighter-rouge">split_child</code> is used as a part of the insertion process in a <code class="highlighter-rouge">BTree</code> to “fix”
+the tree. When a node becomes “too full”, i.e. when its number of elements
+becomes the tree’s order, we have to split the node into two nodes, and throw
+out the median element into the parent node. The process should become more
+clear with the below examples (combined with the <code class="highlighter-rouge">insert</code> examples). When
+actually implementing this function you will probably want to use <code class="highlighter-rouge">vector</code>’s
+<code class="highlighter-rouge">assign</code> function.</p>
+
+<h2 id="the-insert-function">The <code class="highlighter-rouge">insert</code> Function</h2>
+
+<p>The Doxygen for this function is <a href="../../doxygen/lab_btree/classBTree.html#ad31d73f26bbdfa71f93357a56334e635">here</a>.</p>
+
+<p>You have to write the recursive helper function <code class="highlighter-rouge">insert</code> (the public one is
+already written for you). Insertion into a <code class="highlighter-rouge">BTree</code> always happens at the leaf
+nodes; inserting involves finding the proper leaf node (recursively) that the
+key belongs in, and then “fixing” the tree on the way back up the recursive
+calls.</p>
+
+<p>As with <code class="highlighter-rouge">find</code>, first you should do a binary search on the current node being
+explored. If the key we are trying to <code class="highlighter-rouge">insert</code> exists in the current node, then
+there’s no more work to be done (don’t replace the value associated with the
+already existing key).</p>
+
+<p>Below is an example that illustrate the insertion/splitting process. Let’s
+start with 13.</p>
+
+<p>We find the child we want to <code class="highlighter-rouge">insert</code> into in the same way as <code class="highlighter-rouge">find</code>. We have
+to verify that the key isn’t in the current node and then recursively call
+<code class="highlighter-rouge">insert</code> until we hit a leaf node to <code class="highlighter-rouge">insert</code> into.</p>
+
+<script type="x/graph" style="max-width: 300px;">
+digraph {
+    graph [ordering="out"];
+    node [shape="record"];
+    l0_0 [label="08  |  20" color="red" penwidth="2pt"];
+    l1_0 [label="03  |  05"];
+    l1_1 [label="12"];
+    l1_2 [label="22  |  39"];
+
+    l0_0 -> l1_0;
+    l0_0 -> l1_1 [color="red" penwidth="2pt"];
+    l0_0 -> l1_2;
+}
+</script>
+
+<p>We use <code class="highlighter-rouge">insertion_idx</code> at the leaf to find which spot the key belongs in.</p>
+
+<script type="x/graph" style="max-width: 300px;">
+digraph {
+    graph [ordering="out"];
+    node [shape="record"];
+    l0_0 [label="08  |  20"];
+    l1_0 [label="03  |  05"];
+    l1_1 [label="12  |  13" color="red" penwidth="2pt"];
+    l1_2 [label="22  |  39"];
+
+    l0_0 -> l1_0;
+    l0_0 -> l1_1;
+    l0_0 -> l1_2;
+}
+</script>
+
+<p>Now let’s do an <code class="highlighter-rouge">insert</code> the requires a split; let’s <code class="highlighter-rouge">insert</code> 25.</p>
+
+<p>Same process as with finding 25, we use <code class="highlighter-rouge">insertion_idx</code> to find the child to
+recursively explore.</p>
+
+<script type="x/graph" style="max-width: 300px;">
+digraph {
+    graph [ordering="out"];
+    node [shape="record"];
+    l0_0 [label="08  |  20" color="red" penwidth="2pt"];
+    l1_0 [label="03  |  05"];
+    l1_1 [label="12  |  13"];
+    l1_2 [label="22  |  39"];
+
+    l0_0 -> l1_0;
+    l0_0 -> l1_1;
+    l0_0 -> l1_2 [color="red" penwidth="2pt"];
+}
+</script>
+
+<p>We <code class="highlighter-rouge">insert</code> 25 to the place it belongs in the leaf, and we are done at this
+level of recursion. After the return (i.e. when we are back at the node
+containing 8, 20) we check the size of the node we just <code class="highlighter-rouge">insert</code>ed into. We see
+that its size is equal to order, so we have to split it (using <code class="highlighter-rouge">split_child</code>).
+First we find the median of the node we are splitting (element 25) put it at
+the proper place in the 8, 20 node. We have to create a new node containing
+everything to the right of 25 (including the child pointers to the right of
+25). Similarly, the left node contains everything to left of 25. We have to
+make sure to add the new right child pointer to the children of the 8, 20 node.</p>
+
+<script type="x/graph" style="max-width: 350px;">
+digraph {
+    graph [ordering="out"];
+    node [shape="record"];
+    l0_0 [label="08  |  20"];
+    l1_0 [label="03  |  05"];
+    l1_1 [label="12  |  13"];
+    l1_2 [label="22  |  25  |  39" color="red" penwidth="2pt"];
+
+    l0_0 -> l1_0;
+    l0_0 -> l1_1;
+    l0_0 -> l1_2;
+}
+</script>
+
+<p>At this point we notice that the root has to be split.</p>
+
+<script type="x/graph" style="max-width: 400px;">
+digraph {
+    graph [ordering="out"];
+    node [shape="record"];
+    l0_0 [label="08  |  20  |  25" color="red" penwidth="2pt"];
+    l1_0 [label="03  |  05"];
+    l1_1 [label="12  |  13"];
+    l1_2 [label="22"];
+    l1_3 [label="39"];
+
+    l0_0 -> l1_0;
+    l0_0 -> l1_1;
+    l0_0 -> l1_2;
+    l0_0 -> l1_3;
+}
+</script>
+
+<p>The median of the current root (20) gets put into a new root node, and its two
+children are the 8 node and the 25 node.</p>
+
+<script type="x/graph" style="max-width: 400px;">
+digraph {
+    graph [ordering="out"];
+    node [shape="record"];
+    l0_0 [label="20"];
+    l1_0 [label="08"];
+    l1_1 [label="25"];
+    l2_0 [label="03  |  05"];
+    l2_1 [label="12  |  13"];
+    l2_2 [label="22"];
+    l2_3 [label="39"];
+
+    l0_0 -> l1_0;
+    l0_0 -> l1_1;
+    l1_0 -> l2_0;
+    l1_0 -> l2_1;
+    l1_1 -> l2_2;
+    l1_1 -> l2_3;
+}
+</script>
+
+<p>Take note of the children indices that ended up in the two children nodes. 20
+had index 1 in the original node. The child pointers that ended up in the left
+node had indices 0 and 1, the child pointers that ended up in the left node had
+indices 2 and 3. Note that for trees of odd order this ends up working out very
+nicely, since there’s only one choice of median. You have to be very careful
+though since this is not the case for even orders.</p>
+
+<h2 id="testing-your-code">Testing Your Code</h2>
+
+<p>As always, there are provided tests for the lab. Run them like you normally would:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make test
+./test
+</code></pre></div></div>
+
+<p>There is also an executable called <code class="highlighter-rouge">test_btree</code>, made by running:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make test_btree
+</code></pre></div></div>
+
+<p>If you run it with no parameters it will default to some basic tests with
+sequential and random integer data. It also can take parameters:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>USAGE: test_btree ORDER N
+Tests N inserts and N finds on a BTree&lt;int, int&gt; of order ORDER.
+</code></pre></div></div>
+
+<p>Additionally, note that <code class="highlighter-rouge">BTreeNode</code>s can be printed (see <a href="../../doxygen/lab_btree/structBTree_1_1BTreeNode.html#a4a9da2a985394384400819604ebb77cd">here</a>).
+E.g. if I’m in <code class="highlighter-rouge">find</code> I can do something like:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">subroot</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="grading-information">Grading Information</h2>
+
+<p>The following files are used in grading:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">btree.h</code></li>
+  <li><code class="highlighter-rouge">btree.cpp</code></li>
+</ul>
+
+<p>All other files will not be used for grading.</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+<h2 id="race-against-stdmap">Race Against <code class="highlighter-rouge">std::map</code></h2>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+The following isn’t really required to do the lab, but we think it’s an
+interesting way to see how your BTree is faster than the STL dictionary
+structure.</p>
+</div>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong>Additional Software</strong> 
+You must have <code class="highlighter-rouge">matplotlib</code> installed in order for the plots to work:</p>
+</div>
+
+<p>So you made this <code class="highlighter-rouge">BTree</code>, now how good is it really?  Well, you can find out by
+using the <code class="highlighter-rouge">dict_racer</code> executable. The usage is as follows:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>USAGE: dict_racer ORDER N STEP RANDOM INSERTS FINDS
+Runs a race between a BTree&lt;int, int&gt; of order ORDER against an
+std::map&lt;int, int&gt; for N inserts / finds. Outputs CSVs into "results".
+ORDER specifies the order of the BTree
+N specifies the max number of insert / finds to do
+STEP specifies the intervals to split N into. E.g. N = 10, STEP = 2 will make
+points for 2 operations, 4 operations ... &amp;c.
+RANDOM specifies whether the data should be random or sequential.
+INSERT specifies whether to benchmark the inserts.
+FINDS specifies whether to benchmark the finds.
+</code></pre></div></div>
+
+<p>Results can be plotted with the simple python script <code class="highlighter-rouge">generate_plot.py</code>, e.g.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./generate_plot.py results/*.csv
+</code></pre></div></div>
+
+<p>For example, the following image was produced with the following commands on my
+laptop:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make dict_racer
+mkdir results
+./dict_racer 64 200000 1000 true true true
+./generate_plot.py results/*.csv
+</code></pre></div></div>
+
+<div class="row">
+<div class="col-md-6">
+<img class="img-fluid" src="../../assets/assignments/labs/btree/figure_1.png" />
+</div>
+</div>
+
+<p><code class="highlighter-rouge">std::map</code> in this case is implemented with a form of self-balancing binary
+search tree called a red-black tree. As you can see, the difference in
+performance widens as we increase <script type="math/tex">n</script>. I would guess that this is mostly
+because the <code class="highlighter-rouge">BTree</code> keeps more of the data its processing in cache most of the
+time, which is faster than loading each key, value from memory during a
+traversal (which is what a binary search tree needs to do).</p>
+
+<p>It’s worth experimenting with different orders, values for <script type="math/tex">n</script>, and step
+values. I wouldn’t recommend testing on EWS remotely as they’re shared machines
+and performance numbers are mostly meaningless. Also note that the Python
+script is very simple, so only keep CSVs around that have different values for
+order and step size, otherwise the plot will look pretty weird. Alternatively
+you can just remove the results directory each time.</p>
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/btree/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:52 GMT -->
+</html>

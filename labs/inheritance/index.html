@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/inheritance/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:20 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | lab_inheritance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_lab.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>lab_inheritance</h1>
+                <h2 class="h5">Insidious Inheritance</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Due: <span>Feb 10, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/lab_inheritance/annotated.html" role="button">Doxygen</a>
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/inheritance/cs225sp19-lab_inherit-handout.pdf">Lab handout</a>
+                    
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/inheritance/cs225sp19-lab_inherit-handout-solution.pdf">Handout solution</a>
+                    
+                    
+                    <a class="btn btn-light" href="https://docs.google.com/presentation/d/1mDVwYw6sljC1i-mVPhNS1mnVDxQQESDuYwwlZH89jHQ/edit?usp=sharing">Lab slides</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            <h2 id="assignment-description">Assignment Description</h2>
+
+<p>In this lab you will get experience with some of the implementation issues and
+conceptual details of inheritance. Inheritance is a mechanism for increasing
+the reusability and reliability of C++ code. It is worth mentioning that
+inheritance is a characteristic of all object oriented programming languages.
+Our goal is to give you a glimpse of the functionality of inheritance, so that
+you can make informed design decisions in the future. Please read through the
+entire lab before you begin.</p>
+
+<div class="d-flex">
+    <img class="img-fluid mr-auto ml-auto" src="http://imgs.xkcd.com/comics/car_problems.png" title="[Insert clever title-text here.]" attrlink="http://xkcd.com/1014" />
+</div>
+
+<h2 id="lab-insight">Lab Insight</h2>
+
+<p>This lab teaches some of the characteristics observed in object oriented programming. These characteristics are useful in software design when building code bases for large projects, APIs, and production code bases. Some classes that further extend on these concepts include CS 427, CS 242, and CS 422. This lab will help you build clean code bases where the OOP (Object-Oriented Programming) characteristics help minimize having to rewrite redundant code as well as make use of virtual inheritance to treat custom sub-classes the same way as their base classes without losing the custom functionality of these subclasses.</p>
+
+<h2 id="getting-set-up">Getting Set Up</h2>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/lab_inheritance <span class="nt">-m</span> <span class="s2">"Merging initial lab_inheritance files"</span>
+</code></pre></div></div>
+
+<p>If you’re on your own machine, you may need to run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge <span class="nt">--allow-unrelated-histories</span> release/lab_inheritance <span class="nt">-m</span> <span class="s2">"Merging initial lab_inheritance files"</span>
+</code></pre></div></div>
+
+<p>Upon a successful merge, your lab_inheritance files are now in your <code class="highlighter-rouge">lab_inheritance</code> directory.</p>
+
+<p>The code for this activity resides in the <code class="highlighter-rouge">lab_inheritance/</code> directory. Get
+there by typing this in your working directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>lab_inheritance/
+</code></pre></div></div>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+You will only need to modify the following files:</p>
+
+  <ul>
+    <li><code class="highlighter-rouge">shape.{cpp,h}</code></li>
+    <li><code class="highlighter-rouge">circle.{cpp,h}</code></li>
+    <li><code class="highlighter-rouge">truck.{cpp,h}</code></li>
+    <li><code class="highlighter-rouge">flower.{cpp,h}</code></li>
+    <li><code class="highlighter-rouge">drawable.h</code></li>
+  </ul>
+</div>
+
+<h2 id="class-hierarchy">Class Hierarchy</h2>
+
+<p>To help us understand class hierarchies better here is an example of a simple
+class hierarchy showing that a <code class="highlighter-rouge">Dog</code> <strong>is a</strong> <code class="highlighter-rouge">Animal</code>.</p>
+
+<script type="x/graph">
+digraph {
+    node [shape=record,style=filled,fillcolor=gray95,fontname="Courier",fontnames="gd"];
+    edge [dir=back, arrowtail=empty];
+
+    animal [label = "{Animal|+name : string|+speak() : void}"];
+    dog [label = "{Dog|+breed : string|}"];
+
+    animal -> dog;
+}
+</script>
+
+<p>The code would look something like the following:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Animal</span> <span class="p">{</span>
+   <span class="k">public</span><span class="o">:</span>
+      <span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+
+      <span class="k">virtual</span> <span class="kt">void</span> <span class="n">speak</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="cm">/* The = 0 at the end of the method means that the method is a pure virtual method
+       * meaning that it does not have an implementation and it delegates the task
+       * of implementing the method to the classes that is derived from it */</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">Dog</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Animal</span> <span class="p">{</span>
+   <span class="k">public</span><span class="o">:</span>
+      <span class="n">string</span> <span class="n">breed</span><span class="p">;</span>
+
+      <span class="cm">/* Dog inherits speak from Animal */</span>
+      <span class="kt">void</span> <span class="n">speak</span><span class="p">();</span>
+
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="n">Dog</span><span class="o">::</span><span class="n">speak</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Woof Woof"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In this example <code class="highlighter-rouge">Animals</code> have a <code class="highlighter-rouge">name</code> and can <code class="highlighter-rouge">speak</code> but since <code class="highlighter-rouge">speak</code> is a
+pure virtual method we CANNOT construct an <code class="highlighter-rouge">Animal</code> by itself. That is <code class="highlighter-rouge">Animal</code>
+is an abstract class and it can only be constructed by one of its derived
+classes. For example, a <code class="highlighter-rouge">Dog</code> is a derived class of Animal. This means that a
+Dog <strong>is a</strong> <code class="highlighter-rouge">Animal</code>, and, therefore, it inherits a <code class="highlighter-rouge">name</code> and a <code class="highlighter-rouge">speak</code>
+method from <code class="highlighter-rouge">Animal</code>. However, since the <code class="highlighter-rouge">Animal</code>’s <code class="highlighter-rouge">speak</code> does not have an
+implementation, <code class="highlighter-rouge">Dog</code> <strong>must</strong> implement the <code class="highlighter-rouge">speak</code> method.</p>
+
+<p>Here is an example of how we could use a <code class="highlighter-rouge">Dog</code> object:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Dog</span><span class="o">*</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dog</span><span class="p">();</span>
+
+<span class="cm">/* Like usual we can access all the public methods and member variables of a
+ * Dog */</span>
+<span class="n">d</span><span class="o">-&gt;</span><span class="n">breed</span><span class="p">;</span>
+
+<span class="cm">/* But now since a Dog is an Animal we can also do this too */</span>
+<span class="n">d</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">;</span>     <span class="c1">// inherited from Animal</span>
+<span class="n">d</span><span class="o">-&gt;</span><span class="n">speak</span><span class="p">();</span>  <span class="c1">// inherited from Animal and since it is a Dog speak() will print</span>
+             <span class="c1">// "Woof Woof"</span>
+
+<span class="cm">/* Additionally we can treat our Dog only like an Animal like this */</span>
+<span class="n">Animal</span><span class="o">*</span> <span class="n">a</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>
+
+<span class="cm">/* But now we can only do the following */</span>
+<span class="n">a</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">;</span>
+<span class="n">a</span><span class="o">-&gt;</span><span class="n">speak</span><span class="p">();</span>  <span class="c1">// Still prints "Woof Woof" because speak is a virtual method.</span>
+
+<span class="n">a</span><span class="o">-&gt;</span><span class="n">breed</span>     <span class="c1">// ERROR! This will NOT work since we perceive it as an Animal now</span>
+
+<span class="cm">/* Additionally, if we try to have our Animal pointer point back to a Dog
+ * pointer this will cause a problem because an Animal Is NOT A Dog. */</span>
+<span class="n">Dog</span><span class="o">*</span> <span class="n">d2</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>  <span class="c1">// ERROR!  Animal Is NOT A Dog</span>
+
+<span class="cm">/* Furthermore, since Animal is abstract and has a pure virtual method
+ * we CANNOT construct one! */</span>
+<span class="n">Animal</span> <span class="n">a2</span><span class="p">;</span>  <span class="c1">// ERROR! Animal is an abstract class</span>
+</code></pre></div></div>
+
+<p>Now that we can understand a simple class hierarchy, let’s look at a more
+complex one. Here is a diagram depicting the class hierarchy that is used in
+this lab. (Note: This diagram is missing some information, e.g. methods, member
+variables, etc.., for demonstration purposes)</p>
+
+<script type="x/graph">
+digraph {
+    node [shape=record,style=filled,fillcolor=gray95,fontname="Courier",fontnames="gd"];
+    edge [dir=back, arrowtail=empty];
+
+    drawable [label = "{Drawable||+draw() : void}"];
+    shape [label = "{Shape|-center : Vector2\n#color : HSLAPixel|+area() : int\n+contains() : bool\n+perimeter() : int}"];
+    truck [label = "{Truck||}"];
+    flower [label = "{Flower||}"];
+
+    circle [label = "{Circle|-radius : int|}"];
+    rectangle [label = "{Rectangle|-height : int\n-width : int|}"];
+    triangle [label = "{Triangle|-vertices : Vector2[3]|}"];
+
+    drawable -> shape;
+    drawable -> truck;
+    drawable -> flower;
+    shape -> circle;
+    shape -> rectangle;
+    shape -> triangle;
+}
+</script>
+
+<p>This means everything is a <code class="highlighter-rouge">Drawable</code> and will have a <code class="highlighter-rouge">draw</code> method. Code like
+the following is perfectly acceptable:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Drawable</span><span class="o">*</span> <span class="n">triangle</span>  <span class="o">=</span> <span class="k">new</span> <span class="n">Triangle</span><span class="p">(....);</span>
+<span class="n">Drawable</span><span class="o">*</span> <span class="n">circle</span>    <span class="o">=</span> <span class="k">new</span> <span class="n">Circle</span><span class="p">(...);</span>
+<span class="n">Drawable</span><span class="o">*</span> <span class="n">rectangle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Rectangle</span><span class="p">(....);</span>
+<span class="n">Drawable</span><span class="o">*</span> <span class="n">truck</span>     <span class="o">=</span> <span class="k">new</span> <span class="n">Truck</span><span class="p">(...);</span>
+<span class="n">Drawable</span><span class="o">*</span> <span class="n">flower</span>    <span class="o">=</span> <span class="k">new</span> <span class="n">Flower</span><span class="p">(....);</span>
+
+<span class="cm">/* Now the only thing we can use on triangle, circle, rectangle, truck, and
+ * flower is draw but what gets drawn will change depending on what type the
+ * pointer is actually pointing to. This is called polymorphism, the behavior
+ * changes depending on the actual type of the object being pointed to. */</span>
+
+<span class="n">PNG</span> <span class="n">canvas</span><span class="p">;</span>
+<span class="n">triangle</span><span class="o">-&gt;</span><span class="n">draw</span><span class="p">(</span><span class="o">&amp;</span><span class="n">canvas</span><span class="p">);</span>   <span class="c1">// draws a Triangle even though triangle is a Drawable*</span>
+<span class="n">circle</span><span class="o">-&gt;</span><span class="n">draw</span><span class="p">(</span><span class="o">&amp;</span><span class="n">canvas</span><span class="p">);</span>     <span class="c1">// draws a Circle even though circle is a Drawable*</span>
+<span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">draw</span><span class="p">(</span><span class="o">&amp;</span><span class="n">canvas</span><span class="p">);</span>  <span class="c1">// draws a Rectangle even though rectangle is a Drawable*</span>
+<span class="n">truck</span><span class="o">-&gt;</span><span class="n">draw</span><span class="p">(</span><span class="o">&amp;</span><span class="n">canvas</span><span class="p">);</span>      <span class="c1">// draws a Truck even though truck is a Drawable*</span>
+<span class="n">flower</span><span class="o">-&gt;</span><span class="n">draw</span><span class="p">(</span><span class="o">&amp;</span><span class="n">canvas</span><span class="p">);</span>     <span class="c1">// draws a Flower even though flower is a Drawable*</span>
+</code></pre></div></div>
+
+<p>Look at <code class="highlighter-rouge">main.cpp</code> for a working example executable in action. <code class="highlighter-rouge">main.cpp</code> gets
+compiled and linked into an executable named <code class="highlighter-rouge">lab_inheritance</code>. Follow the
+instructions below to build, run, and view the output:</p>
+
+<p>The <code class="highlighter-rouge">Makefile</code> provided for this MP will create an executable when you
+run <code class="highlighter-rouge">make</code>. It will generate <code class="highlighter-rouge">lab_inheritance</code>.</p>
+
+<p>For example when you run</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./lab_inheritance
+</code></pre></div></div>
+
+<p>You could also run <code class="highlighter-rouge">Valgrind</code> on the normal executable:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>valgrind <span class="nt">--leak-check</span><span class="o">=</span>full ./lab_inheritance
+</code></pre></div></div>
+
+<p>This lab will use all of these objects in interesting ways but as you will
+quickly see they are not working the way the should. Your objective for this
+lab is to go through the 5 test executables and fix the code to work correctly
+by modifying how the classes in the hierarchy declare and implement their
+methods.</p>
+
+<p>Once you have fixed all the Valgrind errors, you can test your program output
+following the directions below.</p>
+
+<h2 id="exercise-1-fix-the-virtual-methods">Exercise 1: Fix the Virtual Methods</h2>
+
+<p>Please build and run <code class="highlighter-rouge">test_virtual</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make test_virtual                   <span class="c"># compile to produce test_virtual executeble</span>
+valgrind ./test_virtual             <span class="c"># run test_virtual with valgrind</span>
+</code></pre></div></div>
+
+<p>As you will see when you run <code class="highlighter-rouge">test_virtual</code>, the output will say:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The Perimeters are NOT the same.
+The Areas are NOT the same.
+</code></pre></div></div>
+
+<p>However, if you look closely at the code they should be the same because both
+of the pointers in <code class="highlighter-rouge">test_virtual.cpp</code> point to the same object!</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Exercise</strong></p>
+  <ul>
+    <li>Investigate and fix the code so that the areas and the perimeters are the
+same.</li>
+    <li>To fix this problem you should only need to modify <code class="highlighter-rouge">shape.cpp</code> and/or
+<code class="highlighter-rouge">shape.h</code>.</li>
+  </ul>
+</div>
+
+<h2 id="exercise-2-fix-the-destructor">Exercise 2: Fix the Destructor</h2>
+
+<p>Please build and run <code class="highlighter-rouge">test_destructor</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make test_destructor                         <span class="c"># compile to produce test_destructor executeble</span>
+valgrind <span class="nt">--leak-check</span><span class="o">=</span>full ./test_destructor <span class="c"># run test_destructor in valgrind</span>
+</code></pre></div></div>
+
+<p>When you run <code class="highlighter-rouge">test_destructor</code> in Valgrind you will see that
+<code class="highlighter-rouge">test_destructor</code> is leaking memory. However, if you look closely, <code class="highlighter-rouge">Triangle</code>
+does have a valid destructor and it is being called in <code class="highlighter-rouge">test_destructor</code>!</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Exercise</strong></p>
+  <ul>
+    <li>Investigate and fix the code so that the there is no more memory leak inside
+of <code class="highlighter-rouge">test_destructor</code>.</li>
+    <li>To fix this problem you should only need to modify <code class="highlighter-rouge">drawable.h</code> and
+<code class="highlighter-rouge">shape.h</code>.</li>
+  </ul>
+</div>
+
+<h2 id="exercise-3-fix-the-constructor">Exercise 3: Fix the Constructor</h2>
+
+<p>Please build and run <code class="highlighter-rouge">test_constructor</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make test_constructor <span class="c"># make test_constructor</span>
+./test_constructor    <span class="c"># run test_constructor</span>
+</code></pre></div></div>
+
+<p>When you run <code class="highlighter-rouge">test_constructor</code> you will see the following output:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Circle's color is NOT correct!
+Circle's center is NOT correct!
+</code></pre></div></div>
+
+<p>If you look closely, we are constructing a <code class="highlighter-rouge">Circle</code> with a valid center and
+color. However, when it is being drawn and when we ask for the <code class="highlighter-rouge">Circle</code>’s
+center and color they are not the same!</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Exercise</strong></p>
+  <ul>
+    <li>Investigate and fix the code so that the <code class="highlighter-rouge">Circle</code> is being constructed with
+the proper center and color.</li>
+    <li>To fix this problem you should only need to modify <code class="highlighter-rouge">circle.cpp</code></li>
+    <li>The correct <code class="highlighter-rouge">test_constructor.png</code> should look like the following:</li>
+  </ul>
+
+  <div class="d-flex">
+    <img class="img-fluid mr-auto ml-auto" src="../../assets/assignments/labs/inheritance/soln_test_constructor.png" alt="Correct test_constructor.png" />
+</div>
+
+</div>
+
+<h2 id="exercise-4-fix-the-pure-virtual-method">Exercise 4: Fix the Pure Virtual Method</h2>
+
+<p>Please build and run <code class="highlighter-rouge">test_pure_virtual</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make test_pure_virtual <span class="c"># make test_pure_virtual</span>
+./test_pure_virtual    <span class="c"># run test_pure_virtual</span>
+</code></pre></div></div>
+
+<p>When you try to make <code class="highlighter-rouge">test_pure_virtual</code> you will see that it does not compile.</p>
+
+<p>However, if you look at the <code class="highlighter-rouge">truck.{h,cpp}</code> it is a fully featured class! Why
+is it not compiling?</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Exercise</strong></p>
+  <ul>
+    <li>Investigate and fix the code so that <code class="highlighter-rouge">test_pure_virtual</code> compiles, runs, and
+outputs a <code class="highlighter-rouge">Truck</code>.</li>
+    <li>To fix this problem you should only need to modify <code class="highlighter-rouge">truck.h</code> and <code class="highlighter-rouge">truck.cpp</code>.</li>
+    <li>In order to have the <code class="highlighter-rouge">Truck</code> draw properly you will first need to have
+Exercise 3 completed.</li>
+    <li>The correct <code class="highlighter-rouge">test_pure_virtual.png</code> should look like the following:</li>
+  </ul>
+
+  <div class="d-flex">
+    <img class="img-fluid mr-auto ml-auto" src="../../assets/assignments/labs/inheritance/soln_test_pure_virtual.png" alt="Correct test_pure_virtual.png" />
+</div>
+</div>
+
+<h2 id="exercise-5-fix-the-slicing">Exercise 5: Fix the Slicing</h2>
+
+<p>Please build and run <code class="highlighter-rouge">test_slicing</code> with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make test_slicing <span class="c"># make test_slicing</span>
+./test_slicing    <span class="c"># run test_slicing</span>
+</code></pre></div></div>
+
+<p>After you run <code class="highlighter-rouge">test_slicing</code> open up its output <code class="highlighter-rouge">test_slicing.png</code>. You will
+see that a <code class="highlighter-rouge">Flower</code> has NOT been drawn. For some reason just a bunch of X’s has
+been drawn and a red circle.</p>
+
+<p>If you look at <code class="highlighter-rouge">flower.h</code> and <code class="highlighter-rouge">flower.cpp</code>, we have all of the proper member
+variables set up. However, when we try to draw them they are drawn incorrectly.</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Exercise</strong></p>
+  <ul>
+    <li>Investigate and fix the code so that <code class="highlighter-rouge">test_slicing</code> outputs a <code class="highlighter-rouge">Flower</code>.</li>
+    <li>To fix this problem you should only need to modify <code class="highlighter-rouge">flower.h</code> and
+<code class="highlighter-rouge">flower.cpp</code>.</li>
+    <li>You must use polymorphism!</li>
+    <li>The correct <code class="highlighter-rouge">test_slicing.png</code> output should look like the following:</li>
+  </ul>
+
+  <div class="d-flex">
+    <img class="img-fluid mr-auto ml-auto" src="../../assets/assignments/labs/inheritance/soln_test_slicing.png" alt="Correct test_slicing.png" />
+</div>
+</div>
+
+<h2 id="testing-your-code">Testing Your Code</h2>
+
+<p>Run the Catch tests as follows (this requires your code to compile when run simply as <code class="highlighter-rouge">make</code>):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nb">test</span>
+./test
+</code></pre></div></div>
+
+<h2 id="cleaning-up-files">Cleaning up files</h2>
+
+<p>To clean up your working repository and remove the test images produced by your program, you can type the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make clean
+</code></pre></div></div>
+
+<h2 id="submitting-your-work">Submitting Your Work</h2>
+
+<p>The following files are used to grade this assignment:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">shape.cpp</code></li>
+  <li><code class="highlighter-rouge">shape.h</code></li>
+  <li><code class="highlighter-rouge">circle.cpp</code></li>
+  <li><code class="highlighter-rouge">circle.h</code></li>
+  <li><code class="highlighter-rouge">truck.cpp</code></li>
+  <li><code class="highlighter-rouge">truck.h</code></li>
+  <li><code class="highlighter-rouge">flower.cpp</code></li>
+  <li><code class="highlighter-rouge">flower.h</code></li>
+  <li><code class="highlighter-rouge">drawable.h</code></li>
+</ul>
+
+<p>All other files including any testing files you have added will not be used for grading.</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/inheritance/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:26 GMT -->
+</html>

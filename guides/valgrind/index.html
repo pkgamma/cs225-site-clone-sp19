@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/guides/valgrind/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:19:30 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | Valgrind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<article class="container py-4">
+    <a href="../../pages/resources.html">Back to Guides</a>
+    <h1 id="valgrind">Valgrind</h1>
+
+<p>Valgrind is an analysis tool that can detect cases of poor memory management. Using Valgrind, you can more quickly find the causes of segmentation faults, memory leaks, and misused memory.</p>
+
+<h2 id="using-valgrind">Using Valgrind</h2>
+
+<p>Once you’ve compiled your program, you can run it with Valgrind using the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>valgrind ./[executable name]
+</code></pre></div></div>
+
+<p>This will run your program, and also output a report that looks something like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">==</span><span class="nv">13715</span><span class="o">==</span> Command: ./mp_traversals
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span>
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span> Conditional jump or move depends on uninitialised value<span class="o">(</span>s<span class="o">)</span>
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span>    at 0x40080F: main <span class="o">(</span>main.cpp:20<span class="o">)</span>
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span>
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span> HEAP SUMMARY:
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span>     <span class="k">in </span>use at <span class="nb">exit</span>: 20,572,080 bytes <span class="k">in </span>2 blocks
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span>   total heap usage: 65,665 allocs, 65,663 frees, 2,132,319,481 bytes allocated
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span>
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span> LEAK SUMMARY:
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span>    definitely lost: 48 bytes <span class="k">in </span>1 blocks
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span>    indirectly lost: 0 bytes <span class="k">in </span>0 blocks
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span>      possibly lost: 20,572,032 bytes <span class="k">in </span>1 blocks
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span>    still reachable: 0 bytes <span class="k">in </span>0 blocks
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span>         suppressed: 0 bytes <span class="k">in </span>0 blocks
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span> Rerun with <span class="nt">--leak-check</span><span class="o">=</span>full to see details of leaked memory
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span>
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span> For counts of detected and suppressed errors, rerun with: <span class="nt">-v</span>
+<span class="o">==</span><span class="nv">13715</span><span class="o">==</span> ERROR SUMMARY: 1 errors from 1 contexts <span class="o">(</span>suppressed: 0 from 0<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Valgrind’s report will include any errors, and then detail the amounts of memory created (allocated), deleted (freed), and the number of calls (allocs) that create all of that memory. As bytes of memory are still in use at exit, this program has memory leaks.</p>
+
+<p><strong>Note:</strong> in order to see line numbers and function details in Valgrind, you must compile your executable using the debug flag. (<code class="highlighter-rouge">-g</code>) You won’t need to worry about this in CS 225 when using the included makefiles, as they already include this flag.</p>
+
+<h2 id="memory-leaks">Memory Leaks</h2>
+
+<p>If Valgrind reports that you have memory leaks, you can run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>valgrind <span class="nt">--leak-check</span><span class="o">=</span>full ./[executable name]
+</code></pre></div></div>
+
+<p>Which will output a report that also details the source of that leaked memory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">==</span><span class="nv">27013</span><span class="o">==</span> 48 bytes <span class="k">in </span>1 blocks are definitely lost <span class="k">in </span>loss record 1 of 2
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>    at 0x4C29BC3: malloc <span class="o">(</span>vg_replace_malloc.c:299<span class="o">)</span>
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>    by 0x43CF79: operator new<span class="o">(</span>unsigned long<span class="o">)</span> <span class="o">(</span><span class="k">in</span> /home/tln2/cs225git/mp4/mp4<span class="o">)</span>
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>    by 0x409E62: FloodFilledImage::animate<span class="o">(</span>unsigned int<span class="o">)</span> const <span class="o">(</span>FloodFilledImage.cpp:56<span class="o">)</span>
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>    by 0x407B5A: main <span class="o">(</span>main.cpp:37<span class="o">)</span>
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span> 20,572,032 bytes <span class="k">in </span>1 blocks are possibly lost <span class="k">in </span>loss record 2 of 2
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>    at 0x4C29BC3: malloc <span class="o">(</span>vg_replace_malloc.c:299<span class="o">)</span>
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>    by 0x43CF79: operator new<span class="o">(</span>unsigned long<span class="o">)</span> <span class="o">(</span><span class="k">in</span> /home/tln2/cs225git/mp4/mp4<span class="o">)</span>
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>    by 0x4226F9: cs225::PNG::_copy<span class="o">(</span>cs225::PNG const&amp;<span class="o">)</span> <span class="o">(</span>PNG.cpp:26<span class="o">)</span>
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>    by 0x4229BF: cs225::PNG::PNG<span class="o">(</span>cs225::PNG const&amp;<span class="o">)</span> <span class="o">(</span>PNG.cpp:46<span class="o">)</span>
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>    by 0x409E8F: FloodFilledImage::animate<span class="o">(</span>unsigned int<span class="o">)</span> const <span class="o">(</span>FloodFilledImage.cpp:56<span class="o">)</span>
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>    by 0x407B5A: main <span class="o">(</span>main.cpp:37<span class="o">)</span>
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span> LEAK SUMMARY:
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>    definitely lost: 48 bytes <span class="k">in </span>1 blocks
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>    indirectly lost: 0 bytes <span class="k">in </span>0 blocks
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>      possibly lost: 20,572,032 bytes <span class="k">in </span>1 blocks
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>    still reachable: 0 bytes <span class="k">in </span>0 blocks
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>         suppressed: 0 bytes <span class="k">in </span>0 blocks
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span>
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span> For counts of detected and suppressed errors, rerun with: <span class="nt">-v</span>
+<span class="o">==</span><span class="nv">27013</span><span class="o">==</span> ERROR SUMMARY: 2 errors from 2 contexts <span class="o">(</span>suppressed: 0 from 0<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Valgrind will report cases of memory being directly and indirectly lost. Memory that is directly lost has to do with variables that are allocated to the heap but never deleted. Indirectly lost memory is memory that was not directly created by a single statement, such as the indices in an array, but is still is lost when direct memory is. As indirectly lost memory has a connection to directly lost memory, fixing direct memory leaks will often (but not always) also fix the indirect leaks.</p>
+
+<p>Looking at the backtrace on both of these leaks, it can be seen that they both come from a variable created at line 56 in FloodFilledImage.cpp. With this kind of output, it is likely if that variable is then freed up (with the correct kind of delete statement) at the end of its use, these leaks will be patched.</p>
+
+<h2 id="errors">Errors</h2>
+
+<p>There are many possible errors Valgrind can report, and details on all can be found in the <a href="http://valgrind.org/docs/manual/mc-manual.html#mc-manual.errormsgs">Valgrind User Manual</a>. Here are a few of the common errors you might encounter in this class, what they mean, and what might be done to fix them:</p>
+
+<ol>
+  <li><code class="highlighter-rouge">Use of uninitialised value</code>
+    <ul>
+      <li>This error is due to a variable that has not been initialized being dereferenced or otherwise accessed.</li>
+      <li>Usually this is fixed by giving the variable a starting value that makes sense in the program’s implementation.</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">Conditional jump or move depends on uninitialised value(s)</code>
+    <ul>
+      <li>This is similar to above, but instead of the variable only being accessed, its value is being used in a loop or some other form of moving through values.</li>
+      <li>Again, this can be fixed by initializing the value.</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">Invalid free() / delete / delete []</code>
+    <ul>
+      <li>This error occurs when the program attempts to free memory that cannot be freed. Either this memory is not allocated on the heap, or our has already been freed.</li>
+      <li>To fix this error, pay attention to what memory has been allocated and freed previously.</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">Mismatched free() / delete / delete []</code>
+    <ul>
+      <li>A mismatched free occurs when one type of memory structure is freed using a different kind of delete statement. Most commonly, this is when <code class="highlighter-rouge">delete</code> is called on an array, or <code class="highlighter-rouge">delete []</code> is called on a single value.</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">Invalid read</code>
+    <ul>
+      <li>An invalid read is reported when a program attempts to read from memory that does not exist, or that it does not have access to. In this class, this will almost always be memory that does not exist on the heap.</li>
+      <li>Make sure the memory accessed exists within the program! This kind of error can include, but is not limited to, <code class="highlighter-rouge">NULL</code> or stack memory being dereferenced, a non-existent memory address being read from, or a program reading beyond the bounds of an array or other linear data structure.</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">Invalid write</code>
+    <ul>
+      <li>Similarly to an invalid read, an invalid write occurs when a program attempts to write to a memory address that does not exist, or that the program does not have access to.</li>
+      <li>Make sure that the variable being written to exists within the bounds of the program, and that it has not previously been deleted or set to <code class="highlighter-rouge">NULL</code>.</li>
+    </ul>
+  </li>
+</ol>
+
+</article>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/guides/valgrind/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:19:30 GMT -->
+</html>

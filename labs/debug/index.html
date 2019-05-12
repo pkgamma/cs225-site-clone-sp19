@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/debug/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:13 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | lab_debug</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_lab.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>lab_debug</h1>
+                <h2 class="h5">Disastrous Debugging</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Due: <span>Jan 27, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/lab_debug/files.html" role="button">Doxygen</a>
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/debug/cs225sp19-lab_debug-handout.pdf">Lab handout</a>
+                    
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/debug/cs225sp19-lab_debug-handout-solution.pdf">Handout solution</a>
+                    
+                    
+                    <a class="btn btn-light" href="https://docs.google.com/presentation/d/1Xp44HjnLLr--UF91w-CwmIz4ncAtlyR8PgdZ24EQyvc/edit?usp=sharing">Lab slides</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            <h2 id="preface-how-did-we-get-here">Preface: How Did We Get Here?</h2>
+
+<p>Your lab partner is writing an image recognition program.  They are working on the tracing algorithm, which turns the image into a trace of the outlines in the image.  After going through all the compiler errors (<code class="highlighter-rouge">sketchify.cpp:33</code>, etc), the program finally compiles! Overjoyed to have a program, you both decide to test it on a couple images.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Segmentation Fault
+</code></pre></div></div>
+
+<p>Ouch. What do we do now?</p>
+
+<h2 id="getting-set-up">Getting Set Up</h2>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/lab_debug <span class="nt">-m</span> <span class="s2">"Merging initial lab_debug files"</span>
+</code></pre></div></div>
+
+<p>If you’re on your own machine, you may need to run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge <span class="nt">--allow-unrelated-histories</span> release/lab_debug <span class="nt">-m</span> <span class="s2">"Merging initial lab_debug files"</span>
+</code></pre></div></div>
+
+<p>Upon a successful merge, your lab_debug files are now in your <code class="highlighter-rouge">lab_debug</code> directory.</p>
+
+<h3 id="make-this-yours">Make this Yours!</h3>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+Your partner left one thing out of the code because they weren’t sure… what’s your  favorite color?</p>
+
+  <p>Use a website like <a href="http://hslpicker.com/">HSLA Color Picker</a> to find your favorite hue (the first slider).  Once you found it, edit <tt>sketchify.cpp:32</tt> and replace <tt>-1</tt> with your favorite hue.</p>
+</div>
+
+<h2 id="determining-whats-going-wrong">Determining What’s Going Wrong</h2>
+
+<p>You could start and open <code class="highlighter-rouge">sketchify.cpp</code> and try to figure out what’s happening. This is good for logical bugs – when you only rotate half of your image, for example, or the image doesn’t rotate at all. Walking through what your code does to yourself or your partner is a good exercise in debugging bugs in your algorithm. However, this is often a poor choice for debugging runtime errors or general code bugs. In this case, you should attempt to use the following workflow to debug your code.</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i></p>
+  <h2 id="debugging-workflow">Debugging Workflow</h2>
+
+  <p>From: <em>DEBUGGING: The 9 Indispensable Rules for Finding Even the Most Elusive Software and Hardware Problems</em> by David J. Agans</p>
+
+  <ol>
+    <li><strong>Understand the System.</strong>
+      <ul>
+        <li>Without a solid understanding of the system (the system defined as being
+ both the actual machine you are running on as well as the general structure
+ behind the problem you are trying to solve), you can’t begin to narrow down
+ where a bug may be occurring. Start off by assembling knowledge of:
+          <ul>
+            <li>What the task is</li>
+            <li>What the code’s structure is</li>
+            <li>What the control flow looks like</li>
+            <li>How the program is accomplishing things (library usage, etc)</li>
+          </ul>
+        </li>
+        <li>When in doubt, look it up–this can be anything from using Google to
+ find out what that system call does to simply reading through your lab’s
+ code to see how it’s constructed.</li>
+      </ul>
+    </li>
+    <li><strong>Make it Fail.</strong>
+      <ul>
+        <li>The best way to understand why the bug is occurring is to make it happen
+ again–in order to study the bug you need to be able to recreate it. And
+ in order to be sure it’s fixed, you’ll have to verify that your fix works.
+ In order to do that, you’ll need to have a reproducible test case for your
+ bug.</li>
+        <li>A great analogy here is to turn on the water on a leaky hose–only by
+ doing that are you able to see where the tiny holes might be (and they may
+ be obvious with the water squirting out of them!).</li>
+        <li>You also need to fully understand the sequence of actions that happen up
+ until the bug occurs. It could be specific to a certain type of input, for
+ example, or only a certain branch of an if/else chain.</li>
+      </ul>
+    </li>
+    <li><strong>Quit Thinking and Look.</strong>
+      <ul>
+        <li>After you’ve seen it fail, and seen it fail multiple times, you can
+ generally have an idea of at least what function the program may be failing
+ in. Use this to narrow your search window initially.</li>
+        <li>Start instrumenting your code. In other words, add things that print out
+ intermediate values to check assumptions that should be true of variables
+ in your code. For instance, check that that pointer you have really is set
+ to <code class="highlighter-rouge">NULL</code>.</li>
+        <li>Guessing initially is fine, but only if you’ve seen the bug before you
+ attempt to fix it. Changing random lines of code won’t get you to a
+ solution very fast, but will result in a lot of frustration (and maybe even
+ more bugs)!</li>
+      </ul>
+    </li>
+    <li><strong>Divide and Conquer.</strong>
+      <ul>
+        <li>Just like you’d use binary search on an array to find a number, do this
+ on your code to find the offending line! Figure out whether you’re upstream
+ of downstream of your bug: if your values look fine where you’ve
+ instrumented, you’re upstream of the bug (it’s happening later on in the
+ code). If the values look buggy, you’re probably downstream (the bug is
+ above you).</li>
+        <li>Fix the bugs as you find them–often times bugs will hide under one
+ another. Fix the obvious ones as you see them on your way to the root
+ cause.</li>
+      </ul>
+    </li>
+    <li><strong>Change One Thing at a Time.</strong>
+      <ul>
+        <li>Use the scientific method here! Make sure that you only have one variable
+ you’re changing at each step–otherwise, you won’t necessarily know what
+ change was the one that fixed the bug (or whether or not your one
+ addition/modification introduces more).</li>
+        <li>What was the last thing that changed before it worked? If something was
+ fine at an earlier version, chances are whatever you changed in the interim
+ is what’s buggy.</li>
+      </ul>
+    </li>
+    <li><strong>Keep an Audit Trail.</strong>
+      <ul>
+        <li>Keep track of what you’ve tried! This will prevent you from trying the
+ same thing again, as well as give you an idea of the range of things you’ve
+ tried changing.</li>
+      </ul>
+    </li>
+    <li><strong>Check the Plug.</strong>
+      <ul>
+        <li>Make sure you’re assumptions are right! Things like “is my Makefile
+ correct?” or “am I initializing everything?” are good things to make sure
+ of before blindly assuming they’re right.</li>
+      </ul>
+    </li>
+    <li><strong>Get a Fresh View.</strong>
+      <ul>
+        <li>Getting a different angle on the bug will often times result in a fix:
+ different people think differently, and they may have a different
+ perspective on your issue.</li>
+        <li>Also, articulating your problem to someone often causes you to think
+ about everything that’s going on in your control flow. You might even
+ realize what is wrong as you are trying to describe it to someone! (This
+ happens a lot during office hours and lab sections!)</li>
+        <li>When talking to someone, though, make sure you’re sticking to the facts:
+ report what is happening, but not what you think might be wrong (unless
+ we’re asking you what you think’s going on).</li>
+      </ul>
+    </li>
+    <li><strong>If you didn’t fix it, it ain’t fixed.</strong>
+      <ul>
+        <li>When you’ve got something you think works, test it! If you have a
+ reproducible test case (you should if you’ve been following along), test it
+ again. And test the other cases too, just to be sure that your fix of the
+ bug didn’t break the rest of the program.</li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<h2 id="basic-instrumentation-print-stdcout-statements">Basic Instrumentation: Print (<code class="highlighter-rouge">std::cout</code>) Statements!</h2>
+
+<p>The easiest way to debug your code is to add print statements. To do this, you
+can add comments at various points in your code, such as:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"line "</span> <span class="o">&lt;&lt;</span> <span class="n">__LINE__</span> <span class="o">&lt;&lt;</span> <span class="s">": x = "</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>The above line prints out the current line number as well as the value of the
+variable <code class="highlighter-rouge">x</code> when that line number executes, for example:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>line 32: x = 3
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">__LINE__</code> is a special compiler macro containing the current line number of
+the file.</p>
+
+<p>If you’re getting compiler errors after trying to use <code class="highlighter-rouge">std::cout</code> statements, then you
+need to <code class="highlighter-rouge">#include</code> the <code class="highlighter-rouge">iostream</code> library like this:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+</span></code></pre></div></div>
+
+<p>Print statements work for debugging in (almost) any language and make repeated
+debug testing easy – to repeat debug testing with a new change, all you need
+to do is compile and run the program again. They also require nothing new to
+learn (smile).</p>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>What’s up with this syntax?</strong></p>
+
+  <p><code class="highlighter-rouge">std::cout</code> is a <em>stream</em>, and <code class="highlighter-rouge">&lt;&lt;</code> is called the <em>insertion operator</em>. If you
+want to read more about streams and what this syntax means, you can check out
+<a href="http://www.cplusplus.com/doc/tutorial/basic_io/">this article on C++ input/output</a>.</p>
+</div>
+
+<h2 id="debugging-your-code">Debugging Your Code</h2>
+
+<p>To make and run the code, type the following into your terminal:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make
+<span class="nb">cp </span>in_01.png <span class="k">in</span>.png
+./sketchify
+</code></pre></div></div>
+
+<h3 id="your-first-bug">Your First Bug</h3>
+
+<p>As you can see, your code caused a Segmentation Fault, or segfault. This happens when you access memory that doesn’t belong to you – such as dereferencing a <code class="highlighter-rouge">NULL</code> or uninitialized pointer.</p>
+
+<p>Try adding print statements to lines 39 and 43, before and after the calls
+to <code class="highlighter-rouge">original-&gt;readFromFile()</code>, <code class="highlighter-rouge">width()</code>, and <code class="highlighter-rouge">height()</code>.</p>
+
+<p>Use the <code class="highlighter-rouge">std::cout</code> statement below on lines 39 and 43.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Reached line "</span> <span class="o">&lt;&lt;</span> <span class="n">__LINE__</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Now run <code class="highlighter-rouge">sketchify</code> again.  You’ll see line 39 print out, but not line 43.  This means the segfault occurred sometime between executing lines 39 and 43.</p>
+
+<p>Work on getting your program to run to Line 43!</p>
+
+<h3 id="bug-2">Bug 2</h3>
+
+<p>Once you’ve fixed the first bug, you’ll get another segfault. You’ll want to
+narrow down the line it’s occurring on and its cause by printing more
+information. Try putting <code class="highlighter-rouge">std::cout</code> statements at the beginning and end of the
+inner for loop.</p>
+
+<h3 id="more-debugging">More debugging!</h3>
+
+<p>Like almost most all code written, the code isn’t perfect. But fixing it is as simple as repeating the above to learn more about what the program is actually doing at runtime so that you can solve the issues. Good luck!</p>
+
+<h2 id="checking-your-output">Checking Your Output</h2>
+
+<p>Once you think sketchify is working, you can compare your output (<code class="highlighter-rouge">out.png</code>) to the expected output by opening each image up using a graphical viewer. If you’re on EWS, you can run the following two commands:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xdg-open out.png &amp;
+xdg-open out_01.png &amp;
+</code></pre></div></div>
+
+<p>If you’re working on your own machine, you can open the images using the photo viewer of your choice.</p>
+
+<p>If the outputs differ, you’ve still got a bit more debugging to do – go back and add some print statements to figure out why the outputs differ!</p>
+
+<p>You can also use the <code class="highlighter-rouge">compare</code> utility to generate a visual comparison of the images. For this to work, you’ll have to temporarily change your color’s hue to 280, since <code class="highlighter-rouge">compare</code> will expect the images to match exactly. Once you’ve recompiled and rerun with that new hue, run the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>compare out.png out_01.png comparison.png
+</code></pre></div></div>
+
+<p>Differences between your image and the expected image will be highlighted in red in <code class="highlighter-rouge">comparison.png</code>. If you’re on EWS, you can open that image like you did before:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xdg-open comparison.png &amp;
+</code></pre></div></div>
+
+<p>If you’re working on your own machine, you can open <code class="highlighter-rouge">comparison.png</code> using the photo viewer of your choice.</p>
+
+<h3 id="autograder-testing">Autograder Testing</h3>
+
+<p>You can run a subset of the test cases that will be used in the autograder with the following commands:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nb">test</span>
+./test
+</code></pre></div></div>
+
+<h2 id="submitting-your-work">Submitting Your Work</h2>
+
+<p>The following files are used in grading:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">sketchify.cpp</code></li>
+</ul>
+
+<p>All other files including any testing files you have added will not be used for grading.</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+<h2 id="additional-resources">Additional Resources</h2>
+
+<ul>
+  <li><a href="https://docs.google.com/presentation/d/1F2rlJtTMT5bs3DcBVaCrVYjePfdvQ7FGY4l_sYlDLdY/edit#slide=id.i0">Pointers refresher</a></li>
+</ul>
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/debug/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:16 GMT -->
+</html>

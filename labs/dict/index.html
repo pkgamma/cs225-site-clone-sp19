@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/dict/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:17:04 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | lab_dict</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_lab.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>lab_dict</h1>
+                <h2 class="h5">Devious Dictionaries
+</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Due: <span>Apr 14, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/lab_dict/annotated.html" role="button">Doxygen</a>
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/dict/cs225sp19-lab_dict-handout.pdf">Lab handout</a>
+                    
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/dict/lab_dict-handout-soln.pdf">Handout solution</a>
+                    
+                    
+                    <a class="btn btn-light" href="https://docs.google.com/presentation/d/1DYtSWy9jNGaIxdh9SsCIP6NY8jwsQzdI0nsj8NvwbWE/edit?usp=sharing">Lab slides</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<h2 id="assignment-description">Assignment Description</h2>
+
+<p>This lab is all about making you think with dictionaries. Dictionaries (aka
+<em>maps</em> or <em>associative arrays</em>) are an abstract data type which stores pairs of
+data and can support operations like <code class="highlighter-rouge">insert</code>, <code class="highlighter-rouge">find</code>, and <code class="highlighter-rouge">remove</code>. We
+generally call these <em>(key, value)</em> pairs. The idea is to associate a <em>key</em>
+with a certain <em>value</em>. Hence, dictionaries are useful for when you want to
+quickly “lookup” a value associated with a certain key. The name <em>dictionary</em>
+comes from the more familiar physical dictionary, where you lookup the
+definitions of words. If we were to model a physical dictionary with an ADT
+dictionary the keys would be the words, and the values would be their
+definitions.</p>
+
+<p>Since dictionaries are abstract in nature, they have no prescription for what
+underlying structure should be used to implement them. Common choices are
+tree-based structures (e.g. balanced binary search trees, BTrees, &amp;c.) or some
+sort of hash table. Different underlying implementations have different
+performance considerations, and which you use in the real world will depend on
+things like desired performance and what is readily available.</p>
+
+<p>For this lab, we’re not going to concern ourselves with the underlying
+implementation of dictionaries (we’ve already done that in previous labs). Instead, we’ll be
+using dictionary types that have already been defined for us. In C++ there are
+two “built-in” dictionary types: <a href="http://en.cppreference.com/w/cpp/container/map"><code class="highlighter-rouge">std::map</code></a> and <a href="http://en.cppreference.com/w/cpp/container/unordered_map"><code class="highlighter-rouge">std::unordered_map</code></a>. Both
+exist in the wonderful land of the Standard Template Library (STL). The STL is
+a subset of the C++ Standard Library (the library a compiler must implement to
+be standard-compliant) which provides data containers. As the name implies,
+these containers are templated and thus can contain any type (which meets the
+restriction of the container). You’ve probably experienced at least one of the
+STL types so far: <a href="http://en.cppreference.com/w/cpp/container/vector"><code class="highlighter-rouge">std::vector</code></a>, which is pretty much just a super fancy
+array. In general, the STL types are very convenient as they provide a lot of
+functionality (e.g. sorting, automatic resizing) that you don’t have to bother
+implementing yourself.</p>
+
+<p>Dictionaries are amongst some of the most important abstract data types that
+are used in the real world. Therefore, this lab is perhaps one of the most
+useful labs from a real world perspective. Mastering the concepts that you see
+in this lab will be a tremendous help for most technical interviews and
+programming problems in the future.</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>C++11 Goodness</strong></p>
+
+  <h3 id="mapoperator--unorderedmapoperator--easy-element-access"><code class="highlighter-rouge">map::operator[]</code> / <code class="highlighter-rouge">unordered_map::operator[]</code> — easy element access</h3>
+
+  <p>A convenient way to access elements in a map is with <code class="highlighter-rouge">operator[]</code> (just like
+array subscripts). However, you have to be careful. If <code class="highlighter-rouge">key</code> doesn’t exist in a map
+ <code class="highlighter-rouge">m</code>, <code class="highlighter-rouge">m[key]</code> will create a default value for the key, insert it into <code class="highlighter-rouge">m</code> (and
+then return a reference to it). <strong>Because of this, you can’t use <code class="highlighter-rouge">[]</code> on a
+<code class="highlighter-rouge">const</code> <code class="highlighter-rouge">map</code>.</strong></p>
+
+  <h3 id="range-based-loops--easy-iteration">Range-based loops — easy iteration</h3>
+
+  <p>The next super cool thing in C++11 which is useful in this lab is the
+<a href="http://en.cppreference.com/w/cpp/language/range-for">range-based <code class="highlighter-rouge">for</code> loop</a>, also called for-each loops. As it turns
+out, a lot of programs involve iterating over collections of data (e.g. an
+array) and doing something with each of those values. The duty of a programming
+language is to make programming easier for us humans, so there’s usually some
+sort of construct in the language to accomplish this.</p>
+
+  <p>In C++03 the main
+construct was <code class="highlighter-rouge">for</code> loops with iterators. So if I had a <code class="highlighter-rouge">map&lt;int, string&gt; m;</code>
+and I wanted to iterate over every <code class="highlighter-rouge">(key, value)</code> pair I would have to do
+something like this:</p>
+
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">m</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">m</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">m</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>  </div>
+
+  <p>C++11 gives us a better way, taking advantage of what’s called a “for each
+loop” or “range-based for loop”:</p>
+
+  <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">m</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">int</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="n">key_val</span> <span class="o">:</span> <span class="n">m</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">key_val</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">key_val</span><span class="p">.</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>  </div>
+  <p>The way you should read that <code class="highlighter-rouge">for</code> loop is: “for each <code class="highlighter-rouge">key_val</code> in <code class="highlighter-rouge">m</code> do …”.
+What’s happening is that the <code class="highlighter-rouge">for</code> loop will update the variable <code class="highlighter-rouge">key_val</code> in
+each iteration of the loop to be the “next” element. Since we are iterating
+over a <code class="highlighter-rouge">map</code>, the elements are <code class="highlighter-rouge">(key, value)</code> pairs.</p>
+
+  <p>Notice that the type of <code class="highlighter-rouge">key_val</code> isn’t an iterator: it’s the “dereferenced”
+value of an iterator, in this case a reference to a <code class="highlighter-rouge">std::pair&lt;const int, string&gt;</code>.
+This value is a reference for two reasons: (1) so we don’t make useless copies,
+and (2) so we can modify the values in the map.</p>
+
+  <p>These kinds of for loops are simple, convenient, and intuitive to use. They
+have their limits, but for many iterating applications in C++ they’re probably
+the best choice.</p>
+</div>
+
+<p>Now that we’ve talked about what dictionaries and underlined their importance,
+let’s move on the actual contents of this lab. This lab is composed of a bunch
+of different components. We suggest you do them in the order that we describe
+them over here.</p>
+
+<h2 id="lab-insight">Lab Insight</h2>
+
+<p>Dictionaries are important data structures that allow you to quickly search for
+a value given a key. One important use for dictionaries is memoization, which
+is used in dynamic programming. This basically means just storing the intermediate
+values of an algorithm to speed up later computations. This concept is discussed
+more below. To learn more about the practical uses of dictionaries, CS 374, CS 473
+will delve deeper into the applications.</p>
+
+<h2 id="checking-out-the-code">Checking Out The Code</h2>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/lab_dict <span class="nt">-m</span> <span class="s2">"Merging initial lab_dict files"</span>
+</code></pre></div></div>
+
+<p>If you’re on your own machine, you may need to run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge <span class="nt">--allow-unrelated-histories</span> release/lab_dict <span class="nt">-m</span> <span class="s2">"Merging initial lab_dict files"</span>
+</code></pre></div></div>
+
+<p>Upon a successful merge, your lab_dict files are now in your <code class="highlighter-rouge">lab_dict</code> directory.</p>
+
+<p>This lab has a <code class="highlighter-rouge">data</code> directory that you need to download
+separately. You can get it by running:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make data
+</code></pre></div></div>
+
+<h2 id="memoization">Memoization</h2>
+
+<p>Memoization is an aspect of Dynamic Programming, which you’ll learn much more
+about when you take CS 374. However, it’s a fairly simple idea, and a common
+implementation uses dictionaries at its core.</p>
+
+<h3 id="factorial">Factorial</h3>
+
+<p>Our first introduction to memoization will be through the use of factorials.</p>
+
+<p>The factorial is a deterministic function: for a given input \(n\), the value
+(\(n!\)) is always the same. The formal (recursive) definition is:</p>
+
+<p>\begin{align}
+0! &amp;= 1 \\<br />
+n! &amp;= n \times (n-1)!
+\end{align}</p>
+
+<p>For example, say we already know the value of \(5!\) and we want to compute
+\(6!\). The naïve way computing of \(6!\) would be to calculate
+\(6! = 6\times(5\times(4\times(3\times(2\times(1)))))\). Since we
+already know the value of \(5!\), however, we can save quite a bit of
+computation (and time) by directly computing \(6! = 6\times5!\), using the
+known value of \(5!\).</p>
+
+<p>This idea is essentially what memoization is. <a href="https://en.wikipedia.org/wiki/Memoization">According to
+Wikipedia</a>:</p>
+
+<blockquote>
+  <p>[M]emoization is an optimization technique used primarily to speed up
+computer programs by storing the results of expensive function calls
+and returning the cached result when the same inputs occur again</p>
+</blockquote>
+
+<p>Now let’s look at how we do this in code by looking at the <code class="highlighter-rouge">memoized_fac</code>
+function in <code class="highlighter-rouge">fac.cpp</code>. On line 93, we find:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="n">map</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="o">&gt;</span> <span class="n">memo</span> <span class="o">=</span> <span class="p">{</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}</span> <span class="p">};</span>
+</code></pre></div></div>
+
+<p>The left hand side is creating a variable named <code class="highlighter-rouge">memo</code> which is a <a href="http://en.cppreference.com/w/cpp/container/map"><code class="highlighter-rouge">std::map</code></a>
+that associates keys of type <code class="highlighter-rouge">unsigned long</code> to values of type <code class="highlighter-rouge">unsigned long</code>.
+In our case, we’re going to map a key \(n\) to the value \(n!\).</p>
+
+<p>The <code class="highlighter-rouge">static</code> keyword is a neat little thing that basically makes this local
+variable remain initialized for the lifetime of the program so that we can
+reuse it across multiple calls to the function. It’s like a global variable,
+but it’s <em>only</em> accessible by that function.</p>
+
+<p>The right hand side initializes the map to contain a key-value pair where the
+key is <code class="highlighter-rouge">0</code> and the value is <code class="highlighter-rouge">1</code>. Notice that this key-value pair corresponds to
+the base case of our mathematical definition of \(n!\) given above.</p>
+
+<p>Alternatively, we could have used</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="n">map</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="o">&gt;</span> <span class="n">memo</span><span class="p">;</span>
+<span class="n">memo</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>The disadvantage of this method is that now the key <code class="highlighter-rouge">0</code>’s value will be
+changed to the value <code class="highlighter-rouge">1</code> during every function call, as opposed to just at
+initialization as in the first example.</p>
+
+<p>Line 97 is</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">lookup</span> <span class="o">=</span> <span class="n">memo</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">memo.find(n)</code> uses the <a href="http://en.cppreference.com/w/cpp/container/map/find"><code class="highlighter-rouge">std::map::find</code></a> function. As mentioned above, this
+method returns an iterator; the type of <code class="highlighter-rouge">lookup</code> is <code class="highlighter-rouge">std::map&lt;unsigned long,
+unsigned long&gt;::iterator</code>.</p>
+
+<p>Lines 98–104 are:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">lookup</span> <span class="o">!=</span> <span class="n">memo</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">lookup</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">result</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">memoized_fac</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Going back to what we already know about iterators and <code class="highlighter-rouge">std::map::find</code>, a
+return value of <code class="highlighter-rouge">memo.end()</code> basically implies that the key <code class="highlighter-rouge">n</code> does not exist
+in the map. In this case, we need to compute <code class="highlighter-rouge">n!</code> and update our map to store
+that value, which is exactly what we do in the <code class="highlighter-rouge">else</code> branch.
+<br />A <code class="highlighter-rouge">std::map::iterator</code> is basically a pointer to a <code class="highlighter-rouge">std::pair&lt;const key_type,
+mapped_type&gt;</code> . A <a href="http://en.cppreference.com/w/cpp/utility/pair"><code class="highlighter-rouge">std::pair</code></a> stores two objects (key and its associating data in the case of map) in a pair. To access the first object in a <code class="highlighter-rouge">std::pair</code>, we use the member name <code class="highlighter-rouge">first</code>; to access the second object, we use the member name <code class="highlighter-rouge">second</code>. For example, in the <code class="highlighter-rouge">if</code> branch above, <code class="highlighter-rouge">lookup-&gt;second</code> returns the
+value stored in the map for key <code class="highlighter-rouge">lookup-&gt;first</code>, which is going to be <code class="highlighter-rouge">n</code> in
+our case. If we wanted to be clever, we could rewrite this code as:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">lookup</span> <span class="o">==</span> <span class="n">memo</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">memoized_fac</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>Memoizing the factorial function doesn’t actually do much for us in terms of
+computation time. To see this for yourself you can run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make fac
+<span class="nb">time</span> ./fac 20
+</code></pre></div></div>
+
+<p>and compare it to the time it takes for the memoized version by passing the <code class="highlighter-rouge">-m</code> flag:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">time</span> ./fac 20 <span class="nt">-m</span>
+</code></pre></div></div>
+
+<h3 id="fibonacci">Fibonacci</h3>
+
+<p>Now that you’re familiar with how to memoize the factorial function, you’ll
+apply memoization to the Fibbonacci function. As we’ll soon find out, memoizing
+this function has real speed benefits.</p>
+
+<p>The Fibonacci numbers are recursively defined as:</p>
+
+<p>\begin{align}
+F(0) &amp;= 0 \\<br />
+F(1) &amp;= 1 \\<br />
+F(n) &amp;= F(n-1) + F(n-2)
+\end{align}</p>
+
+<p>If you draw out some trees for calculating these numbers (which I highly
+recommend) you’ll notice something interesting. For example here is such a tree
+for \(F(6)\); each node represents a function call:</p>
+
+<script type="x/graph">
+graph {
+    graph [ordering="out"];
+    f6_0 [label="F(6)"];
+        f4_0 [label="F(4)"];
+            f2_0 [label="F(2)"];
+                f0_0 [label="F(0)"];
+                f1_0 [label="F(1)"];
+            f3_0 [label="F(3)"];
+                f1_1 [label="F(1)"];
+                f2_1 [label="F(2)"];
+                    f0_1 [label="F(0)"];
+                    f1_2 [label="F(1)"];
+        f5_0 [label="F(5)"];
+            f3_1 [label="F(3)"];
+                f1_3 [label="F(1)"];
+                f2_2 [label="F(2)"];
+                    f0_2 [label="F(0)"];
+                    f1_4 [label="F(1)"];
+            f4_1 [label="F(4)"];
+                f2_3 [label="F(2)"];
+                    f0_3 [label="F(0)"];
+                    f1_5 [label="F(1)"];
+                f3_2 [label="F(3)"];
+                    f1_6 [label="F(1)"];
+                    f2_4 [label="F(2)"];
+                        f0_4 [label="F(0)"];
+                        f1_7 [label="F(1)"];
+
+    f6_0 -- f4_0;
+        f4_0 -- f2_0;
+            f2_0 -- f0_0;
+            f2_0 -- f1_0;
+        f4_0 -- f3_0;
+            f3_0 -- f1_1;
+            f3_0 -- f2_1;
+                f2_1 -- f0_1;
+                f2_1 -- f1_2;
+    f6_0 -- f5_0;
+        f5_0 -- f3_1;
+            f3_1 -- f1_3;
+            f3_1 -- f2_2;
+                f2_2 -- f0_2;
+                f2_2 -- f1_4;
+        f5_0 -- f4_1;
+            f4_1 -- f2_3;
+                f2_3 -- f0_3;
+                f2_3 -- f1_5;
+            f4_1 -- f3_2;
+                f3_2 -- f1_6;
+                f3_2 -- f2_4;
+                    f2_4 -- f0_4;
+                    f2_4 -- f1_7;
+}
+</script>
+
+<p>There’s quite a bit of repetition in this tree. Specifically the entire
+\(F(3)\) subtree appears three times in the tree and \(F(4)\) twice. The values in
+those trees get calculated twice. For larger values of \(n\), the tree
+naturally gets larger and so too do the repeated subtrees. Remember that the
+nodes in this tree represent function calls, so each one takes some time.
+Suppose the \(F(4)\) call on the right happens before the \(F(4)\) call on
+the left. By the time we get to the \(F(4)\) call on the left, we already
+knew the value of \(F(4)\). What if we could store the result of \(F(4)\)?
+If we stored it, then when we call \(F(4)\) on the left we don’t need to
+bother with going through that entire subtree.</p>
+
+<p>As we found out with factorial, we can use a dictionary for exactly this
+purpose. Imagine that inside our \(F\) function that we associate an input
+number \(n\) with a Fibonacci number. Every time we successfully calculate a
+value \(F(n)\) we store the pair \((n, F(n))\) in our dictionary. So now in
+our function we first check to see if \(n\) already exists in the dictionary
+(i.e. we’ve already computed it). If it is, we return that immediately.
+Otherwise, we make the normal recursive call, store the result in the
+dictionary, and then return the result. Using memoization the tree becomes:</p>
+
+<script type="x/graph">
+graph {
+    graph [ordering="out"];
+    node [style="filled" fillcolor="#FFB4B0" pencolor="#C02119"];
+    f6_0; f4_0; f2_0; f3_0; f5_0;
+    node [style="dashed" pencolor="#25838C"];
+    f6_0 [label="F(6)"];
+        f4_0 [label="F(4)"];
+            f2_0 [label="F(2)"];
+                f0_0 [label="F(0)"];
+                f1_0 [label="F(1)"];
+            f3_0 [label="F(3)"];
+                f1_1 [label="F(1)"];
+                f2_1 [label="F(2)"];
+                    f0_1 [label="F(0)"];
+                    f1_2 [label="F(1)"];
+        f5_0 [label="F(5)"];
+            f3_1 [label="F(3)"];
+                f1_3 [label="F(1)"];
+                f2_2 [label="F(2)"];
+                    f0_2 [label="F(0)"];
+                    f1_4 [label="F(1)"];
+            f4_1 [label="F(4)"];
+                f2_3 [label="F(2)"];
+                    f0_3 [label="F(0)"];
+                    f1_5 [label="F(1)"];
+                f3_2 [label="F(3)"];
+                    f1_6 [label="F(1)"];
+                    f2_4 [label="F(2)"];
+                        f0_4 [label="F(0)"];
+                        f1_7 [label="F(1)"];
+
+    f6_0 -- f4_0;
+        f4_0 -- f2_0;
+            f2_0 -- f0_0;
+            f2_0 -- f1_0;
+        f4_0 -- f3_0;
+            f3_0 -- f1_1;
+            f3_0 -- f2_1;
+                f2_1 -- f0_1 [style="dashed" pencolor="#25838C"];
+                f2_1 -- f1_2 [style="dashed" pencolor="#25838C"];
+    f6_0 -- f5_0;
+        f5_0 -- f3_1;
+            f3_1 -- f1_3 [style="dashed" pencolor="#25838C"];
+            f3_1 -- f2_2 [style="dashed" pencolor="#25838C"];
+                f2_2 -- f0_2 [style="dashed" pencolor="#25838C"];
+                f2_2 -- f1_4 [style="dashed" pencolor="#25838C"];
+        f5_0 -- f4_1;
+            f4_1 -- f2_3 [style="dashed" pencolor="#25838C"];
+                f2_3 -- f0_3 [style="dashed" pencolor="#25838C"];
+                f2_3 -- f1_5 [style="dashed" pencolor="#25838C"];
+            f4_1 -- f3_2 [style="dashed" pencolor="#25838C"];
+                f3_2 -- f1_6 [style="dashed" pencolor="#25838C"];
+                f3_2 -- f2_4 [style="dashed" pencolor="#25838C"];
+                    f2_4 -- f0_4 [style="dashed" pencolor="#25838C"];
+                    f2_4 -- f1_7 [style="dashed" pencolor="#25838C"];
+}
+</script>
+
+<p>The dashed nodes are ones which didn’t need to be calculated; one of their
+parent’s values was taken from the dictionary rather than being recalculated
+from scratch. The red nodes are the only calls where it’s calculated. As you’ll
+see in a while, the difference memoization makes is rather dramatic.</p>
+
+<p>Your task is to implement both the normal and memoized version of the <code class="highlighter-rouge">fib</code>
+function in <code class="highlighter-rouge">fib.cpp</code>. After you do this you can race them with the
+<code class="highlighter-rouge">fib_generator</code> executable:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make fib_generator
+<span class="nb">time</span> ./fib_generator 45
+</code></pre></div></div>
+
+<p>To use the memoized version, pass the <code class="highlighter-rouge">-m</code> flag:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">time</span> ./fib_generator 45 <span class="nt">-m</span>
+</code></pre></div></div>
+
+<h2 id="common-words">Common Words</h2>
+
+<p>The next part of this assignment involves making an object that can find common
+words in different files. The end goal is: given a list of files and a number
+\(n\) find all words that appear in every file <strong>at least</strong> \(n\) times.
+This is a sort of conditional intersection of the words in the files.  As you
+might expect, you’ll be using a dictionary to solve this problem, with the
+words as the keys, and their frequencies as the values. (This is a common
+application of associative structures). You will accomplish this by finishing
+the <code class="highlighter-rouge">CommonWords</code> class.</p>
+
+<p>You can find the Doxygen for the <code class="highlighter-rouge">CommonWords</code> class <a href="../../doxygen/lab_dict/classCommonWords.html">here</a>. You
+are responsible for writing the <code class="highlighter-rouge">init_file_word_maps</code>, <code class="highlighter-rouge">init_common</code>, and
+<code class="highlighter-rouge">get_common_words</code> functions. The former two will help you write the latter
+function. The header file (<code class="highlighter-rouge">common_words.h</code>) has descriptions of the variables
+you are initializing.</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Alternate Implementations</strong>
+This is just one way to solve the problem. If a different way of using <code class="highlighter-rouge">map</code>s
+(and other structures) seems more intuitive to you, feel free to do that
+instead. For instance, you may want to use a map from a word to a vector of
+integers, where each integer corresponds to the number of times that word
+appears in the corresponding file.</p>
+</div>
+
+<p>Once you’ve written your class, you can compile it with <code class="highlighter-rouge">make
+find_common_words</code>. You can then test it on some small text files or novels:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./find_common_words data/small1.txt data/small2.txt <span class="nt">-n</span> 3
+dog
+pig
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./find_common_words data/PrideAndPrejudice.txt data/Beowulf.txt data/SherlockHolmes.txt <span class="nt">-n</span> 500
+and
+<span class="k">in
+</span>of
+the
+to
+</code></pre></div></div>
+
+<p>The executable command below finds all the words that appear greater than or
+equal to \(n\) times in ALL the parameter text files. Here is the usage:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./find_common_words <span class="o">[</span>TEXT FILES] <span class="nt">-n</span> <span class="o">[</span>NUM] <span class="o">[</span><span class="nt">-o</span> FILE]
+</code></pre></div></div>
+
+<h2 id="pronunciation-puzzler">Pronunciation Puzzler</h2>
+
+<p>For this part of the lab you’ll complete an object which will help solve the
+following puzzle (taken from <a href="http://www.cartalk.com/content/wordplay-anyone">CarTalk</a>):</p>
+
+<blockquote>
+  <p>This was sent in by a fellow named Dan O’Leary. He came upon a common
+one-syllable, five-letter word recently that has the following unique
+property. When you remove the first letter, the remaining letters form a
+homophone of the original word, that is a word that sounds exactly the same.
+Replace the first letter, that is, put it back and remove the second letter
+and the result is yet another homophone of the original word. And the
+question is, what’s the word?</p>
+
+  <p>Now I’m going to give you an example that doesn’t work. Let’s look at the
+five-letter word, ‘wrack.’ W-R-A-C-K, you know like to ‘wrack with pain.’ If
+I remove the first letter, I am left with a four-letter word, ‘R-A-C-K.’ As
+in, ‘Holy cow, did you see the rack on that buck!  It must have been a
+nine-pointer!’ It’s a perfect homophone. If you put the ‘w’ back, and remove
+the ‘r,’ instead, you’re left with the word, ‘wack,’ which is a real word,
+it’s just not a homophone of the other two words.</p>
+
+  <p>But there is, however, at least one word that Dan and we know of, which will
+yield two homophones if you remove either of the first two letters to make
+two, new four-letter words. The question is, what’s the word?</p>
+</blockquote>
+
+<p>Basically, we’re looking to find words such that</p>
+
+<ul>
+  <li>the word itself,</li>
+  <li>the word with its first character removed, and</li>
+  <li>the word with its second character removed</li>
+</ul>
+
+<p>are all homophones (i.e., have the same pronounciation) of each other.</p>
+
+<p>To accomplish this we are going to employ the help of <a href="http://www.speech.cs.cmu.edu/cgi-bin/cmudict">CMU’s Pronouncing
+Dictionary</a>. The data associated
+with that dictionary is stored in a file (<code class="highlighter-rouge">data/cmudict.0.7a</code>) and read on
+construction of a <code class="highlighter-rouge">PronounceDict</code> object (see <code class="highlighter-rouge">pronounce_dict.h</code>). You don’t
+have to worry about the constructors this time since they’re not very
+interesting. Instead, you’re responsible for writing the <code class="highlighter-rouge">homophones</code> function
+which determines whether two words are homophones are not. Check out
+<code class="highlighter-rouge">pronounce_dict.h</code> to see what kind of dictionary structure you’re working
+with, and remember that it is mapping a word to its pronunciation.</p>
+
+<p><a href="../../doxygen/lab_dict/classPronounceDict.html">Here is the Doxygen for the <code class="highlighter-rouge">PronounceDict</code> class.</a></p>
+
+<p><code class="highlighter-rouge">PronounceDict</code> expects the words to be uppercase. Here’s how you can transform
+a <code class="highlighter-rouge">std::string str</code> to uppercase in C++:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">std</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">str</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">str</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="o">::</span><span class="n">toupper</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>It uses <code class="highlighter-rouge">std::transform</code> (you know how to look this function up, right?) We’ll
+leave it up to you to try and figure out exactly how it works. If you need
+help, post on Piazza!</p>
+
+<p>Next you will have to write the code which actually solves the puzzle. This
+function resides in <code class="highlighter-rouge">cartalk_puzzle.cpp</code>. It takes a word list file name
+(similar to before) and a <code class="highlighter-rouge">PronounceDict</code>.</p>
+
+<p>You need to be able to read in a list of words form the word list. To do this,
+you’ll need to know some basic C++ file I/O. This following snippet will print
+out every word in a word list file:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ifstream</span> <span class="n">wordsFile</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
+<span class="n">string</span> <span class="n">word</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">wordsFile</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span> <span class="p">{</span>
+    <span class="cm">/* Reads a line from `wordsFile` into `word` until the file ends. */</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">wordsFile</span><span class="p">,</span> <span class="n">word</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">word</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>To solve the actual puzzle, methods like the <a href="http://en.cppreference.com/w/cpp/string/basic_string"><code class="highlighter-rouge">std::string</code></a>’s
+<a href="http://en.cppreference.com/w/cpp/string/basic_string/substr"><code class="highlighter-rouge">substr</code></a> function will probably prove useful. If all
+goes well you should be able to make it and run the executable with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make homophone_puzzle
+./homophone_puzzle
+</code></pre></div></div>
+
+<p>If you want to debug with <code class="highlighter-rouge">cout</code>, I would recommend typing <code class="highlighter-rouge">using std::cout;</code>
+and <code class="highlighter-rouge">using std::endl;</code> instead of a blanket <code class="highlighter-rouge">using namespace std;</code> or else you
+may get some nasty errors.</p>
+
+<p>There should be 5 (only 4 if you follow the CarTalk problem which looks for words with length 5) resulting
+triples of words, but only one which matters. I believe the answer CarTalk was
+looking for is the only one in the list where the two homophones are distinct
+(it doesn’t matter for us if you don’t make sure the homophones are distinct).</p>
+
+<h2 id="anagrams">Anagrams</h2>
+
+<p>The final part of this assignment involves making a dictionary for looking up
+anagrams of a given word. Two words are anagrams of one another if we can
+rearrange the letters of one to form the other. For example, the letters in the
+word “dog” can be rearranged to form the word “god”. We want an object (built
+from a word list) whom I can feed the string <code class="highlighter-rouge">"dog"</code> and it will spit out both
+<code class="highlighter-rouge">"dog"</code> and <code class="highlighter-rouge">"god"</code>.</p>
+
+<p>You’ll find the definition of the <a href="../../doxygen/lab_dict/classAnagramDict.html"><code class="highlighter-rouge">AnagramDict</code></a> class in <code class="highlighter-rouge">anagram_dict.h</code>.
+You are responsible for implementing both constructors, as well as the
+functions <code class="highlighter-rouge">get_anagrams</code> and <code class="highlighter-rouge">get_all_anagrams</code>. <code class="highlighter-rouge">AnagramDict</code> has an instance
+of map named <code class="highlighter-rouge">dict</code> which maps a <code class="highlighter-rouge">string</code> to a <code class="highlighter-rouge">vector</code> of <code class="highlighter-rouge">string</code>s.</p>
+
+<div class="alert alert-danger" role="alert">
+  <p><i class="fas fa-radiation-alt"></i> 
+You <strong>MUST</strong> implement both constructors. The <code class="highlighter-rouge">./anagram_finder</code> executable
+uses the constructor that takes a filename; catch uses the constructor that
+takes a <code class="highlighter-rouge">vector</code>.</p>
+
+  <p>Make sure you check your code with catch!</p>
+</div>
+
+<p>Remember that when using dictionaries we need to figure out a way to uniquely
+identify each of our values. In this case we want to uniquely identify a group
+of words which are anagrams of one another: we need some sort of function
+<code class="highlighter-rouge">f(key)</code> that we can apply to a key such that <code class="highlighter-rouge">f("dog") == f("god")</code> and
+<code class="highlighter-rouge">f("silent") == f("listen") == f("tensil")</code>, but <code class="highlighter-rouge">f("dog") != f("silent")</code>
+Phrased differently, you’ll need to come up with some sort of a function, such
+that it always returns the same value for all words that are anagrams of one
+another.</p>
+
+<p>Once you figure out what a function <code class="highlighter-rouge">f</code> must do to satisfy that constraint (and
+there are many possible answers), you’ll find it useful to Google how to
+actually implement that function if it seems non-trivial to you. (Actually,
+you’ll find it useful to Google for pretty much anything, including what should
+<code class="highlighter-rouge">f</code> do.)</p>
+
+<p>Here is the <a href="../../doxygen/lab_dict/classAnagramDict.html">Doxygen for the <code class="highlighter-rouge">AnagramDict</code> class</a>.</p>
+
+<p>One of the <code class="highlighter-rouge">AnagramDict</code> constructors takes a word list file name, which is
+expected to be a newline-separated list of words (see <code class="highlighter-rouge">words.txt</code>). Read this
+file the in same way as you did for the pronounciation puzzle.</p>
+
+<p>To test your dictionary you can use the <code class="highlighter-rouge">anagram_finder</code> executable, which you
+can compile by running <code class="highlighter-rouge">make anagram_finder</code>. Example usage and output:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./anagram_finder dog
+Anagrams <span class="k">for </span>dog:
+dog
+god
+</code></pre></div></div>
+
+<p>You can run it with the flag <code class="highlighter-rouge">-a</code> to print out a list of all the known anagrams
+for this word list. <code class="highlighter-rouge">-o</code> will redirect the output to a file, e.g.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./anagram_finder <span class="nt">-a</span> <span class="nt">-o</span> anagrams.txt
+</code></pre></div></div>
+
+<p>You can <code class="highlighter-rouge">diff</code> your output of the above command with <code class="highlighter-rouge">data/all_anagrams_soln.txt</code>.
+You may also specify your own word list file with <code class="highlighter-rouge">-w</code> if you’re feeling
+adventurous (it defaults to the <code class="highlighter-rouge">words.txt</code> in the <code class="highlighter-rouge">data</code> directory).</p>
+
+<h2 id="testing-your-program">Testing Your Program</h2>
+
+<p>As usual, there are Catch tests for this lab, which can be run with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nb">test</span> <span class="o">&amp;&amp;</span> ./test
+</code></pre></div></div>
+
+<h2 id="submitting-your-work">Submitting Your Work:</h2>
+
+<p>The following files are used in grading:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">anagram_dict.cpp</code></li>
+  <li><code class="highlighter-rouge">anagram_dict.h</code></li>
+  <li><code class="highlighter-rouge">fib.cpp</code></li>
+  <li><code class="highlighter-rouge">pronounce_dict.cpp</code></li>
+  <li><code class="highlighter-rouge">pronounce_dict.h</code></li>
+  <li><code class="highlighter-rouge">cartalk_puzzle.cpp</code></li>
+  <li><code class="highlighter-rouge">common_words.cpp</code></li>
+  <li><code class="highlighter-rouge">common_words.h</code></li>
+</ul>
+
+<p>All other files including any testing files you have added will not be used for
+grading.</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+<h2 id="good-luck">Good Luck!</h2>
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/dict/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:17:10 GMT -->
+</html>

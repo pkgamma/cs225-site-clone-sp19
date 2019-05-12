@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/heaps/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:16:59 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | lab_heaps</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_lab.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>lab_heaps</h1>
+                <h2 class="h5">Precarious Priority Queues</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Due: <span>Apr 07, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/lab_heaps/annotated.html" role="button">Doxygen</a>
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/heaps/cs225sp19-lab_heaps-handout.pdf">Lab handout</a>
+                    
+                    
+                    <a class="btn btn-light" href="../../assets/assignments/labs/heaps/cs225sp19-lab_heaps-handout-solution.pdf">Handout solution</a>
+                    
+                    
+                    <a class="btn btn-light" href="https://docs.google.com/presentation/d/1xG0qIMe1wi_vy4-28e72RND1FoHaOrGI0GDYqHqwUW4/edit?usp=sharing">Lab slides</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<h2 id="assignment-description">Assignment Description</h2>
+
+<p>In this lab you will write some heap functions to implement a min heap from scratch.</p>
+
+<p>The version of heap you will implement will have a tree implemented in an array. Your array can be 0-index or 1-indexed, where 0 and 1 are the indices of the root, depending on which one you choose.</p>
+
+<p>The left and right children of the root will be at the positions immediately after the root. For example, if your root is at index 0, its left child will be at index 1 and 2. The root’s left children will be at positions 3 and 4, and the root’s right children will be at positions 5 and 6, and so on and so forth. You will need to determine the indices to store these children in leftChild() and rightChild(), and the indices of each element’s parent in parent().</p>
+
+<p>Remember that the big idea about a heap is that it must keep its heap property. In a min heap, this means that each element is smaller than both of its children. A max heap is the opposite- each element is larger than both of its children. Your maxPriorityChild() function will return the min child (out of an element’s left and right children) in a min heap and the max child in a max heap. This is not a recursive function- it simply utilizes the higherPriority functor and returns whichever child out of the two is less than or greater than the other, depending on what the priority for this heap is. Your heapifyUp() and heapifyDown() functions will ensure the heap property of your heap, by swapping elements recursively up or down the tree to maintain the heap property.</p>
+
+<h2 id="lab-insight">Lab Insight</h2>
+
+<p>Heaps are an incredibly important data structure for prioritization functionality. Its performance in prioritization helps us implement path-finding algorithms efficiently. This same data structure is what helps power your navigation systems when you are trying to get from one place to another. To learn more about the practical importance of heaps, CS 374 and CS 473 delves into the applications of them in algorithmic contexts.</p>
+
+<h2 id="checking-out-the-code">Checking Out The Code</h2>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/lab_heaps <span class="nt">-m</span> <span class="s2">"Merging initial lab_heaps files"</span>
+</code></pre></div></div>
+
+<p>If you’re on your own machine, you may need to run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge <span class="nt">--allow-unrelated-histories</span> release/lab_heaps <span class="nt">-m</span> <span class="s2">"Merging initial lab_heaps files"</span>
+</code></pre></div></div>
+
+<p>Upon a successful merge, your lab_heaps files are now in your <code class="highlighter-rouge">lab_heaps</code> directory.</p>
+
+<p>The code for this activity resides in the <code class="highlighter-rouge">lab_heaps/</code> directory. Get
+there by typing this in your working directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>lab_heaps/
+</code></pre></div></div>
+<p>Check out the <a href="../../doxygen/lab_heaps/files.html">Doxygen</a> for provided files.</p>
+
+<h2 id="root"><code class="highlighter-rouge">root()</code></h2>
+
+<p><a href="../../doxygen/lab_heaps/classheap.html#a54d741241595c12455c6b510c09a372a">Doxygen for <code class="highlighter-rouge">root()</code></a>.
+Returns the index of the root- 0 for a 0-indexed heap, 1 for 1-indexed.</p>
+
+<h2 id="leftchild"><code class="highlighter-rouge">leftChild()</code></h2>
+
+<p><a href="../../doxygen/lab_heaps/classheap.html#a55ae3f865bcd7b6ce527d2b7d4c2fcd1">Doxygen for <code class="highlighter-rouge">leftChild()</code></a>.
+Returns the index of the left child of the element.</p>
+
+<h2 id="rightchild"><code class="highlighter-rouge">rightChild()</code></h2>
+
+<p><a href="../../doxygen/lab_heaps/classheap.html#aa4ace298b872a5ea9edb90d3283eb6fa">Doxygen for <code class="highlighter-rouge">rightChild()</code></a>.
+Returns the index of the right child of the element.</p>
+
+<h2 id="parent"><code class="highlighter-rouge">parent()</code></h2>
+
+<p><a href="../../doxygen/lab_heaps/classheap.html#a54a5537ee807260d776e73d8c51fd5e2">Doxygen for <code class="highlighter-rouge">parent()</code></a>.
+Returns the index of the parent of the element.</p>
+
+<h2 id="empty"><code class="highlighter-rouge">empty()</code></h2>
+
+<p><a href="../../doxygen/lab_heaps/classheap.html#a84c2dde44ebdf1b859216f853f8bf0f3">Doxygen for <code class="highlighter-rouge">empty()</code></a>.
+Determines if your heap is empty.</p>
+
+<h2 id="hasachild"><code class="highlighter-rouge">hasAChild()</code></h2>
+
+<p><a href="../../doxygen/lab_heaps/classheap.html#acbd61cf2429420c082dcc94cf1c233e6">Doxygen for <code class="highlighter-rouge">hasAChild()</code></a>.
+Determines if the current element has a child (aka if it isn’t a “leaf node”).</p>
+
+<h2 id="maxprioritychild"><code class="highlighter-rouge">maxPriorityChild()</code></h2>
+
+<p><a href="../../doxygen/lab_heaps/classheap.html#a73fa3fdbfe8cf977b1254fb185ec82b0">Doxygen for <code class="highlighter-rouge">maxPriorityChild()</code></a>.
+Determines the child with the maximum priority.</p>
+
+<h2 id="heapifydown"><code class="highlighter-rouge">heapifyDown()</code></h2>
+
+<p><a href="../../doxygen/lab_heaps/classheap.html#a9e2a7cbc38c5ca839828cb43b6c51a8e">Doxygen for <code class="highlighter-rouge">heapifyDown()</code></a>.
+Maintains heap property by “sinking” a node down. When we pop an element, we heapifyDown() the new root so the heap’s property is maintained.</p>
+
+<h2 id="heapifyup"><code class="highlighter-rouge">heapifyUp()</code></h2>
+
+<p>Maintains heap property by “bubbling” a node up. When a node is added to the end of the array, we call heapifyUp() to recursively swap it into its proper place. 
+We have written this for you as an example: <a href="../../doxygen/lab_heaps/classheap.html#a39896eca3e962f228d2419cf08c497f8">Doxygen for <code class="highlighter-rouge">heapifyUp()</code></a>.</p>
+
+<h2 id="heap"><code class="highlighter-rouge">heap()</code></h2>
+
+<p>Doxygen for Constructor for <a href="../../doxygen/lab_heaps/classheap.html#a0822d7b83aecdf3f401a88421a5135d1">building an empty heap</a>.
+Doxygen for Constructor for <a href="../../doxygen/lab_heaps/classheap.html#a2d8a4a8586302a2da0cdabf985f61b3f">building a heap</a>.</p>
+
+<h2 id="pop"><code class="highlighter-rouge">pop()</code></h2>
+
+<p><a href="../../doxygen/lab_heaps/classheap.html#ac0d11997a43149b4724c3fcd0316cce7">Doxygen for <code class="highlighter-rouge">pop()</code></a>.
+Pops the element with the highest priority, as defined by the higherPriority functor. Maintains heap property by calling heapifyDown().</p>
+
+<h2 id="peek"><code class="highlighter-rouge">peek()</code></h2>
+
+<p><a href="../../doxygen/lab_heaps/classheap.html#ad5ddf2f596a180a8f12c56b402fe91b0">Doxygen for <code class="highlighter-rouge">peek()</code></a>.
+Returns the element with the highest priority.</p>
+
+<h2 id="push"><code class="highlighter-rouge">push()</code></h2>
+
+<p><a href="../../doxygen/lab_heaps/classheap.html#a358c62dfc18e280c0cf74fc4ed3b9033">Doxygen for <code class="highlighter-rouge">push()</code></a>.
+Pushes an element into the heap, then calls heapifyUp() to maintain heap property.</p>
+
+<h2 id="updateelem"><code class="highlighter-rouge">updateElem()</code></h2>
+
+<p><a href="../../doxygen/lab_heaps/classheap.html#a14f16dd4cd69ab6369f8ad14e1b15746">Doxygen for <code class="highlighter-rouge">updateElem()</code></a>.
+Updates element in the heap array at the provided index (0-based, you may need to account for this based on your <code class="highlighter-rouge">root()</code> function.) while maintaining the heap property by appropriately “bubbling” up or down as need be. The index is relative to the first element in the heap, NOT necessarily the first element in the vector/array you are using for implementing the heap.</p>
+
+<h2 id="testing-your-code">Testing Your Code</h2>
+
+<p>You can test your implementation by running:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./testheap            // Runs testheap. You can diff the output with soln_testheap.out
+./testheap color      // colorizes the output of testheap <span class="o">(</span>green <span class="k">for </span>correct output
+                      //    red <span class="k">for </span>incorrect output, or red underlines <span class="k">for </span>missing output<span class="o">)</span>
+./testheap <span class="o">&gt;</span> out.txt  // Redirects the output to the file <span class="s2">"out.txt"</span> so you can diff it with soln_testheap.out
+./testheap 10000      // Tests your heap with 10000 items instead of the default 15
+
+make <span class="nb">test</span>             // Tests your heapify and constructor
+</code></pre></div></div>
+
+<h2 id="committing-your-code">Committing Your Code</h2>
+
+<p>Commit your code the usual way:</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+<h2 id="grading-information">Grading Information</h2>
+
+<p>The following files (and ONLY those files!!) are used for grading this lab:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">heap.cpp</code></li>
+  <li><code class="highlighter-rouge">heap.h</code></li>
+</ul>
+
+<p>If you modify any other files, they will not be grabbed for grading! And you will be sad, and we will be apathetic!</p>
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/labs/heaps/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:17:04 GMT -->
+</html>

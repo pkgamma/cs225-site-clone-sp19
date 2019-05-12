@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/mps/lists/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:15:11 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | mp_lists</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../notes/index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    @media (min-width: 768px) {
+        #toc {
+            display: block!important;
+            top: 1rem;
+        }
+    }
+</style>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron jumbotron-fluid text-light" style="background-image:url('../../assets/covers/default_mp.svg');">
+    <div class="container">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h1>mp_lists</h1>
+                <h2 class="h5">Loathsome Lists</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-start align-items-md-end">
+                
+                <small>Extra credit: <span>Feb 18, 23:59 PM</span></small>
+                
+                <small>Due: <span>Feb 25, 23:59 PM</span></small>
+                <div class="btn-group mt-2" style="overflow-x: auto;">
+                    <a class="btn btn-light" href="../../doxygen/mp3/annotated.html" role="button">Doxygen</a>
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 px-3 pb-3">
+            <button class="btn btn-outline-secondary d-inline-block d-md-none" type="button" data-toggle="collapse" data-target="#toc" aria-expanded="false" aria-controls="toc">
+                <i class="fa fa-bars mr-1"></i> Table of Contents
+            </button>
+            <nav id="toc" class="sticky-top collapse"></nav>
+        </div>
+        <main class="col-12 col-md-9 col-xl-10">
+            
+<p>Direct links to <a href="#part1">Part 1</a> and <a href="#part2">Part 2</a></p>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong>Solo MP</strong> 
+This MP is to be completed without a partner.</p>
+
+  <p>You are welcome to get help on the MP from course staff, via open lab hours, or Piazza!</p>
+</div>
+
+<h2 id="goals">Goals</h2>
+
+<p>In this MP (machine problem) you will:</p>
+
+<ul>
+  <li>learn to manipulate linked memory by writing functions to modify linked lists</li>
+  <li>practice debugging more complex code</li>
+  <li>practice using templates</li>
+  <li>get familiar with iterators</li>
+</ul>
+
+<h2 id="checking-out-the-code">Checking Out the Code</h2>
+
+<p>From your CS 225 git directory, run the following on EWS:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge release/mp_lists -m "Merging initial mp_lists files"
+</code></pre></div></div>
+
+<p>If you’re on your own machine, you may need to run:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch release
+git merge --allow-unrelated-histories release/mp_lists -m "Merging initial mp_lists files"
+</code></pre></div></div>
+
+<p>Upon a successful merge, your mp_lists files are now in your <code class="highlighter-rouge">mp_lists</code> directory.</p>
+
+<h2 id="background-information-template-classes">Background Information: Template Classes</h2>
+
+<p>Identical to what you saw in lecture, template classes provide the ability to create generic container classes. In this MP, you will be writing a <code class="highlighter-rouge">List</code> class.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">List</span> <span class="p">{</span>
+    <span class="c1">// implementation</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>This simply says that our class <code class="highlighter-rouge">List</code> has a parametrized type that we will
+call <code class="highlighter-rouge">T</code>. Similarly, the constructor will look like this:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">List</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// implementation</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We need the <code class="highlighter-rouge">template &lt;typename T&gt;</code> or <code class="highlighter-rouge">template &lt;class T&gt;</code> above all of our functions—it becomes part
+of the function signature.  The keywords <code class="highlighter-rouge">class</code> and <code class="highlighter-rouge">typename</code> can be interchanged.</p>
+
+<p>Template classes need access to the implementation for compilation. Every time
+a different class is used as the template, the code must be compiled to support
+containing it. For example, if you want to make a <code class="highlighter-rouge">List&lt;int&gt;,</code> the compiler
+must take the generic <code class="highlighter-rouge">List&lt;T&gt;</code> implementation code and replace all the <code class="highlighter-rouge">T</code>s
+with <code class="highlighter-rouge">int</code>s inside it, and compile the result (this process is called
+<strong>template instantiation</strong>). Our solution to this is to <code class="highlighter-rouge">#include "List.hpp"</code>
+at the bottom of our <code class="highlighter-rouge">List.h</code> file, and not include <code class="highlighter-rouge">List.h</code> in our <code class="highlighter-rouge">List.hpp</code>
+file. This ensures that whenever a client includes our header file, he/she also
+gets the implementation as well for compilation purposes (there are other
+solutions, but this is how we will solve it in this course).</p>
+
+<h2 id="list-bg">Background Information: Linked Lists</h2>
+
+<p>The interface of this <code class="highlighter-rouge">List</code> class is slightly different from what you have
+seen in lecture. This <code class="highlighter-rouge">List</code> has no sentinel nodes; the first node’s <code class="highlighter-rouge">prev</code>
+pointer, and the last node’s <code class="highlighter-rouge">next</code> pointer, are both <code class="highlighter-rouge">NULL</code>. In lieu of these
+sentinels, we keep a pointer <code class="highlighter-rouge">head</code> to the first node, and a pointer <code class="highlighter-rouge">tail</code> to
+the last node in the <code class="highlighter-rouge">List</code>. (In an empty list, both <code class="highlighter-rouge">head</code> and <code class="highlighter-rouge">tail</code> are
+<code class="highlighter-rouge">NULL</code>.) The <code class="highlighter-rouge">List</code> class also has an integer member variable, <code class="highlighter-rouge">length</code>, which
+represents the number of nodes in the <code class="highlighter-rouge">List</code>; you will need to maintain this
+variable.</p>
+
+<h2 id="background-information-iterators">Background Information: Iterators</h2>
+<p>We use iterators to figure out where we currently are in the list, what is the
+next/previous node, and to access the data. Iterator class has one member
+variable, namely a pointer to the node in the list. Some of the core
+functionality includes moving the pointer, getting current location, and
+checking the location of the iterator.</p>
+
+<h2 id="background-information-gdb">Background Information: GDB</h2>
+
+<p>We have a reference guide for GDB <a href="../../guides/gdb/index.html">here</a>. You
+should read through it to get an idea of how to start gdb, what commands you
+have available, etc.</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/gdb/index.html">
+        <i class="fa fa-book"></i> Guide: How to use GDB
+    </a>
+</div>
+
+<p>To summarize a bit, you could run:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gdb --args ./test "[part=1]"
+</code></pre></div></div>
+
+<p>to debug the part one test cases with gdb,</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gdb --args ./test "*insert*"
+</code></pre></div></div>
+<p>to debug all the tests with “insert” in their name.</p>
+
+<p>Once you start gdb to execute the tests you want to run, you can set
+breakpoints to help you debug. For example, we could set a breakpoint at the
+beginning of a test case we want to debug, or breakpoint(s) at the beginning or
+end of functions which are not behaving as we expect. For example, if we are
+failing the insertFront test, we could add a breakpoint at the end of the
+<code class="highlighter-rouge">insertFront</code> function and see if the list looks how we expect. This will let
+us know whether to focus our debugging on exactly what the function is doing,
+or what the test case is doing after this call to <code class="highlighter-rouge">insertFront</code>.</p>
+
+<p>For example, we can set a breakpoint in line 25 of our <code class="highlighter-rouge">List</code> class like so:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) b List.hpp:25
+</code></pre></div></div>
+
+<p>or a breakpoint in line 50 of the part 1 test cases like so:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) b tests/tests_part1.cpp:50
+</code></pre></div></div>
+
+<p>We can also set breakpoints using function names:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) b main
+</code></pre></div></div>
+
+<p>sets a breakpoint at the beginning of main, and</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) b List&lt;int&gt;::sort()
+</code></pre></div></div>
+
+<p>sets a breakpoint at the beginning of the sort function. You can tab complete
+this, so for example after typing <code class="highlighter-rouge">b List&lt;int&gt;::ins</code> you can press tab to see a
+list of possible functions starting with <code class="highlighter-rouge">ins</code> in the <code class="highlighter-rouge">List</code> class, templatized
+with <code class="highlighter-rouge">int</code>.</p>
+
+<p>Remember that Catch will print not only the name of a failing test case, but
+also what file the test was in and the line number of the failing assertion.
+You can use this to decide which tests to run and where you might want to set
+breakpoints.</p>
+
+<h2 id="part1">Part 1: Debugging &amp; Implementing Linked Lists</h2>
+
+<p>In your <code class="highlighter-rouge">mp_lists</code> folder, you will find that the <code class="highlighter-rouge">List</code> class is split into four <code class="highlighter-rouge">.h</code> or <code class="highlighter-rouge">.hpp</code> files:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">List.h</code></li>
+  <li><code class="highlighter-rouge">List.hpp</code></li>
+  <li><code class="highlighter-rouge">List-ListIterator.hpp</code></li>
+  <li><code class="highlighter-rouge">List-given.h</code></li>
+</ul>
+
+<p>We have provided a partial implementation of a few List functions for this part
+of the MP. Some functions are written, and some are unwritten. Those functions
+which are already coded may have a few bugs in them! This part of the MP is to
+help get you used to debugging certain kinds of logical and memory related
+bugs, as well as writing pointer manipulation code. All the functions are
+specified in <code class="highlighter-rouge">List.h</code>, and their (potentially empty) implementations are in
+<code class="highlighter-rouge">List.hpp</code> or <code class="highlighter-rouge">List-ListIterator.hpp</code> for you to write.</p>
+
+<p>You should use gdb, valgrind, and any other debugging tools or techniques
+you’re comfortable with to complete the first part of this MP (as well as
+general debugging in Part 2 and beyond).</p>
+
+<p>See the <a href="../../doxygen/mp3/classList.html">Doxygen</a> for details of the <code class="highlighter-rouge">List</code> class.</p>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Notes on testing</strong> 
+There are two ways to test this MP:</p>
+
+  <ol>
+    <li>Using <code class="highlighter-rouge">make</code> to make <code class="highlighter-rouge">main.cpp</code> into <code class="highlighter-rouge">./mp_lists</code>, which allows you to write your own lists to test.</li>
+    <li>Using <code class="highlighter-rouge">make test</code> to make <code class="highlighter-rouge">./test</code>, which allows you to run the automated tests.</li>
+  </ol>
+
+  <p>You’re free to run Valgrind (or other tools) on the executables:</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>valgrind ./mp_lists
+valgrind ./test [part=1]
+</code></pre></div>  </div>
+
+  <p>You can also select test cases to run by their names, and run those under valgrind or gdb as well:</p>
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./test "List::reverse"
+./test "*insert*"
+valgrind ./test "*insert*"
+gdb --args ./test "*insert*"
+</code></pre></div>  </div>
+</div>
+
+<h3 id="list"><code class="highlighter-rouge">List()</code></h3>
+
+<p>This should default construct the list. Keep in mind everything mentioned in
+the <a href="#list-bg">background for the Linked List class</a>.</p>
+
+<h3 id="list-and-_destroy"><code class="highlighter-rouge">~List()</code> and <code class="highlighter-rouge">_destroy()</code></h3>
+
+<p>Since the <code class="highlighter-rouge">List</code> class has dynamic memory associated with it, we need to define
+all of the Rule of Three. We have provided you with the <a href="../../doxygen/mp3/classList.html#a2f0753a9ebc8ecb15e5d4d22cb686640">Copy
+Constructor</a> and <a href="../../doxygen/mp3/classList.html#a229489dc67b834afe82e557bfac137d9">overloaded <code class="highlighter-rouge">operator=</code></a>.</p>
+
+<ul>
+  <li>You will need to implement the <a href="../../doxygen/mp3/classList.html#a300fb23face5d8030834d715fe319d20"><code class="highlighter-rouge">_destroy()</code> helper function</a>
+called by <code class="highlighter-rouge">operator=</code> (the assignment operator) and the destructor <code class="highlighter-rouge">~List()</code></li>
+  <li>The <code class="highlighter-rouge">_destroy()</code> function should free all memory allocated for <code class="highlighter-rouge">ListNode</code>
+objects.</li>
+</ul>
+
+<h3 id="insertion">Insertion</h3>
+
+<h4 id="the-insertfront-function">The <code class="highlighter-rouge">insertFront</code> Function</h4>
+
+<p>(See the <a href="../../doxygen/mp3/classList.html#a7840ce52c421cc40af07c763a428fa11">Doxygen for <code class="highlighter-rouge">insertFront</code></a>.)</p>
+
+<ul>
+  <li>This function takes a data element and prepends it to the beginning of the
+list.</li>
+  <li>If the list is empty before <code class="highlighter-rouge">insertFront</code> is called, the list should have one
+element with the same value as the parameter.</li>
+  <li>You may allocate new <code class="highlighter-rouge">ListNode</code>s.</li>
+</ul>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Example</strong> 
+For example, if <code class="highlighter-rouge">insertFront</code> is called on the list of integers</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 5 4 7 &gt;
+</code></pre></div>  </div>
+
+  <p>with the parameter <code class="highlighter-rouge">6</code>, then the resultant list should be</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 6 5 4 7 &gt;
+</code></pre></div>  </div>
+</div>
+
+<h4 id="the-insertback-function">The <code class="highlighter-rouge">insertBack</code> Function</h4>
+
+<p>(See the <a href="../../doxygen/mp3/classList.html#ac155bf0e81e5b01aaa7534dd000be9e9">Doxygen for <code class="highlighter-rouge">insertBack</code></a>.)</p>
+
+<ul>
+  <li>This function takes a data element and appends it to the end of the list.</li>
+  <li>If the list is empty before <code class="highlighter-rouge">insertBack</code> is called, the list should have one
+element with the same value as the parameter.</li>
+  <li>You may allocate new <code class="highlighter-rouge">ListNode</code>s.</li>
+</ul>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Example</strong> 
+For example, if <code class="highlighter-rouge">insertBack</code> is called on the list of integers</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 5 4 7 &gt;
+</code></pre></div>  </div>
+
+  <p>with the parameter <code class="highlighter-rouge">6</code>, then the resultant list should be</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 5 4 7 6 &gt;
+</code></pre></div>  </div>
+</div>
+
+<h4 id="testing-your-insert-functions">Testing Your <code class="highlighter-rouge">insert</code> Functions</h4>
+
+<p>Once you have completed <code class="highlighter-rouge">insertFront</code> and <code class="highlighter-rouge">insertBack</code>, you should compile and
+test them. These tests do not rely on your iterator</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make test
+./test "List::insertFront*"
+./test "List::insertBack*"
+./test "List::insert*"
+</code></pre></div></div>
+
+<h3 id="iterator">Iterator</h3>
+
+<p>In order to provide the client code with the ability to read the data from the
+list in a uniform way, we need to have an iterator. We have provided a list
+iterator class <code class="highlighter-rouge">List-ListIterator.hpp</code> which has some functionality
+implemented. However, there are a few functions yet to be written as well as
+some functions with buggy implementations! You will need to worry about all the
+functions with a <code class="highlighter-rouge">@TODO</code> comment:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">ListIterator&amp; operator++()</code></li>
+  <li><code class="highlighter-rouge">ListIterator operator++(int)</code></li>
+  <li><code class="highlighter-rouge">ListIterator&amp; operator--()</code></li>
+  <li><code class="highlighter-rouge">ListIterator operator--(int)</code></li>
+  <li><code class="highlighter-rouge">bool operator!=(const ListIterator&amp; rhs)</code></li>
+</ul>
+
+<p>You will also need to implement the <code class="highlighter-rouge">begin()</code> and <code class="highlighter-rouge">end()</code> functions in <code class="highlighter-rouge">List.hpp</code>
+to have a way of obtaining an iterator from a <code class="highlighter-rouge">List</code>.</p>
+
+<p>Many of the more advanced functionality will be tested by using your iterator.
+So, you should make sure to debug and implement these after you have finished
+your insert functions but before you start working too much on the later
+functionality.</p>
+
+<h3 id="the-split-helper-function">The <code class="highlighter-rouge">split</code> Helper Function</h3>
+
+<p>(See the <a href="../../doxygen/mp3/classList.html#a1883ef6a8d06eac86116160ff7339c5e">Doxygen for <code class="highlighter-rouge">split</code></a>.)</p>
+
+<ul>
+  <li>This function takes in a pointer <code class="highlighter-rouge">start</code> and an integer <code class="highlighter-rouge">splitPoint</code> and
+splits the chain of <code class="highlighter-rouge">ListNode</code>s into two completely distinct chains of
+<code class="highlighter-rouge">ListNode</code>s after <code class="highlighter-rouge">splitPoint</code> many nodes.</li>
+  <li>The split happens after <code class="highlighter-rouge">splitPoint</code> number of nodes, making that the <code class="highlighter-rouge">head</code>
+of the new sublist, which should be returned. In effect, there will be
+<code class="highlighter-rouge">splitPoint</code> number of nodes remaining in the current list.</li>
+  <li>You may <strong>NOT</strong> allocate new <code class="highlighter-rouge">ListNode</code>s</li>
+</ul>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Example</strong> 
+For example, if <code class="highlighter-rouge">split</code> is called on the list of integers</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>list1 = &lt; 1 2 3 4 5 &gt;
+</code></pre></div>  </div>
+
+  <p>then after calling <code class="highlighter-rouge">list2 = list1.split(2)</code> the lists will look like</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>list1 == &lt; 1 2 &gt;
+list2 == &lt; 3 4 5 &gt;
+</code></pre></div>  </div>
+
+</div>
+
+<h4 id="testing-your-split-function">Testing Your <code class="highlighter-rouge">split</code> Function</h4>
+
+<p>Once you have completed <code class="highlighter-rouge">split</code>, you should compile and test it.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make test
+./test "List::split*"
+</code></pre></div></div>
+
+<p>You should see images <code class="highlighter-rouge">actual-split_*.png</code> created in the working directory (these are
+generated by repeatedly splitting <code class="highlighter-rouge">split.png</code>). Compare them against
+<code class="highlighter-rouge">expected-split_*.png</code>.</p>
+
+<h3 id="the-waterfall-function">The <code class="highlighter-rouge">waterfall</code> Function</h3>
+
+<p>(See the <a href="../../doxygen/mp3/classList.html#a64335a98ad6da6a7bbd800b347bda5ed">Doxygen for <code class="highlighter-rouge">waterfall</code></a>.)</p>
+
+<ul>
+  <li>This function modifies the list in a cascading manner as follows.</li>
+  <li>Every other node (starting from the second one) is removed from the list, but
+appended at the back, becoming the new <code class="highlighter-rouge">tail</code>.</li>
+  <li>This continues until the next thing to be removed is either the <code class="highlighter-rouge">tail</code> (not
+necessarily the original <code class="highlighter-rouge">tail</code>!) or <code class="highlighter-rouge">NULL</code>.</li>
+  <li>You may <strong>NOT</strong> allocate new <code class="highlighter-rouge">ListNode</code>s.</li>
+  <li>Note that since the <code class="highlighter-rouge">tail</code> should be continuously updated, some nodes will be
+moved more than once.</li>
+</ul>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Example</strong> 
+For example, if <code class="highlighter-rouge">waterfall</code> is called on the list of integers</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 1 2 3 4 5 6 7 8 &gt;
+</code></pre></div>  </div>
+
+  <p>then the call to <code class="highlighter-rouge">waterfall()</code> should result in</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 1 3 5 7 2 6 4 8 &gt;
+</code></pre></div>  </div>
+
+  <p>(Do you see the pattern here?)</p>
+</div>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Step-by-Step Example</strong> 
+We will look again at the list</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 1 2 3 4 5 6 7 8 &gt;
+</code></pre></div>  </div>
+
+  <p>When we call <code class="highlighter-rouge">waterfall</code>, this is how it should look step-by-step:</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 1 2 3 4 5 6 7 8 &gt; - Skip the 1
+  ^             ^
+curr           tail
+
+&lt; 1 3 4 5 6 7 8 2 &gt; - Remove the 2 and move it at the end
+    ^           ^
+  curr         tail
+
+&lt; 1 3 5 6 7 8 2 4 &gt; - Skip the 3, and move the 4 to the end
+      ^         ^
+    curr       tail
+
+&lt; 1 3 5 7 8 2 4 6 &gt; - Skip the 5 and move the 6 to the end
+        ^       ^
+      curr     tail
+
+&lt; 1 3 5 7 2 4 6 8 &gt; - Skip the 7 and move the 8 to the end
+          ^     ^
+        curr   tail
+
+&lt; 1 3 5 7 2 6 8 4 &gt; - We have moved past the original tail of the list.
+            ^   ^       This is okay! Skip the 2 and move the 4 to the end,
+          curr tail     now for the second time!
+
+&lt; 1 3 5 7 2 6 4 8 &gt; Skip the 6 and move the 8 to the end, now for the second time!
+              ^ ^
+           curr tail
+</code></pre></div>  </div>
+
+  <p>We are done now because we skip over the <code class="highlighter-rouge">4</code> and get to the <code class="highlighter-rouge">tail</code> of the list.
+The <code class="highlighter-rouge">8</code> stays in place, and we have finished. If you were keeping track of
+moves, you would notice that a number (they happen to be in order here for
+convenience) gets moved the same amount of times as it is divisible by 2!
+Technically this might not be true for the <code class="highlighter-rouge">8</code>, but we could have moved it that
+last time, it just would have stayed where it was (remove it from the <code class="highlighter-rouge">tail</code>
+and put it back to the <code class="highlighter-rouge">tail</code>). Kinda neat, huh?</p>
+</div>
+
+<h4 id="testing-your-waterfall-function">Testing Your <code class="highlighter-rouge">waterfall</code> Function</h4>
+
+<p>Once you have completed <code class="highlighter-rouge">waterfall</code>, you should compile and test it.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make test
+./test "List::waterfall"
+</code></pre></div></div>
+
+<h3 id="testing-part-1">Testing Part 1</h3>
+
+<p>Compile your code using the following command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make test
+</code></pre></div></div>
+
+<p>After compiling, you can run all of the part one tests at once with the
+following command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./test [part=1]
+</code></pre></div></div>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Notes</strong></p>
+  <ul>
+    <li>These tests are <strong>deliberately insufficient</strong>. We strongly recommend augmenting
+these tests with your own.</li>
+    <li>Be sure to think carefully about edge cases and reasonable behavior of each of the functions
+when called on an empty list, or when given an empty list as a parameter.</li>
+    <li>It is <strong>highly advised</strong> to test with lists of <strong>integers</strong> before testing
+with lists of <code class="highlighter-rouge">HSLAPixel</code>s.</li>
+    <li>Printing out a list both forward and backwards (eg, using an iterator or a
+custom print function) is one way to check whether you have the
+double-linking correct, not just forward linking. Printing the size may also
+help debug other logical errors.</li>
+  </ul>
+</div>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong>DOUBLE CHECK</strong> that you can confidently answer “no” to the following
+questions:</p>
+
+  <ul>
+    <li>Did I allocate new memory in functions that disallow it?</li>
+    <li>Did I modify the data entry of any <code class="highlighter-rouge">ListNode</code>?</li>
+    <li>Do I leak memory?</li>
+  </ul>
+</div>
+
+<h2 id="extra-credit-submission">Extra Credit Submission</h2>
+
+<p>For extra credit, you can submit the code you have implemented and tested for
+part one of mp_lists.  Follow the <a href="#submit">submission instructions</a> section
+for handing in your code.</p>
+
+<h2 id="part2">Part 2</h2>
+
+<h3 id="the-reverse-helper-function">The <code class="highlighter-rouge">reverse</code> Helper Function</h3>
+
+<p>(See the <a href="../../doxygen/mp3/classList.html#a9ca3d0b6c74cc9258c8d84431d9099c1">Doxygen for <code class="highlighter-rouge">reverse</code></a>.)</p>
+
+<p>In <code class="highlighter-rouge">List.hpp</code> you will see that a public <code class="highlighter-rouge">reverse</code> method is already defined
+and given to you. You are to write the helper function that the method calls.</p>
+
+<ul>
+  <li>This function will reverse a chain of linked memory beginning at <code class="highlighter-rouge">startPoint</code>
+and ending at <code class="highlighter-rouge">endPoint</code>.</li>
+  <li>The <code class="highlighter-rouge">startPoint</code> and <code class="highlighter-rouge">endPoint</code> pointers should point at the new start and
+end of the chain of linked memory.</li>
+  <li>The <code class="highlighter-rouge">next</code> member of the <code class="highlighter-rouge">ListNode</code> before the sequence should point at the
+new start, and the <code class="highlighter-rouge">prev</code> member of the <code class="highlighter-rouge">ListNode</code> after the sequence should
+point to the new end.</li>
+  <li>You may <strong>NOT</strong> allocate new <code class="highlighter-rouge">ListNode</code>s.</li>
+</ul>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Example</strong> 
+For example, if we have a list of integers</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 1 2 3 4 5 6 7 &gt;
+</code></pre></div>  </div>
+
+  <p>(with <code class="highlighter-rouge">head</code> pointing at <code class="highlighter-rouge">1</code> and <code class="highlighter-rouge">tail</code> pointing at <code class="highlighter-rouge">7</code>) and call the public
+function <code class="highlighter-rouge">reverse()</code></p>
+
+  <p>The resulting list should be</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 7 6 5 4 3 2 1 &gt;
+</code></pre></div>  </div>
+
+  <p>(with <code class="highlighter-rouge">head</code> pointing at <code class="highlighter-rouge">7</code> and <code class="highlighter-rouge">tail</code> pointing at <code class="highlighter-rouge">1</code>)</p>
+</div>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+Your helper function should be as general as possible! In other words, <strong>do
+not</strong> assume your <code class="highlighter-rouge">reverse()</code> helper function is called only to reverse the
+entire list—<strong>it may be called to reverse only parts of a given list</strong>.</p>
+
+  <p>Additionally, the pointers <code class="highlighter-rouge">startPoint</code> and <code class="highlighter-rouge">endPoint</code> that are parameters to
+this function should at its completion point to the beginning and end of the
+new, reversed sublist.</p>
+</div>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+We highly recommend you write this function iteratively. It is possible that you may run 
+out of stack space if you write this function recursively.</p>
+</div>
+
+<h3 id="the-reversenth-function">The <code class="highlighter-rouge">reverseNth</code> Function</h3>
+
+<p>(See the <a href="../../doxygen/mp3/classList.html#ae2a804381a28cb512dc473937a2aeca4">Doxygen for <code class="highlighter-rouge">reverseNth</code></a>.)</p>
+
+<ul>
+  <li>This function accepts as a parameter an integer, <script type="math/tex">n</script>, and reverses blocks
+of <script type="math/tex">n</script> elements in the list.</li>
+  <li>The order of the blocks should not be changed.</li>
+  <li>If the final block (that is, the one containing the <code class="highlighter-rouge">tail</code>) is not long
+enough to have <script type="math/tex">n</script> elements, then just reverse what remains in the list.
+In particular, if <script type="math/tex">n</script> is larger than the length of the list, this will do
+the same thing as reverse.</li>
+  <li>You may <strong>NOT</strong> allocate new <code class="highlighter-rouge">ListNode</code>s.</li>
+</ul>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Example</strong> 
+For example, if <code class="highlighter-rouge">reverseNth</code> is called on the list of integers</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 1 2 3 4 5 6 7 8 9 &gt;
+</code></pre></div>  </div>
+
+  <p>then the call to <code class="highlighter-rouge">reverseNth(3)</code> should result in</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 3 2 1 6 5 4 9 8 7 &gt;
+</code></pre></div>  </div>
+
+  <p>For the list of integers</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 1 2 3 4 5 6 &gt;
+</code></pre></div>  </div>
+
+  <p>the call to <code class="highlighter-rouge">reverseNth(4)</code> should result in</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 4 3 2 1 6 5 &gt;
+</code></pre></div>  </div>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <p><i class="fa fa-location-arrow"></i> 
+<strong>Hint</strong> 
+You should try to use your <code class="highlighter-rouge">reverse()</code> helper function here.</p>
+</div>
+
+<h4 id="testing-your-reverse-functions">Testing Your <code class="highlighter-rouge">reverse</code> Functions</h4>
+
+<p>Once you have completed <code class="highlighter-rouge">reverse</code> and <code class="highlighter-rouge">reverseNth</code>, you should compile and test
+them.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make test
+./test "List::reverse"
+./test "List::reverseNth #1"
+./test "List::reverseNth #2"
+</code></pre></div></div>
+
+<h3 id="sorting">Sorting</h3>
+
+<p>You will be implementing the helper functions for one more member function of
+the <code class="highlighter-rouge">List</code> template class: <code class="highlighter-rouge">sort</code>. This is designed to help you practice
+pointer manipulation and solve an interesting algorithm problem. In the process
+of solving this problem, you will implement several helper functions along the
+way—we have provided public interfaces for these helper functions to help you
+test your code.</p>
+
+<h4 id="the-merge-helper-function">The <code class="highlighter-rouge">merge</code> Helper Function</h4>
+
+<p>(See the <a href="../../doxygen/mp3/classList.html#a182c0e897f24f08be85aa460098906a7">Doxygen for <code class="highlighter-rouge">merge</code></a>.)</p>
+
+<ul>
+  <li>This function takes in two pointers to heads of sublists and merges the two
+lists into one in sorted order (increasing).</li>
+  <li>You can assume both lists are sorted, and the final list should remain
+sorted.</li>
+  <li>You should use <code class="highlighter-rouge">operator&lt;</code> on the data fields of <code class="highlighter-rouge">ListNode</code> objects. This
+allows you to perform the comparisons necessary for maintaining the sorted
+order.</li>
+  <li>You may <strong>NOT</strong> allocate new <code class="highlighter-rouge">ListNode</code>s!</li>
+</ul>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Example</strong> 
+For example, if we have the following lists</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>list1 = &lt; 1 3 4 6 &gt;
+list2 = &lt; 2 5 7 &gt;
+</code></pre></div>  </div>
+
+  <p>then after calling <code class="highlighter-rouge">list1.mergeWith(list2)</code> the lists will look like</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>list1 == &lt; 1 2 3 4 5 6 7 &gt;
+list2 == &lt; &gt;
+</code></pre></div>  </div>
+</div>
+
+<h5 id="testing-your-merge-function">Testing Your <code class="highlighter-rouge">merge</code> Function</h5>
+
+<p>Once you have completed <code class="highlighter-rouge">merge</code>, you should compile and test it.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make test
+./test "List::merge"
+</code></pre></div></div>
+
+<p>You should see the image <code class="highlighter-rouge">actual-merge.png</code> created in the working directory if your
+program terminates properly.  This is generated by merging the images
+<code class="highlighter-rouge">tests/merge1.png</code> and <code class="highlighter-rouge">tests/merge2.png</code>.  Compare this against <code class="highlighter-rouge">expected-merge.png</code>.</p>
+
+<h4 id="the-mergesort-helper-function">The <code class="highlighter-rouge">mergesort</code> Helper Function</h4>
+
+<p>(See the <a href="../../doxygen/mp3/classList.html#ab4dfe9123830e272789b92b2820e76af">Doxygen for <code class="highlighter-rouge">mergesort</code></a>.)</p>
+
+<ul>
+  <li>This function sorts the list using the <a href="https://en.wikipedia.org/wiki/Merge_sort">merge
+sort</a> algorithm, explained below.</li>
+  <li>You should use <code class="highlighter-rouge">operator&lt;</code> on the data fields of <code class="highlighter-rouge">ListNode</code> objects. This
+allows you to perform the comparisons necessary for sorting.</li>
+  <li>You should use the private helper functions you wrote above to help you solve
+this problem.</li>
+  <li>You may <strong>NOT</strong> allocate new <code class="highlighter-rouge">ListNode</code>s</li>
+  <li>This function’s runtime will be graded for efficiency (correct Big-Oh
+runtime)</li>
+</ul>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Example</strong> 
+For example, if <code class="highlighter-rouge">sort</code> is called on the list of integers</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 6 1 5 8 4 3 7 2 9 &gt;
+</code></pre></div>  </div>
+
+  <p>the resulting list should be</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; 1 2 3 4 5 6 7 8 9 &gt;
+</code></pre></div>  </div>
+</div>
+
+<h5 id="merge-sort--algorithm-details">Merge Sort — Algorithm Details</h5>
+
+<p>Merge Sort is a recursive sorting algorithm that behaves as follows:</p>
+
+<ul>
+  <li><strong>Base Case</strong>: A list of size 1 is sorted. Return.</li>
+  <li><strong>Recursive Case</strong>:
+    <ul>
+      <li>Split the current list into two smaller, more manageable parts</li>
+      <li>Sort the two halves (this should be a recursive call)</li>
+      <li>Merge the two sorted halves back together into a single list</li>
+    </ul>
+  </li>
+</ul>
+
+<p>In other words, Merge Sort operates on the principle of breaking the problem
+into smaller and smaller pieces, and merging the sorted, smaller lists together
+to finally end up at a completely sorted list.</p>
+
+<h3 id="testing-part-2">Testing Part 2</h3>
+
+<p>Compile your code using the following command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make test
+</code></pre></div></div>
+
+<p>After compiling, you can run the part two tests at once with the following
+command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./test [part=2]
+</code></pre></div></div>
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Hint: Comparing similar images</strong> 
+Occasionally <code class="highlighter-rouge">diff</code> may tell you that the 2 images differ, but you cannot easily tell the
+ difference with the naked eye. In these scenarios, there is a great tool on ews machines 
+ called <code class="highlighter-rouge">compare</code> which can help you.</p>
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>compare out.png out_01.png out_difference.png
+</code></pre></div>  </div>
+  <p>This command will create a new image called out_difference.png where any differing pixels
+will be bright red.</p>
+</div>
+
+<div class="alert alert-info" role="alert">
+  <p><i class="fa fa-info-circle"></i> 
+<strong>Notes</strong></p>
+  <ul>
+    <li>These tests are <strong>deliberately insufficient</strong>. We strongly recommend augmenting
+these tests with your own.</li>
+    <li>Be sure to think carefully about reasonable behavior of each of the functions
+when called on an empty list, or when given an empty list as a parameter.</li>
+    <li>It is <strong>highly advised</strong> to test with lists of <strong>integers</strong> before testing
+with lists of <code class="highlighter-rouge">HSLAPixel</code>s.</li>
+    <li>Printing out a list both forward and backwards is one way to check whether
+you have the double-linking correct, not just forward linking. Printing the
+size may also help debug other logical errors.</li>
+  </ul>
+</div>
+
+<div class="alert alert-warning" role="alert">
+  <p><i class="fa fa-exclamation-circle"></i> 
+<strong>DOUBLE CHECK</strong> that you can confidently answer “no” to the following
+questions:</p>
+
+  <ul>
+    <li>Did I allocate new memory in functions that disallow it?</li>
+    <li>Did I modify the data entry of any <code class="highlighter-rouge">ListNode</code>?</li>
+    <li>Do I leak memory?</li>
+  </ul>
+</div>
+
+<h2 id="grading-information">Grading Information</h2>
+
+<p>You must submit your work to git for grading.  We will use the following files for grading:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">List.h</code></li>
+  <li><code class="highlighter-rouge">List.hpp</code></li>
+  <li><code class="highlighter-rouge">List-ListIterator.hpp</code></li>
+</ul>
+
+<p>All other files including any testing files you have added will not be used for
+grading.</p>
+
+<div class="d-flex mb-3">
+    <a class="btn btn-primary mr-auto ml-auto" style="white-space: normal;" href="../../guides/course-git/index.html">
+        <i class="fa fa-book"></i> Guide: How to submit CS 225 work using git
+    </a>
+</div>
+
+<h2 data-toc-skip="">Good Luck!</h2>
+
+        </main>
+    </div>
+</div>
+
+<script>
+    // Table of contents stuff
+    $(function() {
+        var navSelector = $('#toc');
+        var scopeSelector = $('.container-fluid main');
+        console.log(scopeSelector);
+        Toc.init({
+            $nav: navSelector,
+            $scope: scopeSelector,
+        });
+        $("body").scrollspy({
+            target: navSelector,
+        });
+    })
+</script>
+
+<script type="text/javascript" src="../../static/js/graph-load.js"></script>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/mps/lists/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:15:14 GMT -->
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/notes/bst/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:18:34 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <title>CS 225 | Binary Search Trees</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base_url" content="/cs225/sp2019">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../static/img/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../static/img/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../static/img/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../static/img/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../static/img/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../static/img/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../static/img/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/img/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../../static/img/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../../static/img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon-16x16.png">
+<link rel="manifest" href="../../static/img/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../../static/img/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
+
+<link rel="stylesheet" href="../../static/css/main.css">
+<link rel="stylesheet" href="../../static/css/github-highlighting.css">
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+<script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            TeX: {
+                extensions: [ "AMSmath.js", "AMSsymbols.js" ]
+            },
+            tex2jax: {
+                inlineMath: [['\\(','\\)'], ['$$','$$']],
+                displayMath: [['\\[','\\]']]
+            },
+        });
+</script>
+
+<style>
+    svg.graph {
+        overflow: visible;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        display: block;
+        max-width: 95%;
+    }
+</style>
+
+<style>
+  /* Main items  */
+  .main-item {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    border-bottom-left-radius: calc(1rem - 1px);
+    border-bottom-right-radius: calc(1rem - 1px);
+    background-size: cover;
+    padding: 10px
+  }
+
+  .main-item-mp {
+    background-image: url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-lab {
+    background-image: url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-note {
+    background-image: url('../../assets/covers/notes.svg')
+  }
+
+  .main-item-body {
+    width: 320px;
+    height: 180px;
+    padding: 20px;
+
+    display: flex;
+    border: none !important;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.91) !important;
+  }
+
+  .main-item-body:hover {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background: transparent;
+    border: transparent;
+  }
+
+  .main-item-body:hover * {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: none !important;
+  }
+
+  .main-item-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: cover;
+  }
+
+  .main-item-text-mp {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_mp.svg')
+  }
+
+  .main-item-text-lab {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/default_lab.svg')
+  }
+
+  .main-item-text-note {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../../assets/covers/notes.svg')
+  }
+</style>
+
+</head>
+<body class="mb-3">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="../../index.html">
+        <img src="../../static/img/UIUC_logo.png" alt="UIUC Logo" width="24" height="32" class="d-inline-block align-top mr-2">
+        CS 225
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="../../pages/lectures.html">Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../exams/index.html">Exams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../index.html">Notes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/resources.html">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../pages/course_info.html">Course Info</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<article class="container py-4">
+    <a href="../index.html">Back to Notes</a>
+    <header class="mb-4">
+        <h1 class="text-dark">Binary Search Trees</h1>
+        <span class="text-secondary">by Tamara Nelson-Fromm</span>
+    </header>
+    <h2 id="definition">Definition</h2>
+
+<p>A <em>binary search tree</em> (BST) is a <em>binary tree</em> where every node in the left subtree is less than the root, and every node in the right subtree is of a value greater than the root. The properties of a binary search tree are recursive: if we consider any node as a “root,” these properties will remain true.</p>
+
+<div class="row">
+  <div class="col col-xs-12 col-md-6 offset-md-3">
+    <img src="../../assets/notes/bst/bsttreetraversal.png" class="img-fluid" />
+  </div>
+</div>
+
+<p>Due to the way nodes in a binary search tree are ordered, an <em>in-order traversal</em> (left node, then root node, then right node) will always produce a sequence of values in increasing numerical order.</p>
+
+<h2 id="searching">Searching</h2>
+
+<p>Binary search trees are called “search trees” because they make searching for a certain value more efficient than in an unordered tree. In an ideal binary search tree, we do not have to visit every node when searching for a particular value.</p>
+
+<p>Here is how we search in a binary search tree:</p>
+<ol>
+  <li>Begin at the tree’s <em>root node</em></li>
+  <li>If the value is smaller than the current node, move left</li>
+  <li>If the value is larger than the current node, move right</li>
+</ol>
+
+<div class="row">
+  <div class="col col-xs-12 col-md-6 offset-md-3">
+    <img src="../../assets/notes/bst/bstsearch.png" class="img-fluid" />
+  </div>
+</div>
+
+<h2 id="inserting">Inserting</h2>
+
+<p>New nodes in a binary search tree are always added at a <em>leaf</em> position. Performing a search can easily find the position for a new node.</p>
+
+<div class="row">
+  <div class="col col-xs-12 col-md-6 offset-md-3">
+    <img src="../../assets/notes/bst/insert.png" class="img-fluid" />
+  </div>
+</div>
+
+<h2 id="removing">Removing</h2>
+
+<p>When removing from a binary search tree, we are concerned with keeping the rest of the tree in the correct order. This means removing is different depending on whether the node we are removing has children. There are three cases:</p>
+
+<p>If the node being removed is a leaf, it can simply be deleted.</p>
+
+<div class="row">
+  <div class="col col-xs-12 col-md-6 offset-md-3">
+    <img src="../../assets/notes/bst/removeleaf.png" class="img-fluid" />
+  </div>
+</div>
+
+<p>If the node has a single child, (left or right) we must move the child into the position of the node when deleting it.</p>
+
+<div class="row">
+  <div class="col col-xs-12 col-md-6 offset-md-3">
+    <img src="../../assets/notes/bst/onechildremove.png" class="img-fluid" />
+  </div>
+</div>
+
+<p>If the node has two children, we must first find the <em>In-Order Predecessor</em> (IOP): the largest node in our node’s left subtree. The IOP is always a leaf node, and can be found by starting at the left subtree’s root and moving right. We can then swap the node being removed with its IOP and delete it, as it is now a leaf.</p>
+
+<div class="row">
+  <div class="col col-xs-12 col-md-6 offset-md-3">
+    <img src="../../assets/notes/bst/remove2child.png" class="img-fluid" />
+  </div>
+</div>
+
+<h2 id="runtime-and-bsts">Runtime and BSTs</h2>
+
+<p>Depending on the values contained in a binary search tree, and the order in which they are added, the performance of a BST’s operations can vary. This performance depends on the shape of the tree and the number of nodes it contains.</p>
+
+<p>In an ideal case, a binary search tree has a similar number of nodes in its right and left subtrees. Since you have to visit less nodes when searching in an ideal BST, this case has a run time of <code>O(lg(n))</code> for all operations that utilize find, including search, insert, and remove.</p>
+
+<div class="row">
+  <div class="col col-xs-12 col-md-6 offset-md-3">
+    <img src="../../assets/notes/bst/goodbst.png" class="img-fluid" />
+  </div>
+</div>
+
+<p>The worst case of a binary search tree is one that has its values added <strong>in numerical order</strong>. This structure then doesn’t resemble a tree - it looks like a linked list! As potentially every node has to be visited when searching, the worst case BST has a run time of <code>O(n)</code> for all operations utilizing find.</p>
+
+<div class="row">
+  <div class="col col-xs-12 col-md-6 offset-md-3">
+    <img src="../../assets/notes/bst/badbst.png" class="img-fluid" />
+  </div>
+</div>
+
+</article>
+
+</body>
+
+<!-- Mirrored from courses.engr.illinois.edu/cs225/sp2019/notes/bst/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2019 18:18:42 GMT -->
+</html>
